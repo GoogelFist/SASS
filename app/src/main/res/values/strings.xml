@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">SASS</string>
 
-    <!--splash screen-->
-    <string name="content_description_surf_edu_logo">Surf Edu logo</string>
+    <!-- splash screen -->
+    <string name="content_description_surf_edu_logo_splash">Surf Edu logo image</string>
+
+    <!--  auth screen  -->
+    <string name="content_description_surf_edu_logo_sign_in">Surf Edu logo image</string>
+    <string name="button_sign_in_text">Войти</string>
+    <string name="auth_title_text">Вход</string>
+    <string name="login_hint_text">Логин</string>
+    <string name="password_hint_text">Пароль</string>
 </resources>
