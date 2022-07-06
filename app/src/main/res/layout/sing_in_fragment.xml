@@ -17,45 +17,84 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_login"
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="45dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/edit_text_background"
+            android:focusableInTouchMode="true"
             android:fontFamily="@font/montserrat_medium"
             android:hint="@string/login_hint_text"
-            android:paddingStart="18dp"
-            android:paddingTop="18dp"
-            android:paddingEnd="18dp"
-            android:paddingBottom="17dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/edit_text_text_hint_color"
+            android:textColorHint="@color/edit_text_hint_color"
             android:textSize="16sp"
+            app:boxBackgroundColor="@color/edit_text_box_background_color"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/edit_text_bottom_stroke_color"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/edit_text_hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:prefixText="+7">
 
-    <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_password"
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789"
+                android:imeOptions="actionDone|actionNext"
+                android:inputType="phone"
+                android:maxLength="16"
+                android:paddingStart="18dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="17dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:background="@drawable/edit_text_background"
             android:fontFamily="@font/montserrat_medium"
             android:hint="@string/password_hint_text"
-            android:paddingStart="18dp"
-            android:paddingTop="18dp"
-            android:paddingEnd="18dp"
-            android:paddingBottom="17dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/edit_text_text_hint_color"
+            android:textColorHint="@color/edit_text_hint_color"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@id/edit_text_login"
-            app:layout_constraintStart_toStartOf="@id/edit_text_login"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_login" />
+            app:endIconMode="password_toggle"
+            app:endIconDrawable="@drawable/ic_show_hide_password_icon"
+            app:boxBackgroundColor="@color/edit_text_box_background_color"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/edit_text_bottom_stroke_color"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/edit_text_hint_color"
+            app:layout_constraintEnd_toEndOf="@id/text_input_layout_login"
+            app:layout_constraintStart_toStartOf="@id/text_input_layout_login"
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_login">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLength="255"
+                android:paddingStart="18dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="17dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
             android:layout_width="wrap_content"
@@ -63,12 +102,12 @@
             android:layout_marginBottom="20dp"
             android:contentDescription="@string/content_description_surf_edu_logo_sign_in"
             android:src="@drawable/ic_surf_edu_auth"
-            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintBottom_toTopOf="@+id/button_sign_in"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
 
     <Button
-            android:id="@+id/button"
+            android:id="@+id/button_sign_in"
             style="@style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
