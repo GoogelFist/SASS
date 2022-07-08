@@ -1,11 +1,10 @@
 package com.example.sass.presentation.screens
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.sass.R
-import com.example.sass.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,5 +1,6 @@
 package com.example.sass.presentation.screens.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +10,30 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sass.R
+import com.example.sass.component
 import com.example.sass.databinding.SingInFragmentBinding
 import com.example.sass.presentation.screens.auth.models.AuthEvent
 import com.example.sass.presentation.screens.auth.models.AuthState
+import javax.inject.Inject
 
-class SignInFragment : Fragment(R.layout.sing_in_fragment) {
+class SignInFragment : Fragment() {
 
     private var _binding: SingInFragmentBinding? = null
     private val binding: SingInFragmentBinding
         get() = _binding!!
 
-    private val viewModel by activityViewModels<AuthViewModel>()
+    @Inject
+    lateinit var authViewModelFactory: AuthViewModelFactory
 
+    private val viewModel by activityViewModels<AuthViewModel> {
+        authViewModelFactory
+    }
+
+
+    override fun onAttach(context: Context) {
+        context.component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

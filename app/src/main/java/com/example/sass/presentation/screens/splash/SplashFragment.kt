@@ -9,12 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.sass.R
 import com.example.sass.databinding.FragmentSplashBinding
 import com.example.sass.presentation.screens.MainActivity
 import com.example.sass.presentation.screens.MainActivityArgs
 
-class SplashFragment : Fragment(R.layout.fragment_splash) {
+class SplashFragment : Fragment() {
 
     private var _binding: FragmentSplashBinding? = null
     private val binding: FragmentSplashBinding
