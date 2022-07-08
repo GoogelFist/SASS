@@ -1,6 +1,6 @@
 package com.example.sass.di
 
-import com.example.sass.data.datasourse.remote.RetrofitService
+import com.example.sass.data.datasource.remote.RetrofitService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

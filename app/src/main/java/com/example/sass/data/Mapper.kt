@@ -1,7 +1,7 @@
 package com.example.sass.data
 
-import com.example.sass.data.datasourse.local.models.UserInfoDao
-import com.example.sass.data.datasourse.remote.models.UserInfoDto
+import com.example.sass.data.datasource.local.models.UserInfoDao
+import com.example.sass.data.datasource.remote.models.UserInfoDto
 import javax.inject.Inject
 
 class Mapper @Inject constructor() {

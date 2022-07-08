@@ -1,7 +1,7 @@
-package com.example.sass.data.datasourse.remote
+package com.example.sass.data.datasource.remote
 
-import com.example.sass.data.datasourse.remote.models.SignInRequest
-import com.example.sass.data.datasourse.remote.models.SignInResponse
+import com.example.sass.data.datasource.remote.models.SignInRequest
+import com.example.sass.data.datasource.remote.models.SignInResponse
 import retrofit2.Response
 import javax.inject.Inject
 

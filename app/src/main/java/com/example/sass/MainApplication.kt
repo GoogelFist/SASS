@@ -6,11 +6,11 @@ import android.content.Context
 import com.example.sass.di.ApplicationComponent
 import com.example.sass.di.DaggerApplicationComponent
 
-class MainApplication: Application() {
+class MainApplication : Application() {
     lateinit var appComponent: ApplicationComponent
 
     override fun onCreate() {
-        appComponent = DaggerApplicationComponent.create()
+        appComponent = DaggerApplicationComponent.builder().context(this).build()
         super.onCreate()
     }
 }
