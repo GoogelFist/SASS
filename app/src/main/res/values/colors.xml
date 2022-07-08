@@ -11,6 +11,23 @@
     <color name="edit_text_bottom_stroke_color">#12000000</color>
     <color name="edit_text_box_background_color">#FBFBFB</color>
     <color name="edit_text_hint_color">#4D000000</color>
+    <color name="edit_text_text_color">@color/black</color>
+
+    <color name="snack_error_text_color">@color/white</color>
+    <color name="snack_error_background_color">#FF4545</color>
+
+    <color name="edit_text_error_text_color">#FF002E</color>
+    <color name="edit_text_error_hint_color">#FF002E</color>
+
+    <color name="edit_text_init_error_bottom_stroke_color">#00000000</color>
+    <color name="edit_text_error_bottom_stroke_color">#FF002E</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#12000000</color>
+
+    <style name="FormLabel">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
+
 </resources>

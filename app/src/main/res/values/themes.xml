@@ -15,7 +15,7 @@
     </style>
 
 
-    <style name="Widget.Button" parent="android:Widget">
+    <style name="Widget.SignInButton" parent="android:Widget">
         <item name="android:background">@drawable/buttons_background</item>
         <item name="fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:textSize">16sp</item>

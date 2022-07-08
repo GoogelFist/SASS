@@ -10,7 +10,9 @@
             android:label="SignInFragment" >
         <action
                 android:id="@+id/action_signInFragment_to_tabsFragment"
-                app:destination="@id/tabsFragment" />
+                app:destination="@id/tabsFragment"
+                app:popUpTo="@id/signInFragment"
+                app:popUpToInclusive="true" />
     </fragment>
     <fragment
             android:id="@+id/tabsFragment"

@@ -1,84 +1,208 @@
 package com.example.sass.presentation.screens.auth
 
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.sass.R
 import com.example.sass.databinding.SingInFragmentBinding
-import com.google.android.material.snackbar.Snackbar
+import com.example.sass.presentation.screens.auth.models.AuthEvent
+import com.example.sass.presentation.screens.auth.models.AuthState
 
 class SignInFragment : Fragment(R.layout.sing_in_fragment) {
 
-    private lateinit var binding: SingInFragmentBinding
+    private var _binding: SingInFragmentBinding? = null
+    private val binding: SingInFragmentBinding
+        get() = _binding!!
 
-    private val regex = Regex(PATTERN)
+    private val viewModel by activityViewModels<AuthViewModel>()
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = SingInFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = SingInFragmentBinding.bind(view)
+
+        configLoginField()
+        configPasswordField()
+        setupButton()
+        observeViewModel()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+    private fun configLoginField() {
+        binding.textInputLayoutLogin.errorIconDrawable = null
 
         binding.editTextLogin.addTextChangedListener(LoginFormatTextWatcher(binding.editTextLogin))
-        binding.textInputLayoutPassword.isEndIconVisible = false
+    }
 
-        binding.editTextPassword.setOnFocusChangeListener { v, hasFocus ->
-            binding.textInputLayoutPassword.isEndIconVisible = hasFocus
-        }
-
-        setupButton()
-
+    private fun configPasswordField() {
+        binding.textInputLayoutPassword.errorIconDrawable = null
+        configPasswordVisibleEndIcon()
+        configPasswordTransformationText()
     }
 
     private fun setupButton() {
-        binding.buttonSignIn.setOnClickListener {
-            val login = binding.editTextLogin.text.toString()
-            val password = binding.editTextPassword.text.toString()
+        with(binding) {
+            buttonSignIn.setOnClickListener { view ->
+                val login = editTextLogin.text.toString()
+                val password = editTextPassword.text.toString()
 
-            validateSignInData(login, password)
+                validateSignInData(login, password)
 
-            val formatLogin = formatLogin(login)
+                editTextPassword.clearFocus()
+                editTextLogin.clearFocus()
+            }
+        }
+    }
 
-//            eventRequest (login, password)
+    private fun observeViewModel() {
+        val authHelper = AuthHelper(binding, requireContext())
 
-            binding.editTextPassword.clearFocus()
-            binding.editTextLogin.clearFocus()
+        viewModel.authState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                AuthState.SigningState -> {
+                    viewModel.obtainEvent(AuthEvent.OnInitLoginErrorEvent)
+                    viewModel.obtainEvent(AuthEvent.OnInitPasswordErrorEvent)
+
+                    authHelper.configSigningState()
+                }
+
+                AuthState.SignedState -> {
+                    navigateToTabFragment()
+                }
+
+                AuthState.SingInErrorState -> {
+                    authHelper.configErrorState()
+                }
+
+                is AuthState.InvalidateLoginErrorState -> {
+                    viewModel.obtainEvent(AuthEvent.OnInitPasswordErrorEvent)
+                    binding.textInputLayoutLogin.error = state.message
+                }
+
+                is AuthState.InvalidatePasswordErrorState -> {
+                    viewModel.obtainEvent(AuthEvent.OnInitLoginErrorEvent)
+                    binding.textInputLayoutPassword.error = state.message
+                }
+
+                is AuthState.ValidatedState -> {
+                    val login = authHelper.formatLogin(state.login)
+                    val password = state.password
+
+                    viewModel.obtainEvent(AuthEvent.OnSignInEvent(login, password))
+                }
+
+                AuthState.InitLoginErrorState -> {
+                    authHelper.configInitErrorState(binding.textInputLayoutLogin)
+                }
+
+                AuthState.InitPasswordErrorState -> {
+                    authHelper.configInitErrorState(binding.textInputLayoutPassword)
+                }
+            }
+        }
+    }
+
+    private fun navigateToTabFragment() {
+        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+    }
+
+    private fun configPasswordTransformationText() {
+        with(binding) {
+            editTextPassword.transformationMethod = BigPointTransformationMethod()
+
+            textInputLayoutPassword.setEndIconOnClickListener {
+                if (editTextPassword.transformationMethod is BigPointTransformationMethod) {
+
+                    editTextPassword.transformationMethod = null
+
+                    textInputLayoutPassword.endIconDrawable =
+                        requireContext().getDrawable(R.drawable.ic_hide_password)
+
+                    editTextPassword.text?.let { text ->
+                        if (text.isNotEmpty()) {
+                            editTextPassword.setSelection(text.length)
+                        }
+                    }
+                } else {
+                    editTextPassword.transformationMethod = BigPointTransformationMethod()
+
+                    textInputLayoutPassword.endIconDrawable =
+                        requireContext().getDrawable(R.drawable.ic_show_password)
+
+                    editTextPassword.text?.let { text ->
+                        if (text.isNotEmpty()) {
+                            editTextPassword.setSelection(text.length)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun configPasswordVisibleEndIcon() {
+        binding.textInputLayoutPassword.isEndIconVisible = false
+
+        binding.editTextPassword.doOnTextChanged { text, _, _, _ ->
+            text?.let {
+                binding.textInputLayoutPassword.isEndIconVisible = it.isNotEmpty()
+            }
         }
     }
 
     private fun validateSignInData(login: String, password: String) {
+        val regex = Regex(PATTERN)
+
         when {
             login.isBlank() -> {
-//                blank field error event
-                Snackbar.make(binding.root, "login is blank", Snackbar.LENGTH_SHORT).show()
+                val message = requireContext().getString(R.string.login_blank_error_text)
+
+                viewModel.obtainEvent(AuthEvent.OnInvalidateLoginEvent(message))
             }
             password.isBlank() -> {
-//                blank field error event
-                Snackbar.make(binding.root, "password is blank", Snackbar.LENGTH_SHORT).show()
-            }
-            login.length != 16 -> {
-                Snackbar.make(binding.root, "login length not 12", Snackbar.LENGTH_SHORT).show()
-            }
-            !login.matches(regex)  -> {
-//                error event
-                Snackbar.make(binding.root, "not much regex", Snackbar.LENGTH_SHORT).show()
-            }
+                val message = requireContext().getString(R.string.password_blank_error_text)
 
-            password.length !in 6..255 -> {
-//                error event
-                Snackbar.make(binding.root, "password length < 6 or > 255", Snackbar.LENGTH_SHORT)
-                    .show()
+                viewModel.obtainEvent(AuthEvent.OnInvalidatePasswordEvent(message))
+            }
+            !login.matches(regex) || login.length != LOGIN_LENGTH_CONSTRAINT -> {
+                val message = requireContext().getString(R.string.login_wrong_format_error_text)
+
+                viewModel.obtainEvent(AuthEvent.OnInvalidateLoginEvent(message))
+            }
+            password.length !in PASSWORD_MIN_LENGTH_CONSTRAINT..PASSWORD_MAN_LENGTH_CONSTRAINT -> {
+                val message = requireContext().getString(R.string.password_wrong_format_error_text)
+
+                viewModel.obtainEvent(AuthEvent.OnInvalidatePasswordEvent(message))
+            }
+            else -> {
+                viewModel.obtainEvent(AuthEvent.OnValidateSignInData(login, password))
             }
         }
     }
 
-    private fun formatLogin(login: String): String {
-        val text = login.replace("[^\\d]".toRegex(), "")
-        return "+7$text"
-    }
-
-
     companion object {
         private const val PATTERN = "[+]?[78]?[() 0-9-]+"
+
+        private const val LOGIN_LENGTH_CONSTRAINT = 16
+
+        private const val PASSWORD_MIN_LENGTH_CONSTRAINT = 6
+        private const val PASSWORD_MAN_LENGTH_CONSTRAINT = 255
     }
 }

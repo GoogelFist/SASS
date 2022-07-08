@@ -4,6 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         tools:context=".presentation.screens.auth.SignInFragment">
 
     <TextView
@@ -24,19 +26,21 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="45dp"
             android:layout_marginEnd="16dp"
-            android:focusableInTouchMode="true"
             android:fontFamily="@font/montserrat_medium"
             android:hint="@string/login_hint_text"
-            android:textColor="@color/black"
+            android:textColor="@color/edit_text_text_color"
             android:textColorHint="@color/edit_text_hint_color"
             android:textSize="16sp"
             app:boxBackgroundColor="@color/edit_text_box_background_color"
+            app:boxCollapsedPaddingTop="8dp"
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/edit_text_bottom_stroke_color"
+            app:boxStrokeErrorColor="@color/edit_text_init_error_bottom_stroke_color"
             app:boxStrokeWidth="1dp"
             app:boxStrokeWidthFocused="0dp"
             app:errorEnabled="true"
+            app:errorTextColor="@color/edit_text_error_text_color"
             app:hintTextColor="@color/edit_text_hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,13 +52,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:digits="0123456789"
-                android:imeOptions="actionDone|actionNext"
+                android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:maxLength="16"
+                android:nextFocusDown="@id/text_input_layout_password"
                 android:paddingStart="18dp"
-                android:paddingTop="18dp"
+                android:paddingTop="27.5dp"
                 android:paddingEnd="18dp"
-                android:paddingBottom="17dp" />
+                android:paddingBottom="7.8dp"
+                tools:text="(999) 123 45 67" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,18 +71,21 @@
             android:layout_marginTop="13dp"
             android:fontFamily="@font/montserrat_medium"
             android:hint="@string/password_hint_text"
-            android:textColor="@color/black"
+            android:textColor="@color/edit_text_text_color"
             android:textColorHint="@color/edit_text_hint_color"
             android:textSize="16sp"
-            app:endIconMode="password_toggle"
-            app:endIconDrawable="@drawable/ic_show_hide_password_icon"
             app:boxBackgroundColor="@color/edit_text_box_background_color"
+            app:boxCollapsedPaddingTop="8dp"
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/edit_text_bottom_stroke_color"
+            app:boxStrokeErrorColor="@color/edit_text_init_error_bottom_stroke_color"
             app:boxStrokeWidth="1dp"
             app:boxStrokeWidthFocused="0dp"
+            app:endIconDrawable="@drawable/ic_show_password"
+            app:endIconMode="custom"
             app:errorEnabled="true"
+            app:errorTextColor="@color/edit_text_error_text_color"
             app:hintTextColor="@color/edit_text_hint_color"
             app:layout_constraintEnd_toEndOf="@id/text_input_layout_login"
             app:layout_constraintStart_toStartOf="@id/text_input_layout_login"
@@ -90,9 +99,10 @@
                 android:inputType="textPassword"
                 android:maxLength="255"
                 android:paddingStart="18dp"
-                android:paddingTop="18dp"
+                android:paddingTop="27.5dp"
                 android:paddingEnd="18dp"
-                android:paddingBottom="17dp" />
+                android:paddingBottom="7.8dp"
+                tools:text="qwerty" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,15 +110,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:contentDescription="@string/content_description_surf_edu_logo_sign_in"
+            android:contentDescription="@string/content_description"
             android:src="@drawable/ic_surf_edu_auth"
             app:layout_constraintBottom_toTopOf="@+id/button_sign_in"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
 
+    <TextView
+            android:id="@+id/tv_error_snack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/snack_error_background_color"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="14dp"
+            android:text="@string/sign_in_error_text"
+            android:textColor="@color/snack_error_text_color"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/button_sign_in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+            android:id="@+id/progress_bar_sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bar_custom"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/button_sign_in"
+            app:layout_constraintEnd_toEndOf="@id/button_sign_in"
+            app:layout_constraintStart_toStartOf="@id/button_sign_in"
+            app:layout_constraintTop_toTopOf="@id/button_sign_in" />
+
     <Button
             android:id="@+id/button_sign_in"
-            style="@style/Widget.Button"
+            style="@style/Widget.SignInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -119,6 +162,7 @@
             android:paddingEnd="16dp"
             android:paddingBottom="13dp"
             android:text="@string/button_sign_in_text"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
