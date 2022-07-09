@@ -23,11 +23,19 @@
     <color name="edit_text_init_error_bottom_stroke_color">#00000000</color>
     <color name="edit_text_error_bottom_stroke_color">#FF002E</color>
 
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/edit_text_bottom_stroke_color</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">
+        @color/edit_text_bottom_stroke_color
+    </color>
 
 
     <!--  tabs bottom menu  -->
     <color name="active_item_color">@color/black</color>
     <color name="in_active_item_color">#B0B0B0</color>
+
+    <!--  profile screen  -->
+    <color name="profile_main_text_color">@color/black</color>
+    <color name="profile_second_text_color">#B3B3B3</color>
+
+    <!--    -->
 
 </resources>
