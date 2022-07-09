@@ -8,9 +8,13 @@ interface UserLocalDataSource {
 
     suspend fun loadUserInfo(): UserInfoDao
 
+    suspend fun deleteUserInfo()
+
     suspend fun saveAuthToken(token: String)
 
     suspend fun loadAuthToken(): String
+
+    suspend fun deleteAuthToken()
 
     suspend fun isAbsentToken(): Boolean
 }

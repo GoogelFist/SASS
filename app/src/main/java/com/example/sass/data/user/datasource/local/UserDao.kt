@@ -12,12 +12,18 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveUserInfo(userInfoDao: UserInfoDao)
 
-    @Query("SELECT * FROM user_info")
-    suspend fun loadUserInfo(): UserInfoDao?
+    @Query("SELECT * FROM user_info WHERE id = :id")
+    suspend fun loadUserInfo(id: Int): UserInfoDao?
+
+    @Query("DELETE FROM user_info WHERE id = :id")
+    suspend fun deleteUserInfo(id: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAuthToken(tokenDao: AuthTokenDao)
 
     @Query("SELECT * FROM user_token WHERE id = :id")
     suspend fun loadAuthToken(id: Int): AuthTokenDao?
+
+    @Query("DELETE FROM user_token WHERE id = :id")
+    suspend fun deleteAuthToken(id: Int)
 }

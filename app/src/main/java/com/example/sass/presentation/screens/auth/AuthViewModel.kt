@@ -35,11 +35,11 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
 
         viewModelScope.launch {
             try {
-                _authState.postValue(AuthState.SigningState)
+                _authState.postValue(AuthState.SigningInState)
                 singInUseCase(login, password)
-                _authState.postValue(AuthState.SignedState)
+                _authState.postValue(AuthState.SignedInState)
 
-            } catch (err: Throwable) {
+            } catch (error: Throwable) {
                 _authState.postValue(AuthState.SingInErrorState)
             }
         }

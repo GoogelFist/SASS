@@ -11,6 +11,6 @@ sealed class AuthState {
 
     data class ValidatedState(val login: String, val password: String) : AuthState()
 
-    object SigningState: AuthState()
-    object SignedState: AuthState()
+    object SigningInState: AuthState()
+    object SignedInState: AuthState()
 }

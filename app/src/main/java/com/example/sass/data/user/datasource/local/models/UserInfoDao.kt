@@ -8,6 +8,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "user_info")
 data class UserInfoDao(
 
+    @ColumnInfo(name = "prime_id")
+    @PrimaryKey
+    val user_db_id: Int = USER_DB_ID,
+
     @ColumnInfo(name = "about")
     val about: String = "",
 
@@ -23,7 +27,6 @@ data class UserInfoDao(
     @ColumnInfo(name = "first_name")
     val firstName: String = "",
 
-    @PrimaryKey
     @ColumnInfo(name = "id")
     val id: String = "",
 
@@ -33,3 +36,5 @@ data class UserInfoDao(
     @ColumnInfo(name = "phone")
     val phone: String = ""
 )
+
+private const val USER_DB_ID = 1

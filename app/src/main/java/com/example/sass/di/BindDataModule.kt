@@ -1,6 +1,6 @@
 package com.example.sass.di
 
-import com.example.sass.data.user.UserUserRepository
+import com.example.sass.data.user.UserRepositoryImpl
 import com.example.sass.data.user.datasource.local.UserLocalDataSource
 import com.example.sass.data.user.datasource.local.UserRoomDataSourceImpl
 import com.example.sass.data.user.datasource.remote.UserRemoteDataSource
@@ -17,7 +17,7 @@ interface BindDataModule {
     fun bindRemoteDataSource(impl: UserRetrofitDataSourceImpl): UserRemoteDataSource
 
     @Binds
-    fun bindRepository(impl: UserUserRepository): UserRepository
+    fun bindRepository(impl: UserRepositoryImpl): UserRepository
 
     @Binds
     fun bindLocalDataSource(impl: UserRoomDataSourceImpl): UserLocalDataSource

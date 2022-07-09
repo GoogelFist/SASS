@@ -90,14 +90,14 @@ class SignInFragment : Fragment() {
 
         viewModel.authState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                AuthState.SigningState -> {
+                AuthState.SigningInState -> {
                     viewModel.obtainEvent(AuthEvent.OnInitLoginErrorEvent)
                     viewModel.obtainEvent(AuthEvent.OnInitPasswordErrorEvent)
 
                     authHelper.configSigningState()
                 }
 
-                AuthState.SignedState -> {
+                AuthState.SignedInState -> {
                     navigateToTabFragment()
                 }
 
