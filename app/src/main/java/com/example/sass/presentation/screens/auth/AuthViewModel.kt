@@ -39,7 +39,7 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
                 singInUseCase(login, password)
                 _authState.postValue(AuthState.SignedState)
 
-            } catch (err: RuntimeException) {
+            } catch (err: Throwable) {
                 _authState.postValue(AuthState.SingInErrorState)
             }
         }
