@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@id/main_tab"
+    <item
+            android:id="@id/main_tab"
             android:icon="@drawable/ic_main_tab"
-            android:title="Главная"
-            />
-    <item android:id="@id/favorite_tab"
+            android:title="@string/bottom_menu_main_title" />
+    <item
+            android:id="@id/favorite_tab"
             android:icon="@drawable/ic_favorite_tab"
-            android:title="Избранное"/>
-    <item android:id="@id/profile_tab"
+            android:title="@string/bottom_menu_favorite_title" />
+
+    <item
+            android:id="@id/profile_tab"
             android:icon="@drawable/ic_profile_tab"
-            android:title="Профиль"/>
+            android:title="@string/bottom_menu_profile_title" />
 
 </menu>

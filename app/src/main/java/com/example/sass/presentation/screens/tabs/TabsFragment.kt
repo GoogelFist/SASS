@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.sass.R
 import com.example.sass.databinding.MainTabFragmentBinding
 import com.example.sass.databinding.TabsFragmentBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class TabsFragment : Fragment(R.layout.tabs_fragment) {
 
@@ -26,19 +27,21 @@ class TabsFragment : Fragment(R.layout.tabs_fragment) {
         return binding.root
     }
 
-    // TODO: will need think about icons color
-    // TODO: will need think about hardcoded text, text size and font on menu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navHost = childFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment
-        val navController = navHost.navController
-
-        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
+        configNavigation()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun configNavigation() {
+        val navHost = childFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment
+        val navController = navHost.navController
+
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
     }
 }
