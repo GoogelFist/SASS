@@ -24,4 +24,8 @@ class UserUserRepository @Inject constructor(
             throw RuntimeException("${response.code()} : ${response.message()}")
         }
     }
+
+    override suspend fun isAbsentToken(): Boolean {
+        return userLocalDataSource.isAbsentToken()
+    }
 }

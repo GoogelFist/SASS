@@ -11,4 +11,6 @@ interface UserLocalDataSource {
     suspend fun saveAuthToken(token: String)
 
     suspend fun loadAuthToken(): String
+
+    suspend fun isAbsentToken(): Boolean
 }

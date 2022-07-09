@@ -30,6 +30,11 @@ class UserRoomDataSourceImpl @Inject constructor(private val userDao: UserDao) :
         return ABSENT_TOKEN
     }
 
+    override suspend fun isAbsentToken(): Boolean {
+        val token = loadAuthToken()
+        return token.isBlank()
+    }
+
     companion object {
         private const val TOKEN_ID = 1
 
