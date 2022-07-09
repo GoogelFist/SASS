@@ -1,4 +1,4 @@
-package com.example.sass.data.datasource.local.models
+package com.example.sass.data.user.datasource.local.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

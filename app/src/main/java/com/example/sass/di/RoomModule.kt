@@ -2,7 +2,7 @@ package com.example.sass.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.sass.data.datasource.local.UserDataBase
+import com.example.sass.data.user.datasource.local.UserDataBase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

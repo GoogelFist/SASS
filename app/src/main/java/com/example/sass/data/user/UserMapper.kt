@@ -1,10 +1,10 @@
-package com.example.sass.data
+package com.example.sass.data.user
 
-import com.example.sass.data.datasource.local.models.UserInfoDao
-import com.example.sass.data.datasource.remote.models.UserInfoDto
+import com.example.sass.data.user.datasource.local.models.UserInfoDao
+import com.example.sass.data.user.datasource.remote.models.UserInfoDto
 import javax.inject.Inject
 
-class Mapper @Inject constructor() {
+class UserMapper @Inject constructor() {
 
     fun mapUserInfoDtoToUserInfoDao(userInfoDto: UserInfoDto): UserInfoDao {
         return UserInfoDao(

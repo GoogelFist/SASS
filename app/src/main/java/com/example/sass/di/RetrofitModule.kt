@@ -1,6 +1,6 @@
 package com.example.sass.di
 
-import com.example.sass.data.datasource.remote.RetrofitService
+import com.example.sass.data.user.datasource.remote.UserRetrofitService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -21,8 +21,8 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitService(retrofit: Retrofit): RetrofitService {
-        return retrofit.create(RetrofitService::class.java)
+    fun provideRetrofitService(retrofit: Retrofit): UserRetrofitService {
+        return retrofit.create(UserRetrofitService::class.java)
     }
 
     companion object {

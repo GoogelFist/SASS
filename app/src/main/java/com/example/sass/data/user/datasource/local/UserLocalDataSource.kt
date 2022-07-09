@@ -1,8 +1,8 @@
-package com.example.sass.data.datasource.local
+package com.example.sass.data.user.datasource.local
 
-import com.example.sass.data.datasource.local.models.UserInfoDao
+import com.example.sass.data.user.datasource.local.models.UserInfoDao
 
-interface LocalDataSource {
+interface UserLocalDataSource {
 
     suspend fun saveUserInfo(userInfoDao: UserInfoDao)
 

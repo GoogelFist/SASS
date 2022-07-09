@@ -1,11 +1,11 @@
-package com.example.sass.data.datasource.local
+package com.example.sass.data.user.datasource.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.sass.data.datasource.local.models.AuthTokenDao
-import com.example.sass.data.datasource.local.models.UserInfoDao
+import com.example.sass.data.user.datasource.local.models.AuthTokenDao
+import com.example.sass.data.user.datasource.local.models.UserInfoDao
 
 @Dao
 interface UserDao {

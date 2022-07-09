@@ -1,10 +1,10 @@
-package com.example.sass.data.datasource.local
+package com.example.sass.data.user.datasource.local
 
-import com.example.sass.data.datasource.local.models.AuthTokenDao
-import com.example.sass.data.datasource.local.models.UserInfoDao
+import com.example.sass.data.user.datasource.local.models.AuthTokenDao
+import com.example.sass.data.user.datasource.local.models.UserInfoDao
 import javax.inject.Inject
 
-class RoomDataSourceImpl @Inject constructor(private val userDao: UserDao) : LocalDataSource {
+class UserRoomDataSourceImpl @Inject constructor(private val userDao: UserDao) : UserLocalDataSource {
 
     override suspend fun saveUserInfo(userInfoDao: UserInfoDao) {
         userDao.saveUserInfo(userInfoDao)

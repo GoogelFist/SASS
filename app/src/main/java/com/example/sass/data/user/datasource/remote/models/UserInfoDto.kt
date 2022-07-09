@@ -1,4 +1,4 @@
-package com.example.sass.data.datasource.remote.models
+package com.example.sass.data.user.datasource.remote.models
 
 
 import com.google.gson.annotations.SerializedName

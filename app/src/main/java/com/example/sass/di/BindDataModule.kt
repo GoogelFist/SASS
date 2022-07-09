@@ -1,11 +1,11 @@
 package com.example.sass.di
 
-import com.example.sass.data.UserRepository
-import com.example.sass.data.datasource.local.LocalDataSource
-import com.example.sass.data.datasource.local.RoomDataSourceImpl
-import com.example.sass.data.datasource.remote.RemoteDataSource
-import com.example.sass.data.datasource.remote.RetrofitDataSourceImpl
-import com.example.sass.domain.Repository
+import com.example.sass.data.user.UserUserRepository
+import com.example.sass.data.user.datasource.local.UserLocalDataSource
+import com.example.sass.data.user.datasource.local.UserRoomDataSourceImpl
+import com.example.sass.data.user.datasource.remote.UserRemoteDataSource
+import com.example.sass.data.user.datasource.remote.UserRetrofitDataSourceImpl
+import com.example.sass.domain.UserRepository
 import dagger.Binds
 import dagger.Module
 
@@ -14,11 +14,11 @@ import dagger.Module
 interface BindDataModule {
 
     @Binds
-    fun bindRemoteDataSource(impl: RetrofitDataSourceImpl): RemoteDataSource
+    fun bindRemoteDataSource(impl: UserRetrofitDataSourceImpl): UserRemoteDataSource
 
     @Binds
-    fun bindRepository(impl: UserRepository): Repository
+    fun bindRepository(impl: UserUserRepository): UserRepository
 
     @Binds
-    fun bindLocalDataSource(impl: RoomDataSourceImpl): LocalDataSource
+    fun bindLocalDataSource(impl: UserRoomDataSourceImpl): UserLocalDataSource
 }
