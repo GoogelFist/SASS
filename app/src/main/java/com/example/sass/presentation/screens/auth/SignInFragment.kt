@@ -48,8 +48,7 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.obtainEvent(AuthEvent.OnDefaultState)
-
+        initFragmentState()
         configLoginField()
         configPasswordField()
         setupButton()
@@ -61,6 +60,9 @@ class SignInFragment : Fragment() {
         _binding = null
     }
 
+    private fun initFragmentState() {
+        viewModel.obtainEvent(AuthEvent.OnDefaultState)
+    }
 
     private fun configLoginField() {
         binding.textInputLayoutLogin.errorIconDrawable = null

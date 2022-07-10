@@ -34,24 +34,27 @@ class UserRepositoryImpl @Inject constructor(
         val token = loadAuthToken()
 
         if (token.isBlank()) {
-            userLocalDataSource.deleteAuthToken()
-            userLocalDataSource.deleteUserInfo()
-
+            clearUserData()
         } else {
             val formatToken = formatToken(token)
             val response = userRemoteDataSource.signOut(formatToken)
 
             if (response.isSuccessful) {
-                userLocalDataSource.deleteAuthToken()
-                userLocalDataSource.deleteUserInfo()
+                clearUserData()
             } else {
                 val code = response.code()
                 if (code == INCORRECT_TOKEN_CODE_RESPONSE) {
+                    clearUserData()
                     throw IncorrectTokenException("${response.code()} : ${response.message()}")
                 }
                 throw RuntimeException("${response.code()} : ${response.message()}")
             }
         }
+    }
+
+    private suspend fun clearUserData() {
+        userLocalDataSource.deleteAuthToken()
+        userLocalDataSource.deleteUserInfo()
     }
 
     override suspend fun loadAuthToken(): String {

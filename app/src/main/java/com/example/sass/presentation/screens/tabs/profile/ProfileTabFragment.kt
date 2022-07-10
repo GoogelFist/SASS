@@ -81,10 +81,6 @@ class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {
                     binding.buttonSignOut.isClickable = false
                 }
                 ProfileState.SignedOutState -> {
-//                    binding.buttonSignOut.text = requireContext().getText(R.string.button_sign_out_text)
-//                    binding.tvProfileErrorSnack.visibility = View.GONE
-//                    binding.progressBarSignOutButton.visibility = View.GONE
-
                     navigateToSignInFragment()
                 }
                 ProfileState.SingOutErrorState -> {
@@ -96,7 +92,6 @@ class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {
                     binding.buttonSignOut.isClickable = false
                 }
                 ProfileState.IncorrectTokenState -> {
-                    // TODO:will need to clear user data and token
                     navigateToSignInFragment()
                 }
             }
@@ -104,8 +99,9 @@ class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {
     }
 
     private fun getRootNavController(): NavController {
-        val navHost =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navHost = requireActivity()
+            .supportFragmentManager
+            .findFragmentById(R.id.fragmentContainer) as NavHostFragment
         return navHost.navController
     }
 
