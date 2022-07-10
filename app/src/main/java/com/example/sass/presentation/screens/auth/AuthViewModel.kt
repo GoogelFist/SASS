@@ -19,15 +19,17 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
 
     override fun obtainEvent(event: AuthEvent) {
         when (event) {
-            is AuthEvent.OnSignInEvent -> signedIn(event.login, event.password)
+            AuthEvent.OnDefaultState -> setDefaultState()
 
-            is AuthEvent.OnInvalidateLoginEvent -> invalidatedLogin(event.message)
-            is AuthEvent.OnInvalidatePasswordEvent -> invalidatedPassword(event.message)
+            is AuthEvent.OnSignIn -> signedIn(event.login, event.password)
+
+            is AuthEvent.OnInvalidateLogin -> invalidatedLogin(event.message)
+            is AuthEvent.OnInvalidatePassword -> invalidatedPassword(event.message)
 
             is AuthEvent.OnValidateSignInData -> validatedSignInData(event.login, event.password)
 
-            AuthEvent.OnInitLoginErrorEvent -> initLoginError()
-            AuthEvent.OnInitPasswordErrorEvent -> initPasswordError()
+            AuthEvent.OnInitLoginError -> initLoginError()
+            AuthEvent.OnInitPasswordError -> initPasswordError()
         }
     }
 
@@ -35,33 +37,38 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
 
         viewModelScope.launch {
             try {
-                _authState.postValue(AuthState.SigningInState)
-                singInUseCase(login, password)
-                _authState.postValue(AuthState.SignedInState)
+                setDefaultState()
+                _authState.value = AuthState.SigningInState
 
+                singInUseCase(login, password)
+                _authState.value = AuthState.SignedInState
             } catch (error: Throwable) {
-                _authState.postValue(AuthState.SingInErrorState)
+                _authState.value = AuthState.SingInErrorState
             }
         }
     }
 
+    private fun setDefaultState() {
+        _authState.value = AuthState.DefaultState
+    }
+
     private fun invalidatedLogin(message: String) {
-        _authState.postValue(AuthState.InvalidateLoginErrorState(message))
+        _authState.value = AuthState.InvalidateLoginErrorState(message)
     }
 
     private fun invalidatedPassword(message: String) {
-        _authState.postValue(AuthState.InvalidatePasswordErrorState(message))
+        _authState.value = AuthState.InvalidatePasswordErrorState(message)
     }
 
     private fun validatedSignInData(login: String, password: String) {
-        _authState.postValue(AuthState.ValidatedState(login, password))
+        _authState.value = AuthState.ValidatedState(login, password)
     }
 
     private fun initLoginError() {
-        _authState.postValue(AuthState.InitLoginErrorState)
+        _authState.value = AuthState.InitLoginErrorState
     }
 
     private fun initPasswordError() {
-        _authState.postValue(AuthState.InitPasswordErrorState)
+        _authState.value = AuthState.InitPasswordErrorState
     }
 }

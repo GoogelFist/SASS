@@ -15,7 +15,7 @@ interface UserDao {
     @Query("SELECT * FROM user_info WHERE id = :id")
     suspend fun loadUserInfo(id: Int): UserInfoDao?
 
-    @Query("DELETE FROM user_info WHERE id = :id")
+    @Query("DELETE FROM user_info WHERE prime_id = :id")
     suspend fun deleteUserInfo(id: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

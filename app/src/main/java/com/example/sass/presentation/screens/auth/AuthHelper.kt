@@ -33,6 +33,33 @@ class AuthHelper(private val binding: SingInFragmentBinding,private val context:
         }
     }
 
+    fun configDefaultState() {
+        with(binding) {
+            tvErrorSnack.visibility = View.GONE
+
+            textInputLayoutLogin.defaultHintTextColor = ColorStateList.valueOf(
+                context.getColor(R.color.edit_text_hint_color)
+            )
+            textInputLayoutPassword.defaultHintTextColor = ColorStateList.valueOf(
+                context.getColor(R.color.edit_text_hint_color)
+            )
+
+            buttonSignIn.text = context.getText(R.string.button_sign_in_text)
+            buttonSignIn.isClickable = true
+
+            progressBarSignInButton.visibility = View.GONE
+
+            textInputLayoutLogin.isEnabled = true
+            textInputLayoutLogin.error = null
+
+            textInputLayoutPassword.isEnabled = true
+            textInputLayoutPassword.error = null
+
+            configInitErrorState(binding.textInputLayoutLogin)
+            configInitErrorState(binding.textInputLayoutPassword)
+        }
+    }
+
     fun configErrorState() {
         with(binding) {
             tvErrorSnack.visibility = View.VISIBLE

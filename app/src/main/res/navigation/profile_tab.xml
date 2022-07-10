@@ -9,16 +9,5 @@
             android:id="@+id/profileTabFragment"
             android:name="com.example.sass.presentation.screens.tabs.profile.ProfileTabFragment"
             android:label="profile_tab_fragment"
-            tools:layout="@layout/profile_tab_fragment" >
-        <action
-                android:id="@+id/action_profileTabFragment_to_signInFragment2"
-                app:destination="@id/signInFragment2"
-                app:popUpTo="@id/profileTabFragment"
-                app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-            android:id="@+id/signInFragment2"
-            android:name="com.example.sass.presentation.screens.auth.SignInFragment"
-            android:label="sing_in_fragment"
-            tools:layout="@layout/sing_in_fragment" />
+            tools:layout="@layout/profile_tab_fragment" />
 </navigation>

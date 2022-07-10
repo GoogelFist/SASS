@@ -1,6 +1,8 @@
 package com.example.sass.presentation.screens.auth.models
 
 sealed class AuthState {
+    object DefaultState: AuthState()
+
     object SingInErrorState : AuthState()
 
     object InitLoginErrorState : AuthState()

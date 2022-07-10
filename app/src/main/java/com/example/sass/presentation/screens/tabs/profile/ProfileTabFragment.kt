@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.sass.R
 import com.example.sass.component
 import com.example.sass.databinding.ProfileTabFragmentBinding
@@ -46,6 +47,7 @@ class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.obtainEvent(ProfileEvent.OnDefaultState)
         configButton()
 
         observeViewModel()
@@ -65,20 +67,33 @@ class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {
     private fun observeViewModel() {
         viewModel.profileState.observe(viewLifecycleOwner) { state ->
             when (state) {
+                ProfileState.Default -> {
+                    binding.buttonSignOut.text =
+                        requireContext().getText(R.string.button_sign_out_text)
+                    binding.tvProfileErrorSnack.visibility = View.GONE
+                    binding.progressBarSignOutButton.visibility = View.GONE
+                    binding.buttonSignOut.isClickable = true
+                }
                 ProfileState.SigningOutState -> {
                     binding.buttonSignOut.text = null
                     binding.tvProfileErrorSnack.visibility = View.GONE
                     binding.progressBarSignOutButton.visibility = View.VISIBLE
+                    binding.buttonSignOut.isClickable = false
                 }
                 ProfileState.SignedOutState -> {
-                    binding.buttonSignOut.text = requireContext().getText(R.string.button_sign_out_text)
-                    binding.tvProfileErrorSnack.visibility = View.GONE
-                    binding.progressBarSignOutButton.visibility = View.GONE
+//                    binding.buttonSignOut.text = requireContext().getText(R.string.button_sign_out_text)
+//                    binding.tvProfileErrorSnack.visibility = View.GONE
+//                    binding.progressBarSignOutButton.visibility = View.GONE
+
+                    navigateToSignInFragment()
                 }
                 ProfileState.SingOutErrorState -> {
-                    binding.buttonSignOut.text = requireContext().getText(R.string.button_sign_out_text)
+                    binding.buttonSignOut.text =
+                        requireContext().getText(R.string.button_sign_out_text)
                     binding.tvProfileErrorSnack.visibility = View.VISIBLE
                     binding.progressBarSignOutButton.visibility = View.GONE
+
+                    binding.buttonSignOut.isClickable = false
                 }
                 ProfileState.IncorrectTokenState -> {
                     // TODO:will need to clear user data and token
@@ -88,7 +103,13 @@ class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {
         }
     }
 
+    private fun getRootNavController(): NavController {
+        val navHost =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        return navHost.navController
+    }
+
     private fun navigateToSignInFragment() {
-        findNavController().navigate(R.id.action_profileTabFragment_to_signInFragment2)
+        getRootNavController().navigate(R.id.action_tabsFragment_to_signInFragment)
     }
 }

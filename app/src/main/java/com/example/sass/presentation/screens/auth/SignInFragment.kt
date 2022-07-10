@@ -2,6 +2,7 @@ package com.example.sass.presentation.screens.auth
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,8 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.obtainEvent(AuthEvent.OnDefaultState)
+
         configLoginField()
         configPasswordField()
         setupButton()
@@ -90,10 +93,11 @@ class SignInFragment : Fragment() {
 
         viewModel.authState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                AuthState.SigningInState -> {
-                    viewModel.obtainEvent(AuthEvent.OnInitLoginErrorEvent)
-                    viewModel.obtainEvent(AuthEvent.OnInitPasswordErrorEvent)
+                AuthState.DefaultState -> {
+                    authHelper.configDefaultState()
+                }
 
+                AuthState.SigningInState -> {
                     authHelper.configSigningState()
                 }
 
@@ -106,20 +110,20 @@ class SignInFragment : Fragment() {
                 }
 
                 is AuthState.InvalidateLoginErrorState -> {
-                    viewModel.obtainEvent(AuthEvent.OnInitPasswordErrorEvent)
                     binding.textInputLayoutLogin.error = state.message
+                    viewModel.obtainEvent(AuthEvent.OnInitPasswordError)
                 }
 
                 is AuthState.InvalidatePasswordErrorState -> {
-                    viewModel.obtainEvent(AuthEvent.OnInitLoginErrorEvent)
                     binding.textInputLayoutPassword.error = state.message
+                    viewModel.obtainEvent(AuthEvent.OnInitLoginError)
                 }
 
                 is AuthState.ValidatedState -> {
                     val login = authHelper.formatLogin(state.login)
                     val password = state.password
 
-                    viewModel.obtainEvent(AuthEvent.OnSignInEvent(login, password))
+                    viewModel.obtainEvent(AuthEvent.OnSignIn(login, password))
                 }
 
                 AuthState.InitLoginErrorState -> {
@@ -187,22 +191,22 @@ class SignInFragment : Fragment() {
             login.isBlank() -> {
                 val message = requireContext().getString(R.string.login_blank_error_text)
 
-                viewModel.obtainEvent(AuthEvent.OnInvalidateLoginEvent(message))
+                viewModel.obtainEvent(AuthEvent.OnInvalidateLogin(message))
             }
             password.isBlank() -> {
                 val message = requireContext().getString(R.string.password_blank_error_text)
 
-                viewModel.obtainEvent(AuthEvent.OnInvalidatePasswordEvent(message))
+                viewModel.obtainEvent(AuthEvent.OnInvalidatePassword(message))
             }
             !login.matches(regex) || login.length != LOGIN_LENGTH_CONSTRAINT -> {
                 val message = requireContext().getString(R.string.login_wrong_format_error_text)
 
-                viewModel.obtainEvent(AuthEvent.OnInvalidateLoginEvent(message))
+                viewModel.obtainEvent(AuthEvent.OnInvalidateLogin(message))
             }
             password.length !in PASSWORD_MIN_LENGTH_CONSTRAINT..PASSWORD_MAN_LENGTH_CONSTRAINT -> {
                 val message = requireContext().getString(R.string.password_wrong_format_error_text)
 
-                viewModel.obtainEvent(AuthEvent.OnInvalidatePasswordEvent(message))
+                viewModel.obtainEvent(AuthEvent.OnInvalidatePassword(message))
             }
             else -> {
                 viewModel.obtainEvent(AuthEvent.OnValidateSignInData(login, password))

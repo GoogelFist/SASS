@@ -20,26 +20,32 @@ class ProfileViewModel(private val singOutUseCase: SingOutUseCase) : ViewModel()
 
     override fun obtainEvent(event: ProfileEvent) {
         when (event) {
+            ProfileEvent.OnDefaultState -> setDefaultState()
             ProfileEvent.OnSignOutEvent -> signOut()
         }
     }
 
     // TODO: will need to load user info to live data and will to observe it
 
+    private fun setDefaultState() {
+        _profileState.value = ProfileState.Default
+    }
+
     private fun signOut() {
         viewModelScope.launch {
             try {
-                _profileState.postValue(ProfileState.SigningOutState)
+                setDefaultState()
+                _profileState.value = ProfileState.SigningOutState
                 singOutUseCase()
-                _profileState.postValue(ProfileState.SignedOutState)
+                _profileState.value = ProfileState.SignedOutState
 
             } catch (error: Throwable) {
                 when (error) {
                     is IncorrectTokenException -> {
-                        _profileState.postValue(ProfileState.IncorrectTokenState)
+                        _profileState.value = ProfileState.IncorrectTokenState
                     }
                     else -> {
-                        _profileState.postValue(ProfileState.SingOutErrorState)
+                        _profileState.value = ProfileState.SingOutErrorState
                     }
                 }
             }
