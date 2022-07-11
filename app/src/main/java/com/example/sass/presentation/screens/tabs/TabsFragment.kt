@@ -8,11 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.sass.R
-import com.example.sass.databinding.MainTabFragmentBinding
 import com.example.sass.databinding.TabsFragmentBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class TabsFragment : Fragment(R.layout.tabs_fragment) {
+class TabsFragment : Fragment() {
 
     private var _binding: TabsFragmentBinding? = null
     private val binding: TabsFragmentBinding

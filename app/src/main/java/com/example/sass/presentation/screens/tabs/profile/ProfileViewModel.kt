@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sass.data.user.IncorrectTokenException
+import com.example.sass.data.IncorrectTokenException
 import com.example.sass.domain.LoadUserInfoUseCase
 import com.example.sass.domain.SingOutUseCase
 import com.example.sass.domain.models.UserInfo
@@ -16,8 +16,7 @@ import kotlinx.coroutines.launch
 class ProfileViewModel(
     private val singOutUseCase: SingOutUseCase,
     private val loadUserInfoUseCase: LoadUserInfoUseCase
-) : ViewModel(),
-    EventHandler<ProfileEvent> {
+) : ViewModel(), EventHandler<ProfileEvent> {
 
     private var _profileState = MutableLiveData<ProfileState>()
     val profileState: LiveData<ProfileState>
@@ -50,17 +49,17 @@ class ProfileViewModel(
         viewModelScope.launch {
             try {
                 setDefaultState()
-                _profileState.value = ProfileState.SigningOutState
+                _profileState.value = ProfileState.SigningOut
                 singOutUseCase()
-                _profileState.value = ProfileState.SignedOutState
+                _profileState.value = ProfileState.SignedOut
 
             } catch (error: Throwable) {
                 when (error) {
                     is IncorrectTokenException -> {
-                        _profileState.value = ProfileState.IncorrectTokenState
+                        _profileState.value = ProfileState.IncorrectToken
                     }
                     else -> {
-                        _profileState.value = ProfileState.SingOutErrorState
+                        _profileState.value = ProfileState.SingOutError
                     }
                 }
             }

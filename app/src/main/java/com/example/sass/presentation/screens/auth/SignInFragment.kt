@@ -95,33 +95,33 @@ class SignInFragment : Fragment() {
         viewModel.authState.observe(viewLifecycleOwner) { state ->
             when (state) {
 
-                AuthState.DefaultState -> authHelper.configDefaultState()
-                AuthState.SigningInState -> authHelper.configSigningState()
-                AuthState.SignedInState -> navigateToTabFragment()
-                AuthState.SingInErrorState -> authHelper.configErrorState()
+                AuthState.Default -> authHelper.configDefaultState()
+                AuthState.SigningIn -> authHelper.configSigningState()
+                AuthState.SignedIn -> navigateToTabFragment()
+                AuthState.SingInError -> authHelper.configErrorState()
 
-                is AuthState.InvalidateLoginErrorState -> {
+                is AuthState.InvalidateLoginError -> {
                     binding.textInputLayoutLogin.error = state.message
                     viewModel.obtainEvent(AuthEvent.OnInitPasswordError)
                 }
 
-                is AuthState.InvalidatePasswordErrorState -> {
+                is AuthState.InvalidatePasswordError -> {
                     binding.textInputLayoutPassword.error = state.message
                     viewModel.obtainEvent(AuthEvent.OnInitLoginError)
                 }
 
-                is AuthState.ValidatedState -> {
+                is AuthState.Validated -> {
                     val login = authHelper.formatLogin(state.login)
                     val password = state.password
 
                     viewModel.obtainEvent(AuthEvent.OnSignIn(login, password))
                 }
 
-                AuthState.InitLoginErrorState -> {
+                AuthState.InitLoginError -> {
                     authHelper.configInitErrorState(binding.textInputLayoutLogin)
                 }
 
-                AuthState.InitPasswordErrorState -> {
+                AuthState.InitPasswordError -> {
                     authHelper.configInitErrorState(binding.textInputLayoutPassword)
                 }
             }

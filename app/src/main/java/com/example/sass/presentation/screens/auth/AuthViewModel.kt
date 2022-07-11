@@ -38,37 +38,37 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
         viewModelScope.launch {
             try {
                 setDefaultState()
-                _authState.value = AuthState.SigningInState
+                _authState.value = AuthState.SigningIn
 
                 singInUseCase(login, password)
-                _authState.value = AuthState.SignedInState
+                _authState.value = AuthState.SignedIn
             } catch (error: Throwable) {
-                _authState.value = AuthState.SingInErrorState
+                _authState.value = AuthState.SingInError
             }
         }
     }
 
     private fun setDefaultState() {
-        _authState.value = AuthState.DefaultState
+        _authState.value = AuthState.Default
     }
 
     private fun invalidatedLogin(message: String) {
-        _authState.value = AuthState.InvalidateLoginErrorState(message)
+        _authState.value = AuthState.InvalidateLoginError(message)
     }
 
     private fun invalidatedPassword(message: String) {
-        _authState.value = AuthState.InvalidatePasswordErrorState(message)
+        _authState.value = AuthState.InvalidatePasswordError(message)
     }
 
     private fun validatedSignInData(login: String, password: String) {
-        _authState.value = AuthState.ValidatedState(login, password)
+        _authState.value = AuthState.Validated(login, password)
     }
 
     private fun initLoginError() {
-        _authState.value = AuthState.InitLoginErrorState
+        _authState.value = AuthState.InitLoginError
     }
 
     private fun initPasswordError() {
-        _authState.value = AuthState.InitPasswordErrorState
+        _authState.value = AuthState.InitPasswordError
     }
 }

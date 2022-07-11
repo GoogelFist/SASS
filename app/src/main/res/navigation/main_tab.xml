@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/mainTabFragment"
-            android:name="com.example.sass.presentation.screens.tabs.main.MainTabFragment"
+            android:name="com.example.sass.presentation.screens.tabs.main.MainFragment"
             android:label="main_tab_fragment"
-            tools:layout="@layout/main_tab_fragment" />
+            tools:layout="@layout/main_fragment" />
 </navigation>

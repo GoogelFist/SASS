@@ -27,7 +27,6 @@
         @color/edit_text_bottom_stroke_color
     </color>
 
-
     <!--  tabs bottom menu  -->
     <color name="active_item_color">@color/black</color>
     <color name="in_active_item_color">#B0B0B0</color>
@@ -35,6 +34,12 @@
     <!--  profile screen  -->
     <color name="profile_main_text_color">@color/black</color>
     <color name="profile_second_text_color">#B3B3B3</color>
+
+    <!--  dialogs  -->
     <color name="dialog_color_text">@color/black</color>
+
+    <!--  main screen  -->
+    <color name="main_post_item_text_color">@color/black</color>
+    <color name="main_screen_image_button_background">#00000000</color>
 
 </resources>

@@ -24,7 +24,7 @@ class SplashViewModel(private val isAbsentTokenUseCase: IsAbsentTokenUseCase) : 
 
     override fun obtainEvent(event: SplashEvent) {
         when (event) {
-            is SplashEvent.LaunchMainScreenEvent -> lunchMainScreen()
+            is SplashEvent.LaunchMainScreen -> lunchMainScreen()
         }
     }
 

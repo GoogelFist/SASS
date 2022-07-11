@@ -33,4 +33,7 @@
     <string name="dialog_sign_out_message_text">Вы точно хотите выйти из приложения?</string>
     <string name="dialog_pos_button_text">да, точно</string>
     <string name="dialog_neg_button_text">нет</string>
+
+<!--  main screen  -->
+    <string name="main_title_text">Галерея</string>
 </resources>

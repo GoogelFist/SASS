@@ -21,7 +21,7 @@ import com.example.sass.presentation.screens.tabs.profile.models.ProfileEvent
 import com.example.sass.presentation.screens.tabs.profile.models.ProfileState
 import javax.inject.Inject
 
-class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {
+class ProfileTabFragment : Fragment() {
 
     private var _binding: ProfileTabFragmentBinding? = null
     private val binding: ProfileTabFragmentBinding
@@ -130,10 +130,10 @@ class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {
         viewModel.profileState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 ProfileState.Default -> configDefaultState()
-                ProfileState.SigningOutState -> configSigningOutState()
-                ProfileState.SignedOutState -> navigateToSignInFragment()
-                ProfileState.SingOutErrorState -> configErrorState()
-                ProfileState.IncorrectTokenState -> navigateToSignInFragment()
+                ProfileState.SigningOut -> configSigningOutState()
+                ProfileState.SignedOut -> navigateToSignInFragment()
+                ProfileState.SingOutError -> configErrorState()
+                ProfileState.IncorrectToken -> navigateToSignInFragment()
             }
         }
     }
