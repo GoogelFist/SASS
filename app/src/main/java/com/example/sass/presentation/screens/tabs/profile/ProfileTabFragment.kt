@@ -16,9 +16,9 @@ import com.example.sass.R
 import com.example.sass.component
 import com.example.sass.databinding.ProfileTabFragmentBinding
 import com.example.sass.domain.models.UserInfo
+import com.example.sass.presentation.screens.tabs.SingleDialogFragment
 import com.example.sass.presentation.screens.tabs.profile.models.ProfileEvent
 import com.example.sass.presentation.screens.tabs.profile.models.ProfileState
-import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class ProfileTabFragment : Fragment(R.layout.profile_tab_fragment) {

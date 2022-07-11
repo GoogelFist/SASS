@@ -1,4 +1,4 @@
-package com.example.sass.presentation.screens.tabs.profile
+package com.example.sass.presentation.screens.tabs
 
 import android.app.Dialog
 import android.os.Bundle
