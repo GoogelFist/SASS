@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName
 
 data class UserInfoDto(
     @SerializedName("about")
-    val about: String,
+    val about: String = "",
     @SerializedName("avatar")
-    val avatar: String,
+    val avatar: String = "",
     @SerializedName("city")
-    val city: String,
+    val city: String = "",
     @SerializedName("email")
-    val email: String,
+    val email: String = "",
     @SerializedName("firstName")
-    val firstName: String,
+    val firstName: String = "",
     @SerializedName("id")
-    val id: String,
+    val id: String = "",
     @SerializedName("lastName")
-    val lastName: String,
+    val lastName: String = "",
     @SerializedName("phone")
-    val phone: String
+    val phone: String = ""
 )

@@ -1,5 +1,7 @@
 package com.example.sass.domain
 
+import com.example.sass.domain.models.UserInfo
+
 interface UserRepository {
     suspend fun signIn(phone: String, password: String)
 
@@ -7,5 +9,5 @@ interface UserRepository {
 
     suspend fun signOut()
 
-    suspend fun loadAuthToken(): String
+    suspend fun loadUserInfo(): UserInfo
 }

@@ -1,4 +1,4 @@
-package com.example.sass.data.user.datasource.local
+package com.example.sass.data.user.datasource.local.user
 
 import com.example.sass.data.user.datasource.local.models.UserInfoDao
 
@@ -9,12 +9,4 @@ interface UserLocalDataSource {
     suspend fun loadUserInfo(): UserInfoDao
 
     suspend fun deleteUserInfo()
-
-    suspend fun saveAuthToken(token: String)
-
-    suspend fun loadAuthToken(): String
-
-    suspend fun deleteAuthToken()
-
-    suspend fun isAbsentToken(): Boolean
 }

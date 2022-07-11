@@ -2,7 +2,7 @@ package com.example.sass.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.sass.data.user.datasource.local.UserDataBase
+import com.example.sass.data.user.datasource.local.DataBase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,17 +13,21 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun provideDataRoomDatabase(application: Application): UserDataBase {
-        return Room.databaseBuilder(application, UserDataBase::class.java, DB_NAME)
+    fun provideDataRoomDatabase(application: Application): DataBase {
+        return Room.databaseBuilder(application, DataBase::class.java, DB_NAME)
             .fallbackToDestructiveMigration()
             .build()
     }
 
     @Singleton
     @Provides
-    fun providesMovieDAO(userDataBase: UserDataBase) = userDataBase.getUserDao()
+    fun providesUserDAO(roomDataBase: DataBase) = roomDataBase.getUserDao()
+
+    @Singleton
+    @Provides
+    fun providesTokenDAO(roomDataBase: DataBase) = roomDataBase.getTokenDao()
 
     companion object {
-        private const val DB_NAME = "user_database"
+        private const val DB_NAME = "room_database"
     }
 }

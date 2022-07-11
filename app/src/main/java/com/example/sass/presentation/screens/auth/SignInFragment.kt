@@ -2,7 +2,6 @@ package com.example.sass.presentation.screens.auth
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +47,7 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initFragmentState()
+        initFragment()
         configLoginField()
         configPasswordField()
         setupButton()
@@ -60,7 +59,7 @@ class SignInFragment : Fragment() {
         _binding = null
     }
 
-    private fun initFragmentState() {
+    private fun initFragment() {
         viewModel.obtainEvent(AuthEvent.OnDefaultState)
     }
 
@@ -95,21 +94,11 @@ class SignInFragment : Fragment() {
 
         viewModel.authState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                AuthState.DefaultState -> {
-                    authHelper.configDefaultState()
-                }
 
-                AuthState.SigningInState -> {
-                    authHelper.configSigningState()
-                }
-
-                AuthState.SignedInState -> {
-                    navigateToTabFragment()
-                }
-
-                AuthState.SingInErrorState -> {
-                    authHelper.configErrorState()
-                }
+                AuthState.DefaultState -> authHelper.configDefaultState()
+                AuthState.SigningInState -> authHelper.configSigningState()
+                AuthState.SignedInState -> navigateToTabFragment()
+                AuthState.SingInErrorState -> authHelper.configErrorState()
 
                 is AuthState.InvalidateLoginErrorState -> {
                     binding.textInputLayoutLogin.error = state.message

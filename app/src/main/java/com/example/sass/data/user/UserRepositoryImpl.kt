@@ -1,14 +1,17 @@
 package com.example.sass.data.user
 
-import com.example.sass.data.user.datasource.local.UserLocalDataSource
+import com.example.sass.data.user.datasource.local.token.TokenLocalDataSource
+import com.example.sass.data.user.datasource.local.user.UserLocalDataSource
 import com.example.sass.data.user.datasource.remote.UserRemoteDataSource
 import com.example.sass.data.user.datasource.remote.models.SignInRequest
 import com.example.sass.domain.UserRepository
+import com.example.sass.domain.models.UserInfo
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource,
     private val userLocalDataSource: UserLocalDataSource,
+    private val tokenLocalDataSource: TokenLocalDataSource,
     private val userMapper: UserMapper
 ) : UserRepository {
     override suspend fun signIn(phone: String, password: String) {
@@ -18,7 +21,7 @@ class UserRepositoryImpl @Inject constructor(
             response.body()?.let { body ->
                 val userInfoDao = userMapper.mapUserInfoDtoToUserInfoDao(body.userInfoDTO)
                 userLocalDataSource.saveUserInfo(userInfoDao)
-                userLocalDataSource.saveAuthToken(body.token)
+                tokenLocalDataSource.saveAuthToken(body.token)
             }
         } else {
             throw RuntimeException("${response.code()} : ${response.message()}")
@@ -26,7 +29,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isAbsentToken(): Boolean {
-        return userLocalDataSource.isAbsentToken()
+        return tokenLocalDataSource.isAbsentToken()
     }
 
     override suspend fun signOut() {
@@ -52,18 +55,22 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun clearUserData() {
-        userLocalDataSource.deleteAuthToken()
-        userLocalDataSource.deleteUserInfo()
+    override suspend fun loadUserInfo(): UserInfo {
+        val userInfoDao = userLocalDataSource.loadUserInfo()
+        return userMapper.mapUserInfoDaoToUserInfo(userInfoDao)
     }
-
-    override suspend fun loadAuthToken(): String {
-        return userLocalDataSource.loadAuthToken()
-    }
-
 
     private fun formatToken(token: String): String {
         return "Token $token"
+    }
+
+    private suspend fun loadAuthToken(): String {
+        return tokenLocalDataSource.loadAuthToken()
+    }
+
+    private suspend fun clearUserData() {
+        tokenLocalDataSource.deleteAuthToken()
+        userLocalDataSource.deleteUserInfo()
     }
 
     companion object {
