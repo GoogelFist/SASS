@@ -47,4 +47,14 @@
         <item name="android:textColor">@color/profile_second_text_color</item>
     </style>
 
+    <style name="ErrorSnackBar">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/snack_error_text_color</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:background">@color/snack_error_background_color</item>
+    </style>
+
 </resources>
