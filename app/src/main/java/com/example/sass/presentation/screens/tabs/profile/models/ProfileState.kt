@@ -3,10 +3,10 @@ package com.example.sass.presentation.screens.tabs.profile.models
 sealed class ProfileState {
     object Default : ProfileState()
 
-    object SingOutErrorState : ProfileState()
+    object SingOutError : ProfileState()
 
-    object IncorrectTokenState: ProfileState()
+    object IncorrectToken: ProfileState()
 
-    object SigningOutState: ProfileState()
-    object SignedOutState: ProfileState()
+    object SigningOut: ProfileState()
+    object SignedOut: ProfileState()
 }

@@ -1,18 +1,18 @@
 package com.example.sass.presentation.screens.auth.models
 
 sealed class AuthState {
-    object DefaultState: AuthState()
+    object Default: AuthState()
 
-    object SingInErrorState : AuthState()
+    object SingInError : AuthState()
 
-    object InitLoginErrorState : AuthState()
-    object InitPasswordErrorState : AuthState()
+    object InitLoginError : AuthState()
+    object InitPasswordError : AuthState()
 
-    data class InvalidateLoginErrorState(val message: String) : AuthState()
-    data class InvalidatePasswordErrorState(val message: String) : AuthState()
+    data class InvalidateLoginError(val message: String) : AuthState()
+    data class InvalidatePasswordError(val message: String) : AuthState()
 
-    data class ValidatedState(val login: String, val password: String) : AuthState()
+    data class Validated(val login: String, val password: String) : AuthState()
 
-    object SigningInState: AuthState()
-    object SignedInState: AuthState()
+    object SigningIn: AuthState()
+    object SignedIn: AuthState()
 }
