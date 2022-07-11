@@ -45,20 +45,38 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.mainState.observe(viewLifecycleOwner) {state ->
-            when(state) {
-                MainState.Default -> {}
-                MainState.Loading -> {}
+        viewModel.mainState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+//                MainState.Default -> configDefaultState()
+                MainState.Loading -> configLoadingState()
                 MainState.IncorrectToken -> {}
-                MainState.ErrorLoaded -> {}
+                MainState.ErrorLoaded -> configErrorLoadedState()
                 MainState.Loaded -> {}
                 MainState.RefreshedError -> {}
             }
         }
 
-        viewModel.picturesItemList.observe(viewLifecycleOwner) {list ->
+        viewModel.picturesItemList.observe(viewLifecycleOwner) { list ->
             Log.e(this.toString(), list[0].toString())
         }
+    }
+
+    private fun configLoadingState() {
+        binding.ibSearchMain.visibility = View.GONE
+        binding.swipeRefreshLayout.visibility = View.GONE
+        binding.progressBarMainScreen.visibility = View.VISIBLE
+        binding.llMainErrorMessage.visibility = View.GONE
+        binding.buttonRefresh.visibility = View.GONE
+        binding.tvErrorSnack.visibility = View.GONE
+    }
+
+    private fun configErrorLoadedState() {
+        binding.ibSearchMain.visibility = View.GONE
+        binding.swipeRefreshLayout.visibility = View.GONE
+        binding.progressBarMainScreen.visibility = View.GONE
+        binding.llMainErrorMessage.visibility = View.VISIBLE
+        binding.buttonRefresh.visibility = View.VISIBLE
+        binding.tvErrorSnack.visibility = View.GONE
     }
 
     override fun onDestroyView() {
