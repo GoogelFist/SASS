@@ -200,16 +200,12 @@
 
     <Button
             android:id="@+id/button_sign_out"
-            style="@style/Widget.SignInButton"
+            style="@style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="20dp"
-            android:paddingStart="19dp"
-            android:paddingTop="11dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="13dp"
             android:text="@string/button_sign_out_text"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"

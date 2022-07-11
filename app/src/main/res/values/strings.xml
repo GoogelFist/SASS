@@ -34,6 +34,8 @@
     <string name="dialog_pos_button_text">да, точно</string>
     <string name="dialog_neg_button_text">нет</string>
 
-<!--  main screen  -->
+    <!--  main screen  -->
     <string name="main_title_text">Галерея</string>
+    <string name="button_refresh_text">Обновить</string>
+    <string name="main_load_error_text">Не удалось загрузить ленту\nОбновите экран или попробуйте позже</string>
 </resources>

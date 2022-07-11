@@ -48,10 +48,10 @@ class MainFragment : Fragment() {
         viewModel.mainState.observe(viewLifecycleOwner) {state ->
             when(state) {
                 MainState.Default -> {}
-                MainState.ErrorLoaded -> {}
-                MainState.IncorrectToken -> {}
-                MainState.Loaded -> {}
                 MainState.Loading -> {}
+                MainState.IncorrectToken -> {}
+                MainState.ErrorLoaded -> {}
+                MainState.Loaded -> {}
                 MainState.RefreshedError -> {}
             }
         }
