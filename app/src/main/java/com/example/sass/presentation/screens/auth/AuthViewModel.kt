@@ -4,10 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sass.data.BlankLoginException
+import com.example.sass.data.BlankPasswordException
+import com.example.sass.data.InvalidateLoginException
+import com.example.sass.data.InvalidatePasswordException
 import com.example.sass.domain.SingInUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.auth.models.AuthEvent
 import com.example.sass.presentation.screens.auth.models.AuthState
+import com.example.sass.presentation.screens.auth.models.ErrorLoginSubState
+import com.example.sass.presentation.screens.auth.models.ErrorPasswordSubState
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
@@ -22,14 +28,6 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
             AuthEvent.OnDefaultState -> setDefaultState()
 
             is AuthEvent.OnSignIn -> signedIn(event.login, event.password)
-
-            is AuthEvent.OnInvalidateLogin -> invalidatedLogin(event.message)
-            is AuthEvent.OnInvalidatePassword -> invalidatedPassword(event.message)
-
-            is AuthEvent.OnValidateSignInData -> validatedSignInData(event.login, event.password)
-
-            AuthEvent.OnInitLoginError -> initLoginError()
-            AuthEvent.OnInitPasswordError -> initPasswordError()
         }
     }
 
@@ -43,7 +41,14 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
                 singInUseCase(login, password)
                 _authState.value = AuthState.SignedIn
             } catch (error: Throwable) {
-                _authState.value = AuthState.SingInError
+                setDefaultState()
+                when (error) {
+                    is BlankLoginException -> blankLogin()
+                    is BlankPasswordException -> blankPassword()
+                    is InvalidateLoginException -> invalidatedLogin()
+                    is InvalidatePasswordException -> invalidatedPassword()
+                    else -> _authState.value = AuthState.SingInError
+                }
             }
         }
     }
@@ -52,23 +57,31 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
         _authState.value = AuthState.Default
     }
 
-    private fun invalidatedLogin(message: String) {
-        _authState.value = AuthState.InvalidateLoginError(message)
+    private fun blankLogin() {
+        setDefaultPasswordErrorState()
+        _authState.value = AuthState.SingInLoginError(ErrorLoginSubState.IsBlank)
     }
 
-    private fun invalidatedPassword(message: String) {
-        _authState.value = AuthState.InvalidatePasswordError(message)
+    private fun blankPassword() {
+        setDefaultLoginErrorState()
+        _authState.value = AuthState.SingInPasswordError(ErrorPasswordSubState.IsBlank)
     }
 
-    private fun validatedSignInData(login: String, password: String) {
-        _authState.value = AuthState.Validated(login, password)
+    private fun invalidatedLogin() {
+        setDefaultPasswordErrorState()
+        _authState.value = AuthState.SingInLoginError(ErrorLoginSubState.Invalidate)
     }
 
-    private fun initLoginError() {
-        _authState.value = AuthState.InitLoginError
+    private fun invalidatedPassword() {
+        setDefaultLoginErrorState()
+        _authState.value = AuthState.SingInPasswordError(ErrorPasswordSubState.Invalidate)
     }
 
-    private fun initPasswordError() {
-        _authState.value = AuthState.InitPasswordError
+    private fun setDefaultLoginErrorState() {
+        _authState.value = AuthState.SingInLoginError(ErrorLoginSubState.Default)
+    }
+
+    private fun setDefaultPasswordErrorState() {
+        _authState.value = AuthState.SingInPasswordError(ErrorPasswordSubState.Default)
     }
 }

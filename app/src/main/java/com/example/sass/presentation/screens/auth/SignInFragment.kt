@@ -14,6 +14,8 @@ import com.example.sass.component
 import com.example.sass.databinding.SingInFragmentBinding
 import com.example.sass.presentation.screens.auth.models.AuthEvent
 import com.example.sass.presentation.screens.auth.models.AuthState
+import com.example.sass.presentation.screens.auth.models.ErrorLoginSubState
+import com.example.sass.presentation.screens.auth.models.ErrorPasswordSubState
 import javax.inject.Inject
 
 class SignInFragment : Fragment() {
@@ -65,7 +67,6 @@ class SignInFragment : Fragment() {
 
     private fun configLoginField() {
         binding.textInputLayoutLogin.errorIconDrawable = null
-
         binding.editTextLogin.addTextChangedListener(LoginFormatTextWatcher(binding.editTextLogin))
     }
 
@@ -75,61 +76,15 @@ class SignInFragment : Fragment() {
         configPasswordTransformationText()
     }
 
-    private fun setupButton() {
-        with(binding) {
-            buttonSignIn.setOnClickListener { view ->
-                val login = editTextLogin.text.toString()
-                val password = editTextPassword.text.toString()
 
-                validateSignInData(login, password)
+    private fun configPasswordVisibleEndIcon() {
+        binding.textInputLayoutPassword.isEndIconVisible = false
 
-                editTextPassword.clearFocus()
-                editTextLogin.clearFocus()
+        binding.editTextPassword.doOnTextChanged { text, _, _, _ ->
+            text?.let {
+                binding.textInputLayoutPassword.isEndIconVisible = it.isNotEmpty()
             }
         }
-    }
-
-    private fun observeViewModel() {
-        val authHelper = AuthHelper(binding, requireContext())
-
-        viewModel.authState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-
-                AuthState.Default -> authHelper.configDefaultState()
-                AuthState.SigningIn -> authHelper.configSigningState()
-                AuthState.SignedIn -> navigateToTabFragment()
-                AuthState.SingInError -> authHelper.configErrorState()
-
-                is AuthState.InvalidateLoginError -> {
-                    binding.textInputLayoutLogin.error = state.message
-                    viewModel.obtainEvent(AuthEvent.OnInitPasswordError)
-                }
-
-                is AuthState.InvalidatePasswordError -> {
-                    binding.textInputLayoutPassword.error = state.message
-                    viewModel.obtainEvent(AuthEvent.OnInitLoginError)
-                }
-
-                is AuthState.Validated -> {
-                    val login = authHelper.formatLogin(state.login)
-                    val password = state.password
-
-                    viewModel.obtainEvent(AuthEvent.OnSignIn(login, password))
-                }
-
-                AuthState.InitLoginError -> {
-                    authHelper.configInitErrorState(binding.textInputLayoutLogin)
-                }
-
-                AuthState.InitPasswordError -> {
-                    authHelper.configInitErrorState(binding.textInputLayoutPassword)
-                }
-            }
-        }
-    }
-
-    private fun navigateToTabFragment() {
-        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
     }
 
     private fun configPasswordTransformationText() {
@@ -165,52 +120,74 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun configPasswordVisibleEndIcon() {
-        binding.textInputLayoutPassword.isEndIconVisible = false
+    private fun setupButton() {
+        with(binding) {
+            buttonSignIn.setOnClickListener { view ->
+                val login = editTextLogin.text.toString()
+                val password = editTextPassword.text.toString()
 
-        binding.editTextPassword.doOnTextChanged { text, _, _, _ ->
-            text?.let {
-                binding.textInputLayoutPassword.isEndIconVisible = it.isNotEmpty()
+                viewModel.obtainEvent(AuthEvent.OnSignIn(login, password))
+
+                editTextPassword.clearFocus()
+                editTextLogin.clearFocus()
             }
         }
     }
 
-    private fun validateSignInData(login: String, password: String) {
-        val regex = Regex(PATTERN)
+    private fun observeViewModel() {
+        val authHelper = AuthHelper(binding, requireContext())
 
-        when {
-            login.isBlank() -> {
-                val message = requireContext().getString(R.string.login_blank_error_text)
+        viewModel.authState.observe(viewLifecycleOwner) { state ->
+            when (state) {
 
-                viewModel.obtainEvent(AuthEvent.OnInvalidateLogin(message))
-            }
-            password.isBlank() -> {
-                val message = requireContext().getString(R.string.password_blank_error_text)
+                AuthState.Default -> authHelper.configDefaultState()
 
-                viewModel.obtainEvent(AuthEvent.OnInvalidatePassword(message))
-            }
-            !login.matches(regex) || login.length != LOGIN_LENGTH_CONSTRAINT -> {
-                val message = requireContext().getString(R.string.login_wrong_format_error_text)
+                AuthState.SigningIn -> authHelper.configSigningState()
 
-                viewModel.obtainEvent(AuthEvent.OnInvalidateLogin(message))
-            }
-            password.length !in PASSWORD_MIN_LENGTH_CONSTRAINT..PASSWORD_MAN_LENGTH_CONSTRAINT -> {
-                val message = requireContext().getString(R.string.password_wrong_format_error_text)
+                AuthState.SignedIn -> navigateToTabFragment()
 
-                viewModel.obtainEvent(AuthEvent.OnInvalidatePassword(message))
-            }
-            else -> {
-                viewModel.obtainEvent(AuthEvent.OnValidateSignInData(login, password))
+                AuthState.SingInError -> authHelper.configSignInErrorState()
+
+                is AuthState.SingInLoginError -> {
+                    when (state.subState) {
+                        ErrorLoginSubState.Default -> {
+                            authHelper.configInitErrorState(binding.textInputLayoutLogin)
+                        }
+
+                        ErrorLoginSubState.IsBlank -> {
+                            binding.textInputLayoutLogin.error =
+                                requireContext().getString(R.string.login_blank_error_text)
+                        }
+
+                        ErrorLoginSubState.Invalidate -> {
+                            binding.textInputLayoutLogin.error =
+                                requireContext().getString(R.string.login_wrong_format_error_text)
+                        }
+                    }
+                }
+
+                is AuthState.SingInPasswordError -> {
+                    when (state.subState) {
+                        ErrorPasswordSubState.Default -> {
+                            authHelper.configInitErrorState(binding.textInputLayoutPassword)
+                        }
+
+                        ErrorPasswordSubState.IsBlank -> {
+                            binding.textInputLayoutPassword.error =
+                                requireContext().getString(R.string.password_blank_error_text)
+                        }
+
+                        ErrorPasswordSubState.Invalidate -> {
+                            binding.textInputLayoutPassword.error =
+                                requireContext().getString(R.string.password_wrong_format_error_text)
+                        }
+                    }
+                }
             }
         }
     }
 
-    companion object {
-        private const val PATTERN = "[+]?[78]?[() 0-9-]+"
-
-        private const val LOGIN_LENGTH_CONSTRAINT = 16
-
-        private const val PASSWORD_MIN_LENGTH_CONSTRAINT = 6
-        private const val PASSWORD_MAN_LENGTH_CONSTRAINT = 255
+    private fun navigateToTabFragment() {
+        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
     }
 }

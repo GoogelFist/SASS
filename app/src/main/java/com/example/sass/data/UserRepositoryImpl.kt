@@ -16,7 +16,11 @@ class UserRepositoryImpl @Inject constructor(
     private val userMapper: UserMapper
 ) : UserRepository {
     override suspend fun signIn(phone: String, password: String) {
-        val response = userRemoteDataSource.signIn(SignInRequest(phone, password))
+
+        AuthDataUtils.validateSignInData(phone, password)
+        val formatted = AuthDataUtils.formatPhone(phone)
+
+        val response = userRemoteDataSource.signIn(SignInRequest(formatted, password))
 
         if (response.isSuccessful) {
             response.body()?.let { body ->

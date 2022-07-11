@@ -54,13 +54,10 @@ class AuthHelper(private val binding: SingInFragmentBinding,private val context:
 
             textInputLayoutPassword.isEnabled = true
             textInputLayoutPassword.error = null
-
-            configInitErrorState(binding.textInputLayoutLogin)
-            configInitErrorState(binding.textInputLayoutPassword)
         }
     }
 
-    fun configErrorState() {
+    fun configSignInErrorState() {
         with(binding) {
             tvErrorSnack.visibility = View.VISIBLE
 
@@ -100,14 +97,7 @@ class AuthHelper(private val binding: SingInFragmentBinding,private val context:
         textInputLayout.error = null
     }
 
-    fun formatLogin(login: String): String {
-        val text = login.replace("[^\\d]".toRegex(), "")
-        return "${PHONE_COUNTRY_CODE}$text"
-    }
-
     companion object {
         private const val EMPTY_STRING = " "
-
-        private const val PHONE_COUNTRY_CODE = "+7"
     }
 }
