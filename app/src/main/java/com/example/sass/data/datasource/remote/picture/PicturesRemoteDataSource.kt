@@ -1,9 +1,8 @@
 package com.example.sass.data.datasource.remote.picture
 
-import com.example.sass.data.datasource.remote.picture.models.PicturesListResponse
-import retrofit2.Response
+import com.example.sass.domain.models.PicturesItem
 
 interface PicturesRemoteDataSource {
 
-    suspend fun loadPictures(token: String): Response<PicturesListResponse>
+    suspend fun loadPictures(token: String): List<PicturesItem>
 }

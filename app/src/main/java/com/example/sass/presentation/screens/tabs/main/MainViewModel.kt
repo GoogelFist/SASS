@@ -1,22 +1,25 @@
 package com.example.sass.presentation.screens.tabs.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sass.data.IncorrectTokenException
+import com.example.sass.domain.ClearUserDataUseCase
 import com.example.sass.domain.GetPicturesItemsUseCase
 import com.example.sass.domain.LoadPicturesItemsUseCase
 import com.example.sass.domain.models.PicturesItem
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.main.models.MainEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainState
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val loadPicturesItemsUseCase: LoadPicturesItemsUseCase,
-    private val getPicturesItemsUseCase: GetPicturesItemsUseCase
+    private val getPicturesItemsUseCase: GetPicturesItemsUseCase,
+    private val clearUserDataUseCase: ClearUserDataUseCase
 ) : ViewModel(),
     EventHandler<MainEvent> {
 
@@ -34,6 +37,7 @@ class MainViewModel(
             is MainEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
             MainEvent.OnLoadPictures -> loadedPictures()
             MainEvent.OnRefresh -> refreshedPictures()
+            MainEvent.OnClearUserData -> clearedUserData()
         }
     }
 
@@ -51,7 +55,7 @@ class MainViewModel(
     }
 
     private fun loadedPictures(): Job {
-       return viewModelScope.launch {
+        return viewModelScope.launch {
             try {
                 _mainState.value = MainState.Loading
 
@@ -106,6 +110,12 @@ class MainViewModel(
             _mainState.value = MainState.EmptyList
         } else {
             _mainState.value = MainState.Loaded
+        }
+    }
+
+    private fun clearedUserData() {
+        viewModelScope.launch {
+            clearUserDataUseCase()
         }
     }
 }

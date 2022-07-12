@@ -1,21 +1,26 @@
 package com.example.sass.data.datasource.local.user
 
 import com.example.sass.data.datasource.local.user.models.UserInfoDao
+import com.example.sass.data.mapper.UserMapper
+import com.example.sass.domain.models.UserInfo
 import javax.inject.Inject
 
-class UserRoomDataSourceImpl @Inject constructor(private val userDao: UserDao) :
+class UserRoomDataSourceImpl @Inject constructor(
+    private val userDao: UserDao,
+    private val userMapper: UserMapper
+) :
     UserLocalDataSource {
 
     override suspend fun saveUserInfo(userInfoDao: UserInfoDao) {
         userDao.saveUserInfo(userInfoDao)
     }
 
-    override suspend fun loadUserInfo(): UserInfoDao {
+    override suspend fun loadUserInfo(): UserInfo {
         val userDao = userDao.loadUserInfo(USER_DB_ID)
-        userDao?.let {
-            return it
+        userDao?.let { userInfoDao ->
+            return userMapper.mapUserInfoDaoToUserInfo(userInfoDao)
         }
-        return UserInfoDao()
+        return UserInfo()
     }
 
     override suspend fun deleteUserInfo() {

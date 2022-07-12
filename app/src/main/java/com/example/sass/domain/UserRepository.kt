@@ -10,4 +10,6 @@ interface UserRepository {
     suspend fun signOut()
 
     suspend fun loadUserInfo(): UserInfo
+
+    suspend fun clearUserData()
 }

@@ -1,4 +1,9 @@
-package com.example.sass.data
+package com.example.sass.data.datasource.remote
+
+import com.example.sass.data.BlankLoginException
+import com.example.sass.data.BlankPasswordException
+import com.example.sass.data.InvalidateLoginException
+import com.example.sass.data.InvalidatePasswordException
 
 object AuthDataUtils {
 
@@ -21,7 +26,7 @@ object AuthDataUtils {
 
     fun formatPhone(login: String): String {
         val text = login.replace("[^\\d]".toRegex(), "")
-        return "${PHONE_COUNTRY_CODE}$text"
+        return "$PHONE_COUNTRY_CODE$text"
     }
 
     private const val PATTERN = "[+]?[78]?[() 0-9-]+"

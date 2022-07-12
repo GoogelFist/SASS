@@ -10,9 +10,7 @@ import javax.inject.Inject
 
 class PicturesRepositoryImpl @Inject constructor(
     private val tokenLocalDataSource: TokenLocalDataSource,
-    private val userLocalDataSource: UserLocalDataSource,
-    private val picturesRemoteDataSource: PicturesRemoteDataSource,
-    private val mapper: PicturesMapper
+    private val picturesRemoteDataSource: PicturesRemoteDataSource
 ) : PicturesRepository {
 
     private val picturesItems = mutableListOf<PicturesItem>()
@@ -20,43 +18,13 @@ class PicturesRepositoryImpl @Inject constructor(
     override suspend fun loadPictures() {
 
         val token = tokenLocalDataSource.loadAuthToken()
+        val loadPictures = picturesRemoteDataSource.loadPictures(token)
 
-        if (token.isBlank()) {
-            userLocalDataSource.deleteUserInfo()
-            throw RuntimeException(ABSENT_TOKEN_MESSAGE)
-
-        } else {
-            val response = picturesRemoteDataSource.loadPictures(token)
-
-            if (response.isSuccessful) {
-                response.body()?.let { listResponse ->
-                    val mappedList = mapper.mapPicturesListResponseToPicturesItem(listResponse)
-                    picturesItems.clear()
-                    picturesItems.addAll(mappedList)
-                } ?: throw throw RuntimeException(REQUEST_BODY_NULL_MESSAGE)
-            } else {
-                val code = response.code()
-                if (code == INCORRECT_TOKEN_CODE_RESPONSE) {
-                    clearUserData()
-                    throw IncorrectTokenException("${response.code()} : ${response.message()}")
-                }
-                throw RuntimeException("${response.code()} : ${response.message()}")
-            }
-        }
+        picturesItems.clear()
+        picturesItems.addAll(loadPictures)
     }
 
     override suspend fun getPictures(): List<PicturesItem> {
         return picturesItems.toList()
-    }
-
-    private suspend fun clearUserData() {
-        tokenLocalDataSource.deleteAuthToken()
-        userLocalDataSource.deleteUserInfo()
-    }
-
-    companion object {
-        private const val ABSENT_TOKEN_MESSAGE = "Token is absent"
-        private const val REQUEST_BODY_NULL_MESSAGE = "Request body is null"
-        private const val INCORRECT_TOKEN_CODE_RESPONSE = 401
     }
 }
