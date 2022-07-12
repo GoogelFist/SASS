@@ -4,5 +4,7 @@ import com.example.sass.domain.models.PicturesItem
 
 interface PicturesRepository {
 
-    suspend fun loadPictures(): List<PicturesItem>
+    suspend fun loadPictures()
+
+    suspend fun getPictures(): List<PicturesItem>
 }

@@ -52,7 +52,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initFragment()
         observeViewModel()
         setupRecycler()
         configButtons()
@@ -63,10 +62,6 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun initFragment() {
-        viewModel.obtainEvent(MainEvent.OnInitFragment)
     }
 
     private fun observeViewModel() {
@@ -144,7 +139,7 @@ class MainFragment : Fragment() {
 
     private fun configEmptyListState() {
         with(binding) {
-            ibSearchMain.visibility = View.VISIBLE
+            ibSearchMain.visibility = View.GONE
 
             swipeRefreshLayout.visibility = View.VISIBLE
             swipeRefreshLayout.isEnabled = false

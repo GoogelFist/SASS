@@ -26,11 +26,13 @@ class ProfileViewModel(
     val userInfo: LiveData<UserInfo>
         get() = _userInfo
 
+    init {
+        loadUserInfo()
+    }
+
     override fun obtainEvent(event: ProfileEvent) {
         when (event) {
-            ProfileEvent.OnDefaultState -> setDefaultState()
             ProfileEvent.OnSignOut -> signOut()
-            ProfileEvent.OnLoadUserInfo -> loadUserInfo()
         }
     }
 
@@ -39,10 +41,6 @@ class ProfileViewModel(
             val userInfo = loadUserInfoUseCase()
             _userInfo.value = userInfo
         }
-    }
-
-    private fun setDefaultState() {
-        _profileState.value = ProfileState.Default
     }
 
     private fun signOut() {
@@ -64,5 +62,9 @@ class ProfileViewModel(
                 }
             }
         }
+    }
+
+    private fun setDefaultState() {
+        _profileState.value = ProfileState.Default
     }
 }

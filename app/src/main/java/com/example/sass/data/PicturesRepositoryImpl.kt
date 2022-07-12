@@ -15,7 +15,9 @@ class PicturesRepositoryImpl @Inject constructor(
     private val mapper: PicturesMapper
 ) : PicturesRepository {
 
-    override suspend fun loadPictures(): List<PicturesItem> {
+    private val picturesItems = mutableListOf<PicturesItem>()
+
+    override suspend fun loadPictures() {
 
         val token = tokenLocalDataSource.loadAuthToken()
 
@@ -28,9 +30,10 @@ class PicturesRepositoryImpl @Inject constructor(
 
             if (response.isSuccessful) {
                 response.body()?.let { listResponse ->
-                    return mapper.mapPicturesListResponseToPicturesItem(listResponse)
-                }
-                throw throw RuntimeException(REQUEST_BODY_NULL_MESSAGE)
+                    val mappedList = mapper.mapPicturesListResponseToPicturesItem(listResponse)
+                    picturesItems.clear()
+                    picturesItems.addAll(mappedList)
+                } ?: throw throw RuntimeException(REQUEST_BODY_NULL_MESSAGE)
             } else {
                 val code = response.code()
                 if (code == INCORRECT_TOKEN_CODE_RESPONSE) {
@@ -40,6 +43,10 @@ class PicturesRepositoryImpl @Inject constructor(
                 throw RuntimeException("${response.code()} : ${response.message()}")
             }
         }
+    }
+
+    override suspend fun getPictures(): List<PicturesItem> {
+        return picturesItems.toList()
     }
 
     private suspend fun clearUserData() {

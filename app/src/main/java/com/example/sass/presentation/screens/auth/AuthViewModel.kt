@@ -25,8 +25,6 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
 
     override fun obtainEvent(event: AuthEvent) {
         when (event) {
-            AuthEvent.OnDefaultState -> setDefaultState()
-
             is AuthEvent.OnSignIn -> signedIn(event.login, event.password)
         }
     }

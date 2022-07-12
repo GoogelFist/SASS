@@ -14,6 +14,7 @@ import com.example.sass.domain.PicturesRepository
 import com.example.sass.domain.UserRepository
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
 
 
 @Module
@@ -23,9 +24,11 @@ interface BindDataModule {
     fun bindUserRemoteDataSource(impl: UserRetrofitDataSourceImpl): UserRemoteDataSource
 
     @Binds
+    @Singleton
     fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
 
     @Binds
+    @Singleton
     fun bindPicturesRepository(impl: PicturesRepositoryImpl): PicturesRepository
 
     @Binds

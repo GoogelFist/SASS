@@ -52,7 +52,6 @@ class ProfileTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initFragment()
         configButton()
         observeUserInfoViewModel()
         observeStateViewModel()
@@ -61,11 +60,6 @@ class ProfileTabFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun initFragment() {
-        viewModel.obtainEvent(ProfileEvent.OnLoadUserInfo)
-        viewModel.obtainEvent(ProfileEvent.OnDefaultState)
     }
 
     private fun configButton() {

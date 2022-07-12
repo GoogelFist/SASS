@@ -62,7 +62,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun initFragment() {
-        viewModel.obtainEvent(AuthEvent.OnDefaultState)
+        requireActivity().viewModelStore.clear()
     }
 
     private fun configLoginField() {
