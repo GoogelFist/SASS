@@ -5,5 +5,5 @@ import retrofit2.Response
 
 interface PicturesRemoteDataSource {
 
-    suspend fun getPictures(token: String): Response<PicturesListResponse>
+    suspend fun loadPictures(token: String): Response<PicturesListResponse>
 }

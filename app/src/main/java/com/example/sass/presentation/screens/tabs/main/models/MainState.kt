@@ -1,7 +1,6 @@
 package com.example.sass.presentation.screens.tabs.main.models
 
 sealed class MainState {
-//    object Default : MainState()
 
     object Loading: MainState()
     object ErrorLoaded: MainState()
@@ -10,5 +9,8 @@ sealed class MainState {
 
     object Loaded : MainState()
 
+    object EmptyList: MainState()
+
+    object Refreshing: MainState()
     object RefreshedError: MainState()
 }

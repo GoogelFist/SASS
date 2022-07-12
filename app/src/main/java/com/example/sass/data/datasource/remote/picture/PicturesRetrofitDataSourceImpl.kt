@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class PicturesRetrofitDataSourceImpl @Inject constructor(private val picturesRetrofitService: PicturesRetrofitService) :
     PicturesRemoteDataSource {
-    override suspend fun getPictures(token: String): Response<PicturesListResponse> {
-        return picturesRetrofitService.getPictures(token)
+    override suspend fun loadPictures(token: String): Response<PicturesListResponse> {
+        return picturesRetrofitService.loadPictures(token)
     }
 }

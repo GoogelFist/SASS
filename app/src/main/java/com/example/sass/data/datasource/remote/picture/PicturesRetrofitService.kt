@@ -10,5 +10,5 @@ interface PicturesRetrofitService {
 
     @GET("picture")
     @Headers("accept: application/json")
-    suspend fun getPictures(@Header("Authorization") token: String): Response<PicturesListResponse>
+    suspend fun loadPictures(@Header("Authorization") token: String): Response<PicturesListResponse>
 }

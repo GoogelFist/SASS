@@ -10,7 +10,6 @@ import com.example.sass.domain.models.PicturesItem
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.main.models.MainEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val loadPicturesItemsUseCase: LoadPicturesItemsUseCase) : ViewModel(),
@@ -24,15 +23,13 @@ class MainViewModel(private val loadPicturesItemsUseCase: LoadPicturesItemsUseCa
     val mainState: LiveData<MainState>
         get() = _mainState
 
-    init {
-        getPictures()
-    }
-
     override fun obtainEvent(event: MainEvent) {
         when (event) {
+            MainEvent.OnInitFragment -> loadedPictures()
             is MainEvent.OnAddToFavorite -> addedToFavorite(event.id)
             is MainEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
-            MainEvent.OnRefresh -> refreshed()
+            MainEvent.OnLoadPictures -> loadedPictures()
+            MainEvent.OnRefresh -> refreshedPictures()
         }
     }
 
@@ -44,22 +41,19 @@ class MainViewModel(private val loadPicturesItemsUseCase: LoadPicturesItemsUseCa
         TODO("Not yet implemented")
     }
 
-    private fun refreshed() {
-        TODO("Not yet implemented")
-    }
 
-    private fun getPictures() {
+    private fun loadedPictures() {
         viewModelScope.launch {
             try {
-//                _mainState.value = MainState.Default
                 _mainState.value = MainState.Loading
+                val list = loadPicturesItemsUseCase()
 
-                delay(2000)
-                throw RuntimeException()
-//                val list = loadPicturesItemsUseCase()
-//                _picturesItemList.value = list
-//
-//                _mainState.value = MainState.Loaded
+                if (list.isEmpty()) {
+                    _mainState.value = MainState.EmptyList
+                } else {
+                    _mainState.value = MainState.Loaded
+                }
+                _picturesItemList.value = list
             } catch (error: Throwable) {
                 when (error) {
                     is IncorrectTokenException -> {
@@ -67,6 +61,32 @@ class MainViewModel(private val loadPicturesItemsUseCase: LoadPicturesItemsUseCa
                     }
                     else -> {
                         _mainState.value = MainState.ErrorLoaded
+                    }
+                }
+            }
+        }
+    }
+
+    private fun refreshedPictures() {
+        viewModelScope.launch {
+            try {
+                _mainState.value = MainState.Refreshing
+
+                val list = loadPicturesItemsUseCase()
+
+                if (list.isEmpty()) {
+                    _mainState.value = MainState.EmptyList
+                } else {
+                    _mainState.value = MainState.Loaded
+                }
+                _picturesItemList.value = list
+            } catch (error: Throwable) {
+                when (error) {
+                    is IncorrectTokenException -> {
+                        _mainState.value = MainState.IncorrectToken
+                    }
+                    else -> {
+                        _mainState.value = MainState.RefreshedError
                     }
                 }
             }

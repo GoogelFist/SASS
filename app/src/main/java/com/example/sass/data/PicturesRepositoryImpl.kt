@@ -15,7 +15,7 @@ class PicturesRepositoryImpl @Inject constructor(
     private val mapper: PicturesMapper
 ) : PicturesRepository {
 
-    override suspend fun getPictures(): List<PicturesItem> {
+    override suspend fun loadPictures(): List<PicturesItem> {
 
         val token = tokenLocalDataSource.loadAuthToken()
 
@@ -24,7 +24,7 @@ class PicturesRepositoryImpl @Inject constructor(
             throw RuntimeException(ABSENT_TOKEN_MESSAGE)
 
         } else {
-            val response = picturesRemoteDataSource.getPictures(token)
+            val response = picturesRemoteDataSource.loadPictures(token)
 
             if (response.isSuccessful) {
                 response.body()?.let { listResponse ->
