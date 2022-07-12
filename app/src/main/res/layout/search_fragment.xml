@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.screens.tabs.search.SearchFragment">
+
+    <ImageButton
+            android:id="@+id/ib_search_popup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@color/main_screen_image_button_background"
+            android:contentDescription="@string/content_description"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/text_input_layout_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_input_layout_search" />
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_search"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="16dp"
+            android:hint="Поиск"
+            app:boxCornerRadiusBottomEnd="22dp"
+            app:boxCornerRadiusBottomStart="22dp"
+            app:startIconDrawable="@drawable/ic_search_start_icon"
+            app:boxCornerRadiusTopEnd="22dp"
+            app:boxCornerRadiusTopStart="22dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ib_search_popup"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_edit_text_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="search tab fragment" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

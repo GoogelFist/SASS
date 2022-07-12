@@ -25,12 +25,20 @@ class MainViewModel(private val loadPicturesItemsUseCase: LoadPicturesItemsUseCa
 
     override fun obtainEvent(event: MainEvent) {
         when (event) {
-            MainEvent.OnInitFragment -> loadedPictures()
+            MainEvent.OnInitFragment -> setInitState()
             is MainEvent.OnAddToFavorite -> addedToFavorite(event.id)
             is MainEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
             MainEvent.OnLoadPictures -> loadedPictures()
             MainEvent.OnRefresh -> refreshedPictures()
         }
+    }
+
+    init {
+        loadedPictures()
+    }
+
+    private fun setInitState() {
+        _mainState.value = MainState.Loaded
     }
 
     private fun addedToFavorite(id: String) {

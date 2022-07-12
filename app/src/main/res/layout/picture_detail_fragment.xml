@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.screens.tabs.detail.PictureDetailFragment">
+
+    <ImageButton
+            android:id="@+id/ib_detail_picture_popup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@color/main_screen_image_button_background"
+            android:contentDescription="@string/content_description"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title_detail_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title_detail_picture" />
+
+    <TextView
+            android:id="@+id/tv_title_detail_picture"
+            style="@style/TitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/detail_title_text"
+            app:layout_constraintStart_toEndOf="@id/ib_detail_picture_popup"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:text="post detail fragment" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

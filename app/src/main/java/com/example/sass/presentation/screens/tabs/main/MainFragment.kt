@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.sass.R
 import com.example.sass.component
 import com.example.sass.databinding.MainFragmentBinding
@@ -53,8 +54,8 @@ class MainFragment : Fragment() {
 
         initFragment()
         observeViewModel()
-        configButtons()
         setupRecycler()
+        configButtons()
         setupSwipeRefreshLayout()
         setPicturesItemClickListener()
     }
@@ -186,6 +187,16 @@ class MainFragment : Fragment() {
         binding.buttonTryAgain.setOnClickListener {
             viewModel.obtainEvent(MainEvent.OnLoadPictures)
         }
+
+        binding.ibSearchMain.setOnClickListener {
+            val direction = MainFragmentDirections.actionMainTabFragmentToSearchFragment()
+            findNavController().navigate(direction)
+        }
+
+        // TODO:
+        picturesMainAdapter.onFavoriteButtonClickListener = { pictureId ->
+            Snackbar.make(binding.root, pictureId, Snackbar.LENGTH_LONG).show()
+        }
     }
 
     private fun setupRecycler() {
@@ -204,7 +215,9 @@ class MainFragment : Fragment() {
 
     private fun setPicturesItemClickListener() {
         picturesMainAdapter.onPictureClickListener = { pictureId ->
-            Snackbar.make(binding.root, pictureId, Snackbar.LENGTH_SHORT).show()
+            val direction =
+                MainFragmentDirections.actionMainTabFragmentToPictureDetailFragment(pictureId)
+            findNavController().navigate(direction)
         }
     }
 }
