@@ -191,6 +191,7 @@ class MainFragment : Fragment() {
 
         // TODO:
         picturesMainAdapter.onFavoriteButtonClickListener = { pictureId ->
+            viewModel.obtainEvent(MainEvent.OnAddToFavorite(pictureId))
             Snackbar.make(binding.root, pictureId, Snackbar.LENGTH_LONG).show()
         }
     }

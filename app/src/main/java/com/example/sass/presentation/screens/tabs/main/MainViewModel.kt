@@ -5,21 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sass.data.IncorrectTokenException
-import com.example.sass.domain.ClearUserDataUseCase
-import com.example.sass.domain.GetPicturesItemsUseCase
-import com.example.sass.domain.LoadPicturesItemsUseCase
+import com.example.sass.domain.*
 import com.example.sass.domain.models.PicturesItem
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.main.models.MainEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainState
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val loadPicturesItemsUseCase: LoadPicturesItemsUseCase,
     private val getPicturesItemsUseCase: GetPicturesItemsUseCase,
-    private val clearUserDataUseCase: ClearUserDataUseCase
+    private val clearUserDataUseCase: ClearUserDataUseCase,
+    private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
+    private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
 ) : ViewModel(),
     EventHandler<MainEvent> {
 
@@ -33,11 +32,11 @@ class MainViewModel(
 
     override fun obtainEvent(event: MainEvent) {
         when (event) {
+            MainEvent.OnClearUserData -> clearedUserData()
             is MainEvent.OnAddToFavorite -> addedToFavorite(event.id)
             is MainEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
             MainEvent.OnLoadPictures -> loadedPictures()
             MainEvent.OnRefresh -> refreshedPictures()
-            MainEvent.OnClearUserData -> clearedUserData()
         }
     }
 
@@ -45,13 +44,16 @@ class MainViewModel(
         loadedPictures()
     }
 
-
     private fun addedToFavorite(id: String) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            addPictureItemToFavoriteUseCase(id)
+        }
     }
 
     private fun removedFromFavorite(id: String) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            removePictureItemFromFavoriteUseCase(id)
+        }
     }
 
     private fun loadedPictures(): Job {
@@ -59,7 +61,6 @@ class MainViewModel(
             try {
                 _mainState.value = MainState.Loading
 
-                delay(3000)
                 loadPicturesItemsUseCase()
 
                 val list = getPicturesItemsUseCase()

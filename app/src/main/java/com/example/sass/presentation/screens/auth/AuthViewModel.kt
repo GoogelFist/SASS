@@ -8,6 +8,7 @@ import com.example.sass.data.BlankLoginException
 import com.example.sass.data.BlankPasswordException
 import com.example.sass.data.InvalidateLoginException
 import com.example.sass.data.InvalidatePasswordException
+import com.example.sass.domain.ClearUserDataUseCase
 import com.example.sass.domain.SingInUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.auth.models.AuthEvent
@@ -16,7 +17,10 @@ import com.example.sass.presentation.screens.auth.models.ErrorLoginSubState
 import com.example.sass.presentation.screens.auth.models.ErrorPasswordSubState
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
+class AuthViewModel(
+    private val singInUseCase: SingInUseCase,
+    private val clearUserDataUseCase: ClearUserDataUseCase
+) : ViewModel(),
     EventHandler<AuthEvent> {
 
     private var _authState = MutableLiveData<AuthState>()
@@ -26,6 +30,7 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
     override fun obtainEvent(event: AuthEvent) {
         when (event) {
             is AuthEvent.OnSignIn -> signedIn(event.login, event.password)
+            AuthEvent.OnClearUserData -> clearedUserData()
         }
     }
 
@@ -81,5 +86,11 @@ class AuthViewModel(private val singInUseCase: SingInUseCase) : ViewModel(),
 
     private fun setDefaultPasswordErrorState() {
         _authState.value = AuthState.SingInPasswordError(ErrorPasswordSubState.Default)
+    }
+
+    private fun clearedUserData() {
+        viewModelScope.launch {
+            clearUserDataUseCase()
+        }
     }
 }

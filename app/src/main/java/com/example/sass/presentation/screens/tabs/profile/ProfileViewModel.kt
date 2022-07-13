@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sass.data.IncorrectTokenException
-import com.example.sass.domain.ClearUserDataUseCase
 import com.example.sass.domain.LoadUserInfoUseCase
 import com.example.sass.domain.SingOutUseCase
 import com.example.sass.domain.models.UserInfo
@@ -16,8 +15,7 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val singOutUseCase: SingOutUseCase,
-    private val loadUserInfoUseCase: LoadUserInfoUseCase,
-    private val clearUserDataUseCase: ClearUserDataUseCase
+    private val loadUserInfoUseCase: LoadUserInfoUseCase
 ) : ViewModel(), EventHandler<ProfileEvent> {
 
     private var _profileState = MutableLiveData<ProfileState>()
@@ -35,7 +33,6 @@ class ProfileViewModel(
     override fun obtainEvent(event: ProfileEvent) {
         when (event) {
             ProfileEvent.OnSignOut -> signOut()
-            ProfileEvent.OnClearUserData -> clearedUserData()
         }
     }
 
@@ -64,12 +61,6 @@ class ProfileViewModel(
                     }
                 }
             }
-        }
-    }
-
-    private fun clearedUserData() {
-        viewModelScope.launch {
-            clearUserDataUseCase()
         }
     }
 

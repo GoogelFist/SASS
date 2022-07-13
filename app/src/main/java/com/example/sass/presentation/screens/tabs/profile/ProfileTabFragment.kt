@@ -157,7 +157,6 @@ class ProfileTabFragment : Fragment() {
     }
 
     private fun navigateToSignInFragment() {
-        viewModel.obtainEvent(ProfileEvent.OnClearUserData)
         getRootNavController().navigate(R.id.action_tabsFragment_to_signInFragment)
     }
 

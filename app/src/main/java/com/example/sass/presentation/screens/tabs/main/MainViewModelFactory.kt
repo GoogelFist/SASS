@@ -2,15 +2,15 @@ package com.example.sass.presentation.screens.tabs.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sass.domain.ClearUserDataUseCase
-import com.example.sass.domain.GetPicturesItemsUseCase
-import com.example.sass.domain.LoadPicturesItemsUseCase
+import com.example.sass.domain.*
 import javax.inject.Inject
 
 class MainViewModelFactory @Inject constructor(
     private val loadPicturesItemsUseCase: LoadPicturesItemsUseCase,
     private val getPicturesItemsUseCase: GetPicturesItemsUseCase,
-    private val clearUserDataUseCase: ClearUserDataUseCase
+    private val clearUserDataUseCase: ClearUserDataUseCase,
+    private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
+    private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -18,7 +18,9 @@ class MainViewModelFactory @Inject constructor(
             return MainViewModel(
                 loadPicturesItemsUseCase,
                 getPicturesItemsUseCase,
-                clearUserDataUseCase
+                clearUserDataUseCase,
+                addPictureItemToFavoriteUseCase,
+                removePictureItemFromFavoriteUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown class name")

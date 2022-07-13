@@ -1,6 +1,8 @@
 package com.example.sass.data.datasource.remote.picture
 
 import com.example.sass.data.IncorrectTokenException
+import com.example.sass.data.datasource.local.picture.models.PictureFavoriteDao
+import com.example.sass.data.datasource.remote.picture.models.PicturesListResponse
 import com.example.sass.data.mapper.PicturesMapper
 import com.example.sass.domain.models.PicturesItem
 import javax.inject.Inject
@@ -10,7 +12,10 @@ class PicturesRetrofitDataSourceImpl @Inject constructor(
     private val mapper: PicturesMapper
 ) :
     PicturesRemoteDataSource {
-    override suspend fun loadPictures(token: String): List<PicturesItem> {
+
+    private lateinit var picturesResponse: PicturesListResponse
+
+    override suspend fun loadPictures(token: String) {
 
         if (token.isBlank()) {
             throw IncorrectTokenException(ABSENT_TOKEN_MESSAGE)
@@ -18,7 +23,7 @@ class PicturesRetrofitDataSourceImpl @Inject constructor(
             val response = picturesRetrofitService.loadPictures(token)
             if (response.isSuccessful) {
                 response.body()?.let { listResponse ->
-                    return mapper.mapPicturesListResponseToPicturesItem(listResponse)
+                    picturesResponse = listResponse
                 } ?: throw throw RuntimeException(REQUEST_BODY_NULL_MESSAGE)
             } else {
                 val code = response.code()
@@ -28,6 +33,10 @@ class PicturesRetrofitDataSourceImpl @Inject constructor(
                 throw RuntimeException("${response.code()} : ${response.message()}")
             }
         }
+    }
+
+    override suspend fun getPicturesItems(favorites: List<PictureFavoriteDao>): List<PicturesItem> {
+        return mapper.mapPicturesListResponseToPicturesItem(picturesResponse, favorites)
     }
 
     companion object {

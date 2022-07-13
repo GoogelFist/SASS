@@ -27,6 +27,10 @@ class RoomModule {
     @Provides
     fun providesTokenDAO(roomDataBase: DataBase) = roomDataBase.getTokenDao()
 
+    @Singleton
+    @Provides
+    fun providesPicturesDAO(roomDataBase: DataBase) = roomDataBase.getPicturesDao()
+
     companion object {
         private const val DB_NAME = "room_database"
     }

@@ -2,6 +2,8 @@ package com.example.sass.di
 
 import com.example.sass.data.PicturesRepositoryImpl
 import com.example.sass.data.UserRepositoryImpl
+import com.example.sass.data.datasource.local.picture.PictureLocalDataSource
+import com.example.sass.data.datasource.local.picture.PicturesRoomDataSourceImpl
 import com.example.sass.data.datasource.local.token.TokenLocalDataSource
 import com.example.sass.data.datasource.local.token.TokenRoomDataSourceImpl
 import com.example.sass.data.datasource.local.user.UserLocalDataSource
@@ -28,15 +30,19 @@ interface BindDataModule {
     fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
 
     @Binds
-    @Singleton
-    fun bindPicturesRepository(impl: PicturesRepositoryImpl): PicturesRepository
-
-    @Binds
     fun bindUserLocalDataSource(impl: UserRoomDataSourceImpl): UserLocalDataSource
 
     @Binds
     fun bindTokenLocalDataSource(impl: TokenRoomDataSourceImpl): TokenLocalDataSource
 
     @Binds
+    @Singleton
+    fun bindPicturesRepository(impl: PicturesRepositoryImpl): PicturesRepository
+
+    @Binds
+    @Singleton
     fun bindPicturesRemoteDataSource(impl: PicturesRetrofitDataSourceImpl): PicturesRemoteDataSource
+
+    @Binds
+    fun bindPicturesLocalDataSource(impl: PicturesRoomDataSourceImpl): PictureLocalDataSource
 }

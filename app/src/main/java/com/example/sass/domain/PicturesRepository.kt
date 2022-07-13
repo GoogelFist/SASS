@@ -6,5 +6,11 @@ interface PicturesRepository {
 
     suspend fun loadPictures()
 
-    suspend fun getPictures(): List<PicturesItem>
+    suspend fun getPicturesItems(): List<PicturesItem>
+
+    suspend fun clearData()
+
+    suspend fun addToFavorite(id: String)
+
+    suspend fun removedFromFavorite(id: String)
 }
