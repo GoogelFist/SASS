@@ -27,11 +27,11 @@ class FavoriteViewModel(
         when (event) {
             is FavoriteEvent.OnAddToFavorite -> addedToFavorite(event.id)
             is FavoriteEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
-            FavoriteEvent.OnUpdateUi -> loadedPictures()
+            FavoriteEvent.OnUpdateData -> updatedData()
         }
     }
 
-    private fun loadedPictures() {
+    private fun updatedData() {
         viewModelScope.launch {
             updatePicturesItems()
         }

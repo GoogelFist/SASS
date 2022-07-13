@@ -51,7 +51,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.obtainEvent(MainEvent.OnUpdateUi)
+        viewModel.obtainEvent(MainEvent.OnUpdateData)
 
         observeViewModel()
         setupRecycler()

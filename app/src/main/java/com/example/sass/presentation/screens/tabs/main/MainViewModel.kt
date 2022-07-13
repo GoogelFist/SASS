@@ -38,13 +38,7 @@ class MainViewModel(
             is MainEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
             MainEvent.OnLoadPictures -> loadedPictures()
             MainEvent.OnRefresh -> refreshedPictures()
-            MainEvent.OnUpdateUi -> updatedUi()
-        }
-    }
-
-    private fun updatedUi() {
-        viewModelScope.launch {
-            updatePicturesItems()
+            MainEvent.OnUpdateData -> updatedData()
         }
     }
 
@@ -119,6 +113,12 @@ class MainViewModel(
                     }
                 }
             }
+        }
+    }
+
+    private fun updatedData() {
+        viewModelScope.launch {
+            updatePicturesItems()
         }
     }
 

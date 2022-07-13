@@ -43,7 +43,7 @@ class FavoriteTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.obtainEvent(FavoriteEvent.OnUpdateUi)
+        viewModel.obtainEvent(FavoriteEvent.OnUpdateData)
 
         viewModel.favoritePicItems.observe(viewLifecycleOwner) {
             Snackbar.make(view, it.size.toString(), Snackbar.LENGTH_SHORT).show()
