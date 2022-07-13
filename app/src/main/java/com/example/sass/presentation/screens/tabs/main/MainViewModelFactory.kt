@@ -2,13 +2,15 @@ package com.example.sass.presentation.screens.tabs.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sass.domain.*
+import com.example.sass.domain.AddPictureItemToFavoriteUseCase
+import com.example.sass.domain.GetPicturesItemsUseCase
+import com.example.sass.domain.LoadPicturesItemsUseCase
+import com.example.sass.domain.RemovePictureItemFromFavoriteUseCase
 import javax.inject.Inject
 
 class MainViewModelFactory @Inject constructor(
     private val loadPicturesItemsUseCase: LoadPicturesItemsUseCase,
     private val getPicturesItemsUseCase: GetPicturesItemsUseCase,
-    private val clearUserDataUseCase: ClearUserDataUseCase,
     private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
     private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
 ) :
@@ -18,7 +20,6 @@ class MainViewModelFactory @Inject constructor(
             return MainViewModel(
                 loadPicturesItemsUseCase,
                 getPicturesItemsUseCase,
-                clearUserDataUseCase,
                 addPictureItemToFavoriteUseCase,
                 removePictureItemFromFavoriteUseCase
             ) as T

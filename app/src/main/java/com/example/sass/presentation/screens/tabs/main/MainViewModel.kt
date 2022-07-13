@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val loadPicturesItemsUseCase: LoadPicturesItemsUseCase,
     private val getPicturesItemsUseCase: GetPicturesItemsUseCase,
-    private val clearUserDataUseCase: ClearUserDataUseCase,
     private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
     private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
 ) : ViewModel(),
@@ -32,7 +31,6 @@ class MainViewModel(
 
     override fun obtainEvent(event: MainEvent) {
         when (event) {
-            MainEvent.OnClearUserData -> clearedUserData()
             is MainEvent.OnAddToFavorite -> addedToFavorite(event.id)
             is MainEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
             MainEvent.OnLoadPictures -> loadedPictures()
@@ -111,12 +109,6 @@ class MainViewModel(
             _mainState.value = MainState.EmptyList
         } else {
             _mainState.value = MainState.Loaded
-        }
-    }
-
-    private fun clearedUserData() {
-        viewModelScope.launch {
-            clearUserDataUseCase()
         }
     }
 }

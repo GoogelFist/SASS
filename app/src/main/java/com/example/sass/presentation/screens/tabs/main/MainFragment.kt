@@ -168,7 +168,6 @@ class MainFragment : Fragment() {
     }
 
     private fun navigateToSignInFragment() {
-        viewModel.obtainEvent(MainEvent.OnClearUserData)
         getRootNavController().navigate(R.id.action_tabsFragment_to_signInFragment)
     }
 
