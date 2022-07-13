@@ -29,14 +29,14 @@ class UserRepositoryImpl @Inject constructor(
 
         val token = loadAuthToken()
         userRemoteDataSource.signOut(token)
-        clearUserData()
+        clearData()
     }
 
     override suspend fun loadUserInfo(): UserInfo {
         return userLocalDataSource.loadUserInfo()
     }
 
-    override suspend fun clearUserData() {
+    override suspend fun clearData() {
         tokenLocalDataSource.deleteAuthToken()
         userLocalDataSource.deleteUserInfo()
     }

@@ -16,7 +16,6 @@ import com.example.sass.databinding.MainFragmentBinding
 import com.example.sass.presentation.screens.tabs.main.models.MainEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainState
 import com.example.sass.presentation.screens.tabs.main.recycler.PicturesMainAdapter
-import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
@@ -80,7 +79,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        viewModel.picturesItemList.observe(viewLifecycleOwner) { picturesList ->
+        viewModel.picturesItems.observe(viewLifecycleOwner) { picturesList ->
             picturesMainAdapter.submitList(picturesList)
         }
     }
@@ -188,10 +187,12 @@ class MainFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
-        // TODO:
-        picturesMainAdapter.onFavoriteButtonClickListener = { pictureId ->
-            viewModel.obtainEvent(MainEvent.OnAddToFavorite(pictureId))
-            Snackbar.make(binding.root, pictureId, Snackbar.LENGTH_LONG).show()
+        picturesMainAdapter.onFavoriteButtonClickListener = { pictureId, isFavorite ->
+            if (isFavorite) {
+                viewModel.obtainEvent(MainEvent.OnRemoveFromFavorite(pictureId))
+            } else {
+                viewModel.obtainEvent(MainEvent.OnAddToFavorite(pictureId))
+            }
         }
     }
 

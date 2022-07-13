@@ -21,9 +21,9 @@ class MainViewModel(
 ) : ViewModel(),
     EventHandler<MainEvent> {
 
-    private var _picturesItemList = MutableLiveData<List<PicturesItem>>()
-    val picturesItemList: LiveData<List<PicturesItem>>
-        get() = _picturesItemList
+    private var _picturesItems = MutableLiveData<List<PicturesItem>>()
+    val picturesItems: LiveData<List<PicturesItem>>
+        get() = _picturesItems
 
     private var _mainState = MutableLiveData<MainState>()
     val mainState: LiveData<MainState>
@@ -45,13 +45,22 @@ class MainViewModel(
     private fun addedToFavorite(id: String) {
         viewModelScope.launch {
             addPictureItemToFavoriteUseCase(id)
+
+            updatePicturesItems()
         }
     }
 
     private fun removedFromFavorite(id: String) {
         viewModelScope.launch {
             removePictureItemFromFavoriteUseCase(id)
+
+            updatePicturesItems()
         }
+    }
+
+    private suspend fun updatePicturesItems() {
+        val list = getPicturesItemsUseCase()
+        _picturesItems.value = list
     }
 
     private fun loadedPictures(): Job {
@@ -62,10 +71,9 @@ class MainViewModel(
                 loadPicturesItemsUseCase()
 
                 val list = getPicturesItemsUseCase()
-
                 checkEmptyList(list)
-                _picturesItemList.value = list
 
+                _picturesItems.value = list
             } catch (error: Throwable) {
                 when (error) {
                     is IncorrectTokenException -> {
@@ -90,7 +98,7 @@ class MainViewModel(
 
                 checkEmptyList(list)
 
-                _picturesItemList.value = list
+                _picturesItems.value = list
             } catch (error: Throwable) {
                 when (error) {
                     is IncorrectTokenException -> {

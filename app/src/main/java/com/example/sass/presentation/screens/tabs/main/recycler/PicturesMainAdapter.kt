@@ -10,7 +10,7 @@ class PicturesMainAdapter :
     ListAdapter<PicturesItem, PicturesItemViewHolder>(PicturesItemDiffCallBack()) {
 
     lateinit var onPictureClickListener: (pictureId: String) -> Unit
-    lateinit var onFavoriteButtonClickListener: (pictureId: String) -> Unit
+    lateinit var onFavoriteButtonClickListener: (pictureId: String, isFavorite: Boolean) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PicturesItemViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,7 +23,7 @@ class PicturesMainAdapter :
             val position = viewHolder.adapterPosition
             if (position != NO_POSITION) {
                 val pictureId = currentList[position].id
-                onFavoriteButtonClickListener.invoke(pictureId)
+                onFavoriteButtonClickListener.invoke(pictureId, currentList[position].isFavorite)
             }
         }
 

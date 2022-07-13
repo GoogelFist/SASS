@@ -11,5 +11,5 @@ interface UserRepository {
 
     suspend fun loadUserInfo(): UserInfo
 
-    suspend fun clearUserData()
+    suspend fun clearData()
 }
