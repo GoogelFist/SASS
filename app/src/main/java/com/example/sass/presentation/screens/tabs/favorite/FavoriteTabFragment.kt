@@ -2,7 +2,6 @@ package com.example.sass.presentation.screens.tabs.favorite
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.sass.component
 import com.example.sass.databinding.FavoriteTabFragmentBinding
-import com.example.sass.presentation.screens.tabs.main.MainViewModel
-import com.example.sass.presentation.screens.tabs.main.MainViewModelFactory
+import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteEvent
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class FavoriteTabFragment : Fragment() {
@@ -25,13 +24,6 @@ class FavoriteTabFragment : Fragment() {
 
     private val viewModel by activityViewModels<FavoriteViewModel> {
         favoriteViewModelFactory
-    }
-
-    @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
-
-    private val mainViewModel by activityViewModels<MainViewModel> {
-        mainViewModelFactory
     }
 
     override fun onAttach(context: Context) {
@@ -51,8 +43,10 @@ class FavoriteTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.favoritePicturesItems.observe(viewLifecycleOwner) {
-            Log.e(this.toString(), it.size.toString())
+        viewModel.obtainEvent(FavoriteEvent.OnUpdateUi)
+
+        viewModel.favoritePicItems.observe(viewLifecycleOwner) {
+            Snackbar.make(view, it.size.toString(), Snackbar.LENGTH_SHORT).show()
         }
     }
 

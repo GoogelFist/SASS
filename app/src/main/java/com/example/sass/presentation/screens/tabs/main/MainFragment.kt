@@ -13,9 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.sass.R
 import com.example.sass.component
 import com.example.sass.databinding.MainFragmentBinding
-import com.example.sass.presentation.screens.tabs.favorite.FavoriteViewModel
-import com.example.sass.presentation.screens.tabs.favorite.FavoriteViewModelFactory
-import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainState
 import com.example.sass.presentation.screens.tabs.main.recycler.PicturesMainAdapter
@@ -28,17 +25,10 @@ class MainFragment : Fragment() {
         get() = _binding!!
 
     @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
+    lateinit var viewModelFactory: MainViewModelFactory
 
-    private val mainViewModel by activityViewModels<MainViewModel> {
-        mainViewModelFactory
-    }
-
-    @Inject
-    lateinit var favoriteViewModelFactory: FavoriteViewModelFactory
-
-    private val favoriteViewModel by activityViewModels<FavoriteViewModel> {
-        favoriteViewModelFactory
+    private val viewModel by activityViewModels<MainViewModel> {
+        viewModelFactory
     }
 
     private lateinit var picturesMainAdapter: PicturesMainAdapter
@@ -61,6 +51,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.obtainEvent(MainEvent.OnUpdateUi)
+
         observeViewModel()
         setupRecycler()
         configButtons()
@@ -74,7 +66,7 @@ class MainFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        mainViewModel.mainState.observe(viewLifecycleOwner) { state ->
+        viewModel.mainState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 MainState.Loading -> configLoadingState()
                 MainState.ErrorLoaded -> configErrorLoadedState()
@@ -89,7 +81,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        mainViewModel.picturesItems.observe(viewLifecycleOwner) { picturesList ->
+        viewModel.picturesItems.observe(viewLifecycleOwner) { picturesList ->
             picturesMainAdapter.submitList(picturesList)
         }
     }
@@ -189,7 +181,7 @@ class MainFragment : Fragment() {
 
     private fun configButtons() {
         binding.buttonTryAgain.setOnClickListener {
-            mainViewModel.obtainEvent(MainEvent.OnLoadPictures)
+            viewModel.obtainEvent(MainEvent.OnLoadPictures)
         }
 
         binding.ibSearchMain.setOnClickListener {
@@ -199,13 +191,11 @@ class MainFragment : Fragment() {
 
         picturesMainAdapter.onFavoriteButtonClickListener = { pictureId, isFavorite ->
             if (isFavorite) {
-                mainViewModel.obtainEvent(MainEvent.OnRemoveFromFavorite(pictureId))
+                viewModel.obtainEvent(MainEvent.OnRemoveFromFavorite(pictureId))
 
             } else {
-                mainViewModel.obtainEvent(MainEvent.OnAddToFavorite(pictureId))
+                viewModel.obtainEvent(MainEvent.OnAddToFavorite(pictureId))
             }
-
-            favoriteViewModel.obtainEvent(FavoriteEvent.OnUpdateUi)
         }
     }
 
@@ -219,7 +209,7 @@ class MainFragment : Fragment() {
 
     private fun setupSwipeRefreshLayout() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            mainViewModel.obtainEvent(MainEvent.OnRefresh)
+            viewModel.obtainEvent(MainEvent.OnRefresh)
         }
     }
 

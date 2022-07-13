@@ -1,6 +1,6 @@
 package com.example.sass.data.datasource.remote.picture
 
-import com.example.sass.data.datasource.remote.picture.models.PicturesListResponse
+import com.example.sass.data.datasource.remote.picture.models.PicturesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -10,5 +10,5 @@ interface PicturesRetrofitService {
 
     @GET("picture")
     @Headers("accept: application/json")
-    suspend fun loadPictures(@Header("Authorization") token: String): Response<PicturesListResponse>
+    suspend fun loadPictures(@Header("Authorization") token: String): Response<PicturesResponse>
 }

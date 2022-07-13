@@ -1,42 +1,77 @@
 package com.example.sass.data.mapper
 
-import com.example.sass.data.datasource.local.picture.models.PictureFavoriteDao
+import com.example.sass.data.datasource.local.picture.models.FavoritePicDao
+import com.example.sass.data.datasource.local.picture.models.PicCommonDao
 import com.example.sass.data.datasource.remote.picture.models.PictureDto
-import com.example.sass.data.datasource.remote.picture.models.PicturesListResponse
-import com.example.sass.domain.models.FavoritePicturesItem
+import com.example.sass.data.datasource.remote.picture.models.PicturesResponse
+import com.example.sass.domain.models.FavoritePicItem
 import com.example.sass.domain.models.PicturesItem
 import javax.inject.Inject
 
 class PicturesMapper @Inject constructor() {
 
-    fun mapPicturesListResponseToPicturesItem(
-        picturesListResponse: PicturesListResponse,
-        favorites: List<PictureFavoriteDao>
+    fun mapPicsCommonDaoToPicsItems(
+        picCommonDao: List<PicCommonDao>,
+        favorites: List<FavoritePicDao>
     ): List<PicturesItem> {
-        val favoritesIds = favorites.map { it.favoriteId }.toHashSet()
+        val favoritesIds = favorites.map { it.id }.toHashSet()
 
-        return picturesListResponse.map { mapPictureItemDtoToPictureItem(it, favoritesIds) }
+        return picCommonDao.map { mapPicCommonDaoToPicItem(it, favoritesIds) }
     }
 
-    private fun mapPictureItemDtoToPictureItem(
-        pictureDto: PictureDto,
-        favorites: Set<String>
+    private fun mapPicCommonDaoToPicItem(
+        picCommonDao: PicCommonDao,
+        favoritesIds: Set<String>
     ): PicturesItem {
 
-        val isFavorite = favorites.contains(pictureDto.id)
+        val isFavorite = favoritesIds.contains(picCommonDao.id)
 
-        return PicturesItem(pictureDto.id, pictureDto.photoUrl, pictureDto.title, isFavorite)
+        return PicturesItem(
+            picCommonDao.id,
+            picCommonDao.photoUrl,
+            picCommonDao.title,
+            isFavorite
+        )
     }
 
-    // TODO: will use set
-    fun mapPictureItemDtoToFavoritePictureItem(pictureDto: PictureDto): FavoritePicturesItem {
-        return FavoritePicturesItem(
+    fun mapPicsResponseDtoToPicsResponseDao(picturesResponse: PicturesResponse): List<PicCommonDao> {
+        return picturesResponse.map { mapPicsDtoToPicsDao(it) }
+    }
+
+    private fun mapPicsDtoToPicsDao(pictureDto: PictureDto): PicCommonDao {
+        return PicCommonDao(
+            content = pictureDto.content,
             id = pictureDto.id,
             photoUrl = pictureDto.photoUrl,
-            title = pictureDto.title,
-            content = pictureDto.content,
             publicationDate = pictureDto.publicationDate,
+            title = pictureDto.title
+        )
+    }
+
+    fun mapFavoritePicsDaoToFavoritePicsItems(favoritePicsDao: List<FavoritePicDao>): List<FavoritePicItem> {
+        return favoritePicsDao.map { mapFavoritePicDaoToFavoritePicItem(it) }
+    }
+
+    private fun mapFavoritePicDaoToFavoritePicItem(favoritePicDao: FavoritePicDao): FavoritePicItem {
+        return FavoritePicItem(
+            id = favoritePicDao.id,
+            photoUrl = favoritePicDao.photoUrl,
+            title = favoritePicDao.title,
+            content = favoritePicDao.content,
+            publicationDate = favoritePicDao.publicationDate,
             isFavorite = true
+        )
+    }
+
+    fun mapPicCommonDaoToFavoritePicDao(picCommonDao: PicCommonDao): FavoritePicDao {
+        return FavoritePicDao(
+            id = picCommonDao.id,
+            photoUrl = picCommonDao.photoUrl,
+            title = picCommonDao.title,
+            content = picCommonDao.content,
+            publicationDate = picCommonDao.publicationDate,
+            isFavorite = true,
+            addedTimeMills = System.currentTimeMillis()
         )
     }
 }

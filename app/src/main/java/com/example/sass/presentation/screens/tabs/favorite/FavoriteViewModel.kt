@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sass.domain.RemovePictureItemFromFavoriteUseCase
-import com.example.sass.domain.models.FavoritePicturesItem
+import com.example.sass.domain.models.FavoritePicItem
 import com.example.sass.domain.usecases.AddPictureItemToFavoriteUseCase
 import com.example.sass.domain.usecases.GetFavoritesPicturesItemsUseCase
 import com.example.sass.presentation.screens.EventHandler
@@ -19,13 +19,9 @@ class FavoriteViewModel(
 ) : ViewModel(),
     EventHandler<FavoriteEvent> {
 
-    private var _favoritePicturesItems = MutableLiveData<List<FavoritePicturesItem>>()
-    val favoritePicturesItems: LiveData<List<FavoritePicturesItem>>
-        get() = _favoritePicturesItems
-
-    init {
-        loadedPictures()
-    }
+    private var _favoritePicItems = MutableLiveData<List<FavoritePicItem>>()
+    val favoritePicItems: LiveData<List<FavoritePicItem>>
+        get() = _favoritePicItems
 
     override fun obtainEvent(event: FavoriteEvent) {
         when (event) {
@@ -59,7 +55,7 @@ class FavoriteViewModel(
 
     private suspend fun updatePicturesItems() {
         val list = getFavoritesPicturesItemsUseCase()
-        _favoritePicturesItems.value = list
+        _favoritePicItems.value = list
     }
 
 }
