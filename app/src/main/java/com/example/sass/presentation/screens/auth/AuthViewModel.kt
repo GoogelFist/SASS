@@ -8,8 +8,8 @@ import com.example.sass.data.BlankLoginException
 import com.example.sass.data.BlankPasswordException
 import com.example.sass.data.InvalidateLoginException
 import com.example.sass.data.InvalidatePasswordException
-import com.example.sass.domain.ClearUserDataUseCase
-import com.example.sass.domain.SingInUseCase
+import com.example.sass.domain.usecases.ClearUserDataUseCase
+import com.example.sass.domain.usecases.SingInUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.auth.models.AuthEvent
 import com.example.sass.presentation.screens.auth.models.AuthState

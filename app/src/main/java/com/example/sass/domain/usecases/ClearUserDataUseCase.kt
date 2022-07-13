@@ -1,5 +1,7 @@
-package com.example.sass.domain
+package com.example.sass.domain.usecases
 
+import com.example.sass.domain.PicturesRepository
+import com.example.sass.domain.UserRepository
 import javax.inject.Inject
 
 class ClearUserDataUseCase @Inject constructor(

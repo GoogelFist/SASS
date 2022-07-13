@@ -3,6 +3,7 @@ package com.example.sass.di
 import android.app.Application
 import com.example.sass.presentation.screens.auth.SignInFragment
 import com.example.sass.presentation.screens.splash.SplashFragment
+import com.example.sass.presentation.screens.tabs.favorite.FavoriteTabFragment
 import com.example.sass.presentation.screens.tabs.main.MainFragment
 import com.example.sass.presentation.screens.tabs.profile.ProfileTabFragment
 import dagger.BindsInstance
@@ -20,6 +21,8 @@ interface ApplicationComponent {
     fun inject(profileTabFragment: ProfileTabFragment)
 
     fun inject(mainFragment: MainFragment)
+
+    fun inject(favoriteTabFragment: FavoriteTabFragment)
 
     @Component.Builder
     interface Builder {

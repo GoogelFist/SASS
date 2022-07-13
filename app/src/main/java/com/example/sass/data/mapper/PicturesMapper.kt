@@ -3,6 +3,7 @@ package com.example.sass.data.mapper
 import com.example.sass.data.datasource.local.picture.models.PictureFavoriteDao
 import com.example.sass.data.datasource.remote.picture.models.PictureDto
 import com.example.sass.data.datasource.remote.picture.models.PicturesListResponse
+import com.example.sass.domain.models.FavoritePicturesItem
 import com.example.sass.domain.models.PicturesItem
 import javax.inject.Inject
 
@@ -12,31 +13,30 @@ class PicturesMapper @Inject constructor() {
         picturesListResponse: PicturesListResponse,
         favorites: List<PictureFavoriteDao>
     ): List<PicturesItem> {
-        return picturesListResponse.map { mapPictureItemDtoToPictureItem(it, favorites) }
+        val favoritesIds = favorites.map { it.favoriteId }.toHashSet()
+
+        return picturesListResponse.map { mapPictureItemDtoToPictureItem(it, favoritesIds) }
     }
 
     private fun mapPictureItemDtoToPictureItem(
         pictureDto: PictureDto,
-        favorites: List<PictureFavoriteDao>
+        favorites: Set<String>
     ): PicturesItem {
 
-        val isFavorite = checkIsFavorite(favorites, pictureDto)
+        val isFavorite = favorites.contains(pictureDto.id)
 
         return PicturesItem(pictureDto.id, pictureDto.photoUrl, pictureDto.title, isFavorite)
     }
 
     // TODO: will use set
-    private fun checkIsFavorite(
-        favorites: List<PictureFavoriteDao>,
-        pictureDto: PictureDto
-    ): Boolean {
-        var isFavorite = false
-        for (favorite in favorites) {
-            if (favorite.favoriteId == pictureDto.id) {
-                isFavorite = true
-                break
-            }
-        }
-        return isFavorite
+    fun mapPictureItemDtoToFavoritePictureItem(pictureDto: PictureDto): FavoritePicturesItem {
+        return FavoritePicturesItem(
+            id = pictureDto.id,
+            photoUrl = pictureDto.photoUrl,
+            title = pictureDto.title,
+            content = pictureDto.content,
+            publicationDate = pictureDto.publicationDate,
+            isFavorite = true
+        )
     }
 }

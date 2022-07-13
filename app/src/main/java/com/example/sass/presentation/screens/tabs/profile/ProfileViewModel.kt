@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sass.data.IncorrectTokenException
-import com.example.sass.domain.LoadUserInfoUseCase
-import com.example.sass.domain.SingOutUseCase
+import com.example.sass.domain.usecases.LoadUserInfoUseCase
+import com.example.sass.domain.usecases.SingOutUseCase
 import com.example.sass.domain.models.UserInfo
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.profile.models.ProfileEvent

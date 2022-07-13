@@ -9,15 +9,15 @@ import com.example.sass.domain.models.PicturesItem
 
 class PicturesItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val binding = MainPostItemBinding.bind(view)
-    val favoriteButton = binding.ibFavoritePostItem
+    val favoriteButton = binding.ibMainItemFavoriteButtonPost
 
     fun bind(picturesItem: PicturesItem) {
         Glide.with(view.context)
             .load(picturesItem.photoUrl)
             .centerCrop()
-            .into(binding.ivPhotoPostItem)
+            .into(binding.ivMainItemPhotoPost)
 
-        binding.tvTitlePostItem.text = picturesItem.title
+        binding.tvMainItemTitlePost.text = picturesItem.title
 
         if (picturesItem.isFavorite) {
             favoriteButton.setImageResource(R.drawable.ic_favorite_active)

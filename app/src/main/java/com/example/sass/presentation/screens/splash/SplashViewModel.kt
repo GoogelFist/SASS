@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sass.domain.IsAbsentTokenUseCase
+import com.example.sass.domain.usecases.IsAbsentTokenUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.splash.models.SplashEvent
 import com.example.sass.presentation.screens.splash.models.SplashState

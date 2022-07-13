@@ -2,7 +2,7 @@ package com.example.sass.presentation.screens.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sass.domain.IsAbsentTokenUseCase
+import com.example.sass.domain.usecases.IsAbsentTokenUseCase
 import javax.inject.Inject
 
 class SplashViewModelFactory @Inject constructor(private val isAbsentTokenUseCase: IsAbsentTokenUseCase) :

@@ -40,6 +40,10 @@
     <string name="main_load_error_text">Не удалось загрузить ленту\nОбновите экран или попробуйте позже</string>
     <string name="main_refresh_error_text">Отсутствует интернет-соединение\nПопробуйте позже</string>
 
-<!-- detail screen   -->
+    <!-- detail screen   -->
     <string name="detail_title_text">Галерея</string>
+
+    <!--  favorite screen  -->
+    <string name="favorite_title_text">Мои избранные</string>
+
 </resources>

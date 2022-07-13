@@ -2,8 +2,8 @@ package com.example.sass.presentation.screens.tabs.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sass.domain.LoadUserInfoUseCase
-import com.example.sass.domain.SingOutUseCase
+import com.example.sass.domain.usecases.LoadUserInfoUseCase
+import com.example.sass.domain.usecases.SingOutUseCase
 import javax.inject.Inject
 
 class ProfileViewModelFactory @Inject constructor(

@@ -1,5 +1,6 @@
-package com.example.sass.domain
+package com.example.sass.domain.usecases
 
+import com.example.sass.domain.UserRepository
 import javax.inject.Inject
 
 class IsAbsentTokenUseCase @Inject constructor(private val userRepository: UserRepository) {

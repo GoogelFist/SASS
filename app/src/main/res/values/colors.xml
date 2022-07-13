@@ -43,4 +43,7 @@
     <color name="main_screen_image_button_background">#00000000</color>
     <color name="main_load_error_text_color">#B0B0B0</color>
 
+    <!--  favorite screen  -->
+    <color name="favorite_publication_date_text_color">#B3B3B3</color>
+
 </resources>

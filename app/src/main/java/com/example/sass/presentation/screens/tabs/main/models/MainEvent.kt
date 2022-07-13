@@ -1,6 +1,7 @@
 package com.example.sass.presentation.screens.tabs.main.models
 
 sealed class MainEvent {
+    object OnUpdateUi: MainEvent()
 
     object OnRefresh : MainEvent()
     object OnLoadPictures : MainEvent()
