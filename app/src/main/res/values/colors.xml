@@ -45,5 +45,12 @@
 
     <!--  favorite screen  -->
     <color name="favorite_publication_date_text_color">#B3B3B3</color>
+    <color name="favorite_item_title_text_color">@color/black</color>
+    <color name="favorite_item_content_text_color">@color/black</color>
+
+    <!--  Detail screen  -->
+    <color name="detail_content_text_color">@color/black</color>
+    <color name="detail_title_text_color">@color/black</color>
+    <color name="detail_publication_date_text_color">#B3B3B3</color>
 
 </resources>

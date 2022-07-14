@@ -21,8 +21,7 @@ class MainViewModel(
     private val getPicturesItemsUseCase: GetPicturesItemsUseCase,
     private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
     private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
-) : ViewModel(),
-    EventHandler<MainEvent> {
+) : ViewModel(), EventHandler<MainEvent> {
 
     private var _picturesItems = MutableLiveData<List<PicturesItem>>()
     val picturesItems: LiveData<List<PicturesItem>>

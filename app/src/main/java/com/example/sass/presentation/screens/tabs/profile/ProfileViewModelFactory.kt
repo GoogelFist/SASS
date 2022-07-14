@@ -9,8 +9,8 @@ import javax.inject.Inject
 class ProfileViewModelFactory @Inject constructor(
     private val singOutUseCase: SingOutUseCase,
     private val loadUserInfoUseCase: LoadUserInfoUseCase
-) :
-    ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
             return ProfileViewModel(singOutUseCase, loadUserInfoUseCase) as T

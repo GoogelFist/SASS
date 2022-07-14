@@ -1,6 +1,7 @@
 package com.example.sass.domain
 
 import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 
 interface PicturesRepository {
@@ -16,4 +17,6 @@ interface PicturesRepository {
     suspend fun addToFavorite(id: String)
 
     suspend fun removedFromFavorite(id: String)
+
+    suspend fun getPictureDetail(id: String): PictureDetail
 }

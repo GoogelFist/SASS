@@ -2,6 +2,7 @@ package com.example.sass.data.datasource.local.picture
 
 import com.example.sass.data.datasource.local.picture.models.PicCommonDao
 import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 
 interface PictureLocalDataSource {
@@ -21,4 +22,6 @@ interface PictureLocalDataSource {
     suspend fun findPicCommonDtoById(id: String): PicCommonDao
 
     suspend fun deleteAllPicsCommonDao()
+
+    suspend fun getPictureDetail(id: String): PictureDetail
 }

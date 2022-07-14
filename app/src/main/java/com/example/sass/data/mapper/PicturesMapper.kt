@@ -5,6 +5,7 @@ import com.example.sass.data.datasource.local.picture.models.PicCommonDao
 import com.example.sass.data.datasource.remote.picture.models.PictureDto
 import com.example.sass.data.datasource.remote.picture.models.PicturesResponse
 import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,6 +41,16 @@ class PicturesMapper @Inject constructor() {
         )
     }
 
+    fun mapPictureCommonDaoToPictureDetail(picCommonDao: PicCommonDao): PictureDetail {
+        return PictureDetail(
+            id = picCommonDao.id,
+            photoUrl = picCommonDao.photoUrl,
+            title = picCommonDao.title,
+            content = picCommonDao.content,
+            publicationDate = dateFormatter(picCommonDao.publicationDate)
+        )
+    }
+
     private fun mapPicCommonDaoToPicItem(
         picCommonDao: PicCommonDao,
         favoritesIds: Set<String>
@@ -48,10 +59,10 @@ class PicturesMapper @Inject constructor() {
         val isFavorite = favoritesIds.contains(picCommonDao.id)
 
         return PicturesItem(
-            picCommonDao.id,
-            picCommonDao.photoUrl,
-            picCommonDao.title,
-            isFavorite
+            id = picCommonDao.id,
+            photoUrl = picCommonDao.photoUrl,
+            title = picCommonDao.title,
+            isFavorite = isFavorite
         )
     }
 

@@ -3,6 +3,7 @@ package com.example.sass.data.datasource.local.picture
 import com.example.sass.data.datasource.local.picture.models.PicCommonDao
 import com.example.sass.data.mapper.PicturesMapper
 import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 import javax.inject.Inject
 
@@ -50,5 +51,10 @@ class PicturesRoomDataSourceImpl @Inject constructor(
 
     override suspend fun deleteAllPicsCommonDao() {
         pictureDao.deleteAllPicsCommonDao()
+    }
+
+    override suspend fun getPictureDetail(id: String): PictureDetail {
+        val pictureCommonDao = pictureDao.getPicCommonDaoById(id)
+        return mapper.mapPictureCommonDaoToPictureDetail(pictureCommonDao)
     }
 }

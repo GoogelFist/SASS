@@ -13,8 +13,8 @@ class MainViewModelFactory @Inject constructor(
     private val getPicturesItemsUseCase: GetPicturesItemsUseCase,
     private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
     private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
-) :
-    ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(

@@ -5,6 +5,7 @@ import com.example.sass.data.datasource.local.token.TokenLocalDataSource
 import com.example.sass.data.datasource.remote.picture.PicturesRemoteDataSource
 import com.example.sass.domain.PicturesRepository
 import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 import javax.inject.Inject
 
@@ -39,5 +40,9 @@ class PicturesRepositoryImpl @Inject constructor(
 
     override suspend fun removedFromFavorite(id: String) {
         pictureLocalDataSource.deleteFavoritePicDao(id)
+    }
+
+    override suspend fun getPictureDetail(id: String): PictureDetail {
+        return pictureLocalDataSource.getPictureDetail(id)
     }
 }
