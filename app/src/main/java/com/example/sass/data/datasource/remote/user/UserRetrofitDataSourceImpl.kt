@@ -10,8 +10,8 @@ import javax.inject.Inject
 class UserRetrofitDataSourceImpl @Inject constructor(
     private val userRetrofitService: UserRetrofitService,
     private val userMapper: UserMapper
-) :
-    UserRemoteDataSource {
+) : UserRemoteDataSource {
+
     override suspend fun signIn(phone: String, password: String): SignInDto {
 
         AuthDataUtils.validateSignInData(phone, password)

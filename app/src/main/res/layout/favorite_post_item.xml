@@ -62,6 +62,8 @@
             android:fontFamily="@font/montserrat_regular"
             android:textColor="@color/main_post_item_text_color"
             android:textSize="12sp"
+            android:ellipsize="end"
+            android:maxLines="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_favorite_item_title_post"
             tools:text="Сегодня был мой первый день в студии Surf..." />

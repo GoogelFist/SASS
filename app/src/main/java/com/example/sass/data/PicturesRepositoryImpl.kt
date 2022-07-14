@@ -14,7 +14,6 @@ class PicturesRepositoryImpl @Inject constructor(
     private val pictureLocalDataSource: PictureLocalDataSource
 ) : PicturesRepository {
 
-    // TODO: will need singleton check
     override suspend fun loadPictures() {
         val token = tokenLocalDataSource.loadAuthToken()
         val loadPictures = picturesRemoteDataSource.loadPictures(token)
@@ -28,7 +27,6 @@ class PicturesRepositoryImpl @Inject constructor(
     override suspend fun getFavoritePicsItems(): List<FavoritePicItem> {
         return pictureLocalDataSource.loadFavoritePicsItems()
     }
-
 
     override suspend fun clearData() {
         pictureLocalDataSource.deleteAllFavoritePics()

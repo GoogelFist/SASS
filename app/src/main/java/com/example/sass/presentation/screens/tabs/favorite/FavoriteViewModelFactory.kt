@@ -3,21 +3,18 @@ package com.example.sass.presentation.screens.tabs.favorite
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sass.domain.RemovePictureItemFromFavoriteUseCase
-import com.example.sass.domain.usecases.AddPictureItemToFavoriteUseCase
 import com.example.sass.domain.usecases.GetFavoritesPicturesItemsUseCase
 import javax.inject.Inject
 
 class FavoriteViewModelFactory @Inject constructor(
     private val getFavoritesPicturesItemsUseCase: GetFavoritesPicturesItemsUseCase,
-    private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
     private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
-) :
-    ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
             return FavoriteViewModel(
                 getFavoritesPicturesItemsUseCase,
-                addPictureItemToFavoriteUseCase,
                 removePictureItemFromFavoriteUseCase
             ) as T
         }

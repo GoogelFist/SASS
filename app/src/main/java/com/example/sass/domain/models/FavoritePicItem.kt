@@ -6,8 +6,6 @@ data class FavoritePicItem(
     val photoUrl: String = "",
     val title: String = "",
     val content: String = "",
-    val publicationDate: Long = DEFAULT_PUBLICATION_DATE,
+    val publicationDate: String = "",
     val isFavorite: Boolean = false
 )
-
-private const val DEFAULT_PUBLICATION_DATE = 0L

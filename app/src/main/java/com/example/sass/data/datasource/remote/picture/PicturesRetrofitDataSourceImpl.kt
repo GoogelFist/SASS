@@ -8,8 +8,7 @@ import javax.inject.Inject
 class PicturesRetrofitDataSourceImpl @Inject constructor(
     private val picturesRetrofitService: PicturesRetrofitService,
     private val mapper: PicturesMapper
-) :
-    PicturesRemoteDataSource {
+) : PicturesRemoteDataSource {
 
     override suspend fun loadPictures(token: String): List<PicCommonDao> {
 
@@ -30,7 +29,6 @@ class PicturesRetrofitDataSourceImpl @Inject constructor(
             }
         }
     }
-
 
     companion object {
         private const val ABSENT_TOKEN_MESSAGE = "Token is absent"

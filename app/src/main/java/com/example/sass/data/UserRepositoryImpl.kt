@@ -10,11 +10,10 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource,
     private val userLocalDataSource: UserLocalDataSource,
-    private val tokenLocalDataSource: TokenLocalDataSource,
+    private val tokenLocalDataSource: TokenLocalDataSource
+) : UserRepository {
 
-    ) : UserRepository {
     override suspend fun signIn(phone: String, password: String) {
-
         val signInDto = userRemoteDataSource.signIn(phone, password)
 
         userLocalDataSource.saveUserInfo(signInDto.userInfoDao)

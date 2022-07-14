@@ -57,6 +57,7 @@ class MainFragment : Fragment() {
         setupRecycler()
         configButtons()
         setupSwipeRefreshLayout()
+        setFavoriteButtonClickListener()
         setPicturesItemClickListener()
     }
 
@@ -169,6 +170,14 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun setupRecycler() {
+        val recycler = binding.recyclerMain
+
+        picturesMainAdapter = PicturesMainAdapter()
+
+        recycler.adapter = picturesMainAdapter
+    }
+
     private fun navigateToSignInFragment() {
         getRootNavController().navigate(R.id.action_tabsFragment_to_signInFragment)
     }
@@ -189,7 +198,15 @@ class MainFragment : Fragment() {
             val direction = MainFragmentDirections.actionMainTabFragmentToSearchFragment()
             findNavController().navigate(direction)
         }
+    }
 
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.obtainEvent(MainEvent.OnRefresh)
+        }
+    }
+
+    private fun setFavoriteButtonClickListener() {
         picturesMainAdapter.onFavoriteButtonClickListener = { pictureId, isFavorite ->
             if (isFavorite) {
                 viewModel.obtainEvent(MainEvent.OnRemoveFromFavorite(pictureId))
@@ -197,20 +214,6 @@ class MainFragment : Fragment() {
             } else {
                 viewModel.obtainEvent(MainEvent.OnAddToFavorite(pictureId))
             }
-        }
-    }
-
-    private fun setupRecycler() {
-        val recycler = binding.recyclerMain
-
-        picturesMainAdapter = PicturesMainAdapter()
-
-        recycler.adapter = picturesMainAdapter
-    }
-
-    private fun setupSwipeRefreshLayout() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.obtainEvent(MainEvent.OnRefresh)
         }
     }
 

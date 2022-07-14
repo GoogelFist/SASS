@@ -8,8 +8,7 @@ import javax.inject.Inject
 class UserRoomDataSourceImpl @Inject constructor(
     private val userDao: UserDao,
     private val userMapper: UserMapper
-) :
-    UserLocalDataSource {
+) : UserLocalDataSource {
 
     override suspend fun saveUserInfo(userInfoDao: UserInfoDao) {
         userDao.saveUserInfo(userInfoDao)
