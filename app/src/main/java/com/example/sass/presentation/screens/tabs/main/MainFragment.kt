@@ -62,6 +62,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.recyclerMain.adapter = null
         _binding = null
     }
 

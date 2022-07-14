@@ -15,6 +15,9 @@ interface PictureDao {
     @Query("SELECT * FROM favorite_pictures ORDER BY added_time_mills DESC")
     suspend fun loadFavoritePicsDao(): List<FavoritePicDao>
 
+    @Query("SELECT id FROM favorite_pictures")
+    suspend fun loadFavoritePicsDaoIds(): List<String>
+
     @Query("DELETE FROM favorite_pictures WHERE id = :id")
     suspend fun deleteFavoritePicDao(id: String)
 

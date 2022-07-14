@@ -12,11 +12,10 @@ class PicturesMapper @Inject constructor() {
 
     fun mapPicsCommonDaoToPicsItems(
         picCommonDao: List<PicCommonDao>,
-        favorites: List<FavoritePicDao>
+        favoritesIds: List<String>
     ): List<PicturesItem> {
-        val favoritesIds = favorites.map { it.id }.toHashSet()
-
-        return picCommonDao.map { mapPicCommonDaoToPicItem(it, favoritesIds) }
+        val favoritesIdsSet = favoritesIds.toHashSet()
+        return picCommonDao.map { mapPicCommonDaoToPicItem(it, favoritesIdsSet) }
     }
 
     private fun mapPicCommonDaoToPicItem(

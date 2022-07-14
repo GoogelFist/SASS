@@ -36,13 +36,12 @@ class PicturesRoomDataSourceImpl @Inject constructor(
         }
     }
 
-    // TODO: separate method with ids
     override suspend fun loadPicsItems(): List<PicturesItem> {
         val picsItems = pictureDao.loadPicsCommonDao()
 
-        val favorites = pictureDao.loadFavoritePicsDao()
+        val favoritesIds = pictureDao.loadFavoritePicsDaoIds()
 
-        return mapper.mapPicsCommonDaoToPicsItems(picsItems, favorites)
+        return mapper.mapPicsCommonDaoToPicsItems(picsItems, favoritesIds)
     }
 
     override suspend fun findPicCommonDtoById(id: String): PicCommonDao {
