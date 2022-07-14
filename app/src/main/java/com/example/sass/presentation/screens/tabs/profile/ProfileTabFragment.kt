@@ -153,7 +153,7 @@ class ProfileTabFragment : Fragment() {
         binding.tvProfileErrorSnack.visibility = View.VISIBLE
         binding.progressBarSignOutButton.visibility = View.GONE
 
-        binding.buttonSignOut.isClickable = false
+        binding.buttonSignOut.isClickable = true
     }
 
     private fun navigateToSignInFragment() {
