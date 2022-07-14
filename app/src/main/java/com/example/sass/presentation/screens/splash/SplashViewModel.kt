@@ -38,6 +38,6 @@ class SplashViewModel(private val isAbsentTokenUseCase: IsAbsentTokenUseCase) : 
     }
 
     companion object {
-        private const val LAUNCH_DELAY = 500L
+        private const val LAUNCH_DELAY = 800L
     }
 }
