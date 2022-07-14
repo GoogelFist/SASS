@@ -26,5 +26,17 @@
                 app:destination="@id/signInFragment"
                 app:popUpTo="@id/tabsFragment"
                 app:popUpToInclusive="true" />
+        <action
+                android:id="@+id/action_tabsFragment_to_pictureDetailFragment"
+                app:destination="@id/pictureDetailFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/pictureDetailFragment"
+            android:name="com.example.sass.presentation.screens.tabs.detail.PictureDetailFragment"
+            android:label="picture_detail_fragment"
+            tools:layout="@layout/picture_detail_fragment" >
+        <argument
+                android:name="pictureId"
+                app:argType="string" />
     </fragment>
 </navigation>

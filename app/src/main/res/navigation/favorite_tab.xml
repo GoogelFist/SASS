@@ -9,18 +9,5 @@
             android:id="@+id/favoriteTabFragment"
             android:name="com.example.sass.presentation.screens.tabs.favorite.FavoriteTabFragment"
             android:label="favorite_tab_fragment"
-            tools:layout="@layout/favorite_tab_fragment" >
-        <action
-                android:id="@+id/action_favoriteTabFragment_to_pictureDetailFragment"
-                app:destination="@id/pictureDetailFragment" />
-    </fragment>
-    <fragment
-            android:id="@id/pictureDetailFragment"
-            android:name="com.example.sass.presentation.screens.tabs.detail.PictureDetailFragment"
-            android:label="post_detail_fragment"
-            tools:layout="@layout/picture_detail_fragment" >
-        <argument
-                android:name="pictureId"
-                app:argType="string" />
-    </fragment>
+            tools:layout="@layout/favorite_tab_fragment" />
 </navigation>

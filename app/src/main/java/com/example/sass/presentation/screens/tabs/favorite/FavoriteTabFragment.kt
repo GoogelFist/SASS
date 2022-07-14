@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.sass.R
 import com.example.sass.component
 import com.example.sass.databinding.FavoriteTabFragmentBinding
 import com.example.sass.presentation.screens.tabs.SingleDialogFragment
+import com.example.sass.presentation.screens.tabs.TabsFragmentDirections
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteEvent
 import com.example.sass.presentation.screens.tabs.favorite.recycler.FavoritePicsAdapter
 import javax.inject.Inject
@@ -96,12 +98,15 @@ class FavoriteTabFragment : Fragment() {
 
     private fun setPicturesItemClickListener() {
         favoritePicsAdapter.onPictureClickListener = { pictureId ->
-            val direction =
-                FavoriteTabFragmentDirections.actionFavoriteTabFragmentToPictureDetailFragment(
-                    pictureId
-                )
-            findNavController().navigate(direction)
+            val direction = TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
+            getRootNavController().navigate(direction)
         }
     }
 
+    private fun getRootNavController(): NavController {
+        val navHost = requireActivity()
+            .supportFragmentManager
+            .findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        return navHost.navController
+    }
 }

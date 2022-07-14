@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.sass.R
 import com.example.sass.component
 import com.example.sass.databinding.MainFragmentBinding
+import com.example.sass.presentation.screens.tabs.TabsFragmentDirections
 import com.example.sass.presentation.screens.tabs.main.models.MainEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainState
 import com.example.sass.presentation.screens.tabs.main.recycler.PicturesMainAdapter
@@ -219,9 +220,8 @@ class MainFragment : Fragment() {
 
     private fun setPicturesItemClickListener() {
         picturesMainAdapter.onPictureClickListener = { pictureId ->
-            val direction =
-                MainFragmentDirections.actionMainTabFragmentToPictureDetailFragment(pictureId)
-            findNavController().navigate(direction)
+            val direction = TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
+            getRootNavController().navigate(direction)
         }
     }
 }
