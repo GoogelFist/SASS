@@ -4,16 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.screens.tabs.search.SearchFragment">
+        tools:context=".presentation.screens.tabs.main.search.SearchFragment">
 
     <ImageButton
             android:id="@+id/ib_search_popup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:foreground="?android:attr/selectableItemBackground"
             android:background="@color/main_screen_image_button_background"
             android:contentDescription="@string/content_description"
+            android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintBottom_toBottomOf="@id/text_input_layout_search"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,29 +26,107 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="9dp"
             android:layout_marginEnd="16dp"
-            android:hint="Поиск"
+            android:textColorHint="@color/search_hint_text_color"
+            app:boxBackgroundColor="@color/search_box_background_color"
             app:boxCornerRadiusBottomEnd="22dp"
             app:boxCornerRadiusBottomStart="22dp"
-            app:startIconDrawable="@drawable/ic_search_start_icon"
             app:boxCornerRadiusTopEnd="22dp"
             app:boxCornerRadiusTopStart="22dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
+            app:endIconDrawable="@drawable/ic_clear_text_end_icon"
+            app:endIconMode="clear_text"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ib_search_popup"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_input_text_search_start_icon">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text_search"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/search_hint_text"
+                android:imeOptions="actionNone"
+                android:lines="1"
+                android:maxLength="255"
+                android:maxLines="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="9dp"
+                android:singleLine="true"
+                android:textAppearance="@style/MontserratMedium.14.Black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="search tab fragment" />
+            android:layout_height="0dp"
+            android:paddingHorizontal="12dp"
+            android:layout_marginTop="19dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_search"
+            app:spanCount="2"
+            tools:listitem="@layout/main_post_item" />
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_init_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/ic_search_start" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/init_screen_text"
+                android:textAppearance="@style/MontserratRegular.14.Grey" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_empty_result_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/ic_sad_face" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/empty_result_screen_text"
+                android:textAppearance="@style/MontserratRegular.14.Grey" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

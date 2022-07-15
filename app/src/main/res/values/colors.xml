@@ -8,6 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="grey">#B0B0B0</color>
+    <color name="transparent">#00000000</color>
+
+
     <!--  sign in screen  -->
     <color name="edit_text_bottom_stroke_color">#12000000</color>
     <color name="edit_text_box_background_color">#FBFBFB</color>
@@ -53,4 +57,8 @@
     <color name="detail_title_text_color">@color/black</color>
     <color name="detail_publication_date_text_color">#B3B3B3</color>
 
+    <!--  Search screen  -->
+    <color name="search_hint_text_color">#B3B3B3</color>
+    <color name="search_text_color">@color/black</color>
+    <color name="search_box_background_color">#F5F5F5</color>
 </resources>

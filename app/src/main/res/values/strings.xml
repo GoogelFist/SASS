@@ -47,4 +47,9 @@
     <!--  favorite screen  -->
     <string name="favorite_title_text">Мои избранные</string>
 
+    <!--  search screen  -->
+    <string name="search_hint_text">Поиск</string>
+    <string name="init_screen_text">Введите ваш запрос</string>
+    <string name="empty_result_screen_text">По этому запросу нет результатов,\nпопробуйте другой запрос</string>
+
 </resources>

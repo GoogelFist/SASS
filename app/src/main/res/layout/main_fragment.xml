@@ -23,7 +23,7 @@
             android:background="@color/main_screen_image_button_background"
             android:contentDescription="@string/content_description"
             android:foreground="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_search"
+            android:src="@drawable/ic_search_main"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title_main"
             app:layout_constraintEnd_toEndOf="parent"

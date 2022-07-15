@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MontserratMedium" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <style name="MontserratMedium.14" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MontserratMedium.14.Black" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MontserratRegular" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="MontserratRegular.14" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MontserratRegular.14.Grey" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+
+</resources>
