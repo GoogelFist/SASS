@@ -16,24 +16,12 @@
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
-        <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="s">@color/transparent</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@color/transparent</item>
 
+        <item name="snackbarStyle"> @style/MaterialSnackbarTheme</item>
+        <item name="snackbarTextViewStyle"> @style/MaterialSnackbarTextViewTheme</item>
 
         <!-- Customize your theme here. -->
-    </style>
-
-
-    <style name="Widget.Button" parent="android:Widget">
-        <item name="android:background">@drawable/buttons_background</item>
-        <item name="fontFamily">@font/montserrat_semi_bold</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
-        <item name="android:paddingStart">19dp</item>
-        <item name="android:paddingTop">11dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingBottom">13dp</item>
     </style>
 
     <style name="TitleText">
@@ -54,16 +42,5 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/profile_second_text_color</item>
     </style>
-
-    <style name="ErrorSnackBar">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/snack_error_text_color</item>
-        <item name="android:paddingStart">24dp</item>
-        <item name="android:paddingEnd">24dp</item>
-        <item name="android:paddingTop">14dp</item>
-        <item name="android:paddingBottom">14dp</item>
-        <item name="android:background">@color/snack_error_background_color</item>
-    </style>
-
 
 </resources>

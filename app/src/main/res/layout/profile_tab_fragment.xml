@@ -166,7 +166,6 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
-            style="@style/ErrorSnackBar"
             android:id="@+id/tv_profile_error_snack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -196,7 +195,7 @@
 
     <Button
             android:id="@+id/button_sign_out"
-            style="@style/Widget.Button"
+            style="@style/Widget.ButtonTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

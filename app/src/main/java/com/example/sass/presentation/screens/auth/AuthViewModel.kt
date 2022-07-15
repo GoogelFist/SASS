@@ -4,10 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sass.data.BlankLoginException
-import com.example.sass.data.BlankPasswordException
-import com.example.sass.data.InvalidateLoginException
-import com.example.sass.data.InvalidatePasswordException
 import com.example.sass.domain.usecases.ClearUserDataUseCase
 import com.example.sass.domain.usecases.SingInUseCase
 import com.example.sass.presentation.screens.EventHandler
@@ -36,61 +32,46 @@ class AuthViewModel(
 
     private fun signedIn(login: String, password: String) {
 
-        viewModelScope.launch {
-            try {
-                setDefaultState()
-                _authState.value = AuthState.SigningIn
+        val isValidate = validate(login, password)
 
-                singInUseCase(login, password)
-                _authState.value = AuthState.SignedIn
-            } catch (error: Throwable) {
-                setDefaultState()
-                when (error) {
-                    is BlankLoginException -> blankLogin()
-                    is BlankPasswordException -> blankPassword()
-                    is InvalidateLoginException -> invalidatedLogin()
-                    is InvalidatePasswordException -> invalidatedPassword()
-                    else -> _authState.value = AuthState.SingInError
+        if (isValidate) {
+            val formattedLogin = AuthHelper.formatPhone(login)
+
+            viewModelScope.launch {
+                try {
+                    _authState.value = AuthState.SigningIn
+
+                    singInUseCase(formattedLogin, password)
+                    _authState.value = AuthState.SignedIn
+                } catch (error: Throwable) {
+                    _authState.value = AuthState.SingInError
                 }
             }
         }
-    }
-
-    private fun setDefaultState() {
-        _authState.value = AuthState.Default
-    }
-
-    private fun blankLogin() {
-        setDefaultPasswordErrorState()
-        _authState.value = AuthState.SingInLoginError(ErrorLoginSubState.IsBlank)
-    }
-
-    private fun blankPassword() {
-        setDefaultLoginErrorState()
-        _authState.value = AuthState.SingInPasswordError(ErrorPasswordSubState.IsBlank)
-    }
-
-    private fun invalidatedLogin() {
-        setDefaultPasswordErrorState()
-        _authState.value = AuthState.SingInLoginError(ErrorLoginSubState.Invalidate)
-    }
-
-    private fun invalidatedPassword() {
-        setDefaultLoginErrorState()
-        _authState.value = AuthState.SingInPasswordError(ErrorPasswordSubState.Invalidate)
-    }
-
-    private fun setDefaultLoginErrorState() {
-        _authState.value = AuthState.SingInLoginError(ErrorLoginSubState.Default)
-    }
-
-    private fun setDefaultPasswordErrorState() {
-        _authState.value = AuthState.SingInPasswordError(ErrorPasswordSubState.Default)
     }
 
     private fun clearedUserData() {
         viewModelScope.launch {
             clearUserDataUseCase()
         }
+    }
+
+    private fun validate(login: String, password: String): Boolean {
+        var validateErrorState = AuthState.SingInValidateError()
+
+        val loginErrSubState = AuthHelper.validateLogin(login)
+        val passwordErrSubState = AuthHelper.validatePassword(password)
+
+        if (loginErrSubState != ErrorLoginSubState.Default) {
+            validateErrorState = validateErrorState.copy(loginErrorSubState = loginErrSubState)
+        }
+        if (passwordErrSubState != ErrorPasswordSubState.Default) {
+            validateErrorState =
+                validateErrorState.copy(passwordErrorSubState = passwordErrSubState)
+        }
+
+        _authState.value = validateErrorState
+
+        return loginErrSubState == ErrorLoginSubState.Default && passwordErrSubState == ErrorPasswordSubState.Default
     }
 }

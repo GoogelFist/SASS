@@ -54,7 +54,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="9dp"
                 android:singleLine="true"
-                android:textAppearance="@style/MontserratMedium.14.Black" />
+                android:textAppearance="@style/Text.MontserratMedium.14.Black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,8 +62,8 @@
             android:id="@+id/recycler_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingHorizontal="12dp"
             android:layout_marginTop="19dp"
+            android:paddingHorizontal="12dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:text="@string/init_screen_text"
-                android:textAppearance="@style/MontserratRegular.14.Grey" />
+                android:textAppearance="@style/Text.MontserratRegular.14.Grey" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -125,7 +125,7 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:text="@string/empty_result_screen_text"
-                android:textAppearance="@style/MontserratRegular.14.Grey" />
+                android:textAppearance="@style/Text.MontserratRegular.14.Grey" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

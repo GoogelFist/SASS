@@ -1,103 +1,47 @@
 package com.example.sass.presentation.screens.auth
 
-import android.content.Context
-import android.content.res.ColorStateList
-import android.view.View
-import com.example.sass.R
-import com.example.sass.databinding.SingInFragmentBinding
-import com.google.android.material.textfield.TextInputLayout
+import com.example.sass.presentation.screens.auth.models.ErrorLoginSubState
+import com.example.sass.presentation.screens.auth.models.ErrorPasswordSubState
 
-class AuthHelper(private val binding: SingInFragmentBinding,private val context: Context) {
+object AuthHelper {
 
-    fun configSigningState() {
-        with(binding) {
-            tvErrorSnack.visibility = View.GONE
+    fun validateLogin(login: String): ErrorLoginSubState {
+        val regex = Regex(PATTERN)
 
-            textInputLayoutLogin.defaultHintTextColor = ColorStateList.valueOf(
-                context.getColor(R.color.edit_text_hint_color)
-            )
-            textInputLayoutPassword.defaultHintTextColor = ColorStateList.valueOf(
-                context.getColor(R.color.edit_text_hint_color)
-            )
+        return when {
+            login.isBlank() -> ErrorLoginSubState.IsBlank
 
-            buttonSignIn.text = null
-            buttonSignIn.isClickable = false
-
-            progressBarSignInButton.visibility = View.VISIBLE
-
-            textInputLayoutLogin.isEnabled = false
-            textInputLayoutLogin.error = null
-
-            textInputLayoutPassword.isEnabled = false
-            textInputLayoutPassword.error = null
+            !login.matches(regex) || login.length != LOGIN_LENGTH_CONSTRAINT -> {
+                ErrorLoginSubState.Invalidate
+            }
+            else -> ErrorLoginSubState.Default
         }
     }
 
-    fun configDefaultState() {
-        with(binding) {
-            tvErrorSnack.visibility = View.GONE
+    fun validatePassword(password: String): ErrorPasswordSubState {
+        return when {
+            password.isBlank() -> ErrorPasswordSubState.IsBlank
 
-            textInputLayoutLogin.defaultHintTextColor = ColorStateList.valueOf(
-                context.getColor(R.color.edit_text_hint_color)
-            )
-            textInputLayoutPassword.defaultHintTextColor = ColorStateList.valueOf(
-                context.getColor(R.color.edit_text_hint_color)
-            )
-
-            buttonSignIn.text = context.getText(R.string.button_sign_in_text)
-            buttonSignIn.isClickable = true
-
-            progressBarSignInButton.visibility = View.GONE
-
-            textInputLayoutLogin.isEnabled = true
-            textInputLayoutLogin.error = null
-
-            textInputLayoutPassword.isEnabled = true
-            textInputLayoutPassword.error = null
+            password.length !in PASSWORD_MIN_LENGTH_CONSTRAINT..PASSWORD_MAN_LENGTH_CONSTRAINT -> {
+                ErrorPasswordSubState.Invalidate
+            }
+            else -> ErrorPasswordSubState.Default
         }
     }
 
-    fun configSignInErrorState() {
-        with(binding) {
-            tvErrorSnack.visibility = View.VISIBLE
-
-            textInputLayoutLogin.defaultHintTextColor = ColorStateList.valueOf(
-                context.getColor(R.color.edit_text_error_hint_color)
-            )
-            textInputLayoutPassword.defaultHintTextColor = ColorStateList.valueOf(
-                context.getColor(R.color.edit_text_error_hint_color)
-            )
-
-            textInputLayoutLogin.boxStrokeErrorColor = ColorStateList.valueOf(
-                context.getColor(R.color.edit_text_error_bottom_stroke_color)
-            )
-            textInputLayoutPassword.boxStrokeErrorColor = ColorStateList.valueOf(
-                context.getColor(R.color.edit_text_error_bottom_stroke_color)
-            )
-
-            textInputLayoutPassword.error = EMPTY_STRING
-            textInputLayoutLogin.error = EMPTY_STRING
-
-            buttonSignIn.text = context.getText(R.string.button_sign_in_text)
-            buttonSignIn.isClickable = true
-
-            progressBarSignInButton.visibility = View.GONE
-
-            textInputLayoutLogin.isEnabled = true
-            textInputLayoutPassword.isEnabled = true
-        }
+    fun formatPhone(login: String): String {
+        val text = login.replace("[^\\d]".toRegex(), REPLACEMENT)
+        return "$PHONE_COUNTRY_CODE$text"
     }
 
-    fun configInitErrorState(textInputLayout: TextInputLayout) {
-        textInputLayout.defaultHintTextColor =
-            ColorStateList.valueOf(context.getColor(R.color.edit_text_hint_color))
-        textInputLayout.boxStrokeErrorColor = ColorStateList.valueOf(
-            context.getColor(R.color.edit_text_init_error_bottom_stroke_color)
-        )
-        textInputLayout.error = null
-    }
+    private const val PATTERN = "[+]?[78]?[() 0-9-]+"
 
-    companion object {
-        private const val EMPTY_STRING = " "
-    }
+    private const val LOGIN_LENGTH_CONSTRAINT = 16
+
+    private const val PASSWORD_MIN_LENGTH_CONSTRAINT = 6
+    private const val PASSWORD_MAN_LENGTH_CONSTRAINT = 255
+
+    private const val PHONE_COUNTRY_CODE = "+7"
+
+    private const val REPLACEMENT = ""
 }

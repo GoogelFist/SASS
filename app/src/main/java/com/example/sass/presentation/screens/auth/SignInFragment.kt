@@ -1,6 +1,7 @@
 package com.example.sass.presentation.screens.auth
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.example.sass.presentation.screens.auth.models.AuthEvent
 import com.example.sass.presentation.screens.auth.models.AuthState
 import com.example.sass.presentation.screens.auth.models.ErrorLoginSubState
 import com.example.sass.presentation.screens.auth.models.ErrorPasswordSubState
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class SignInFragment : Fragment() {
@@ -67,12 +69,10 @@ class SignInFragment : Fragment() {
     }
 
     private fun configLoginField() {
-        binding.textInputLayoutLogin.errorIconDrawable = null
         binding.editTextLogin.addTextChangedListener(LoginFormatTextWatcher(binding.editTextLogin))
     }
 
     private fun configPasswordField() {
-        binding.textInputLayoutPassword.errorIconDrawable = null
         configPasswordVisibleEndIcon()
         configPasswordTransformationText()
     }
@@ -136,59 +136,101 @@ class SignInFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        val authHelper = AuthHelper(binding, requireContext())
 
         viewModel.authState.observe(viewLifecycleOwner) { state ->
             when (state) {
-
-                AuthState.Default -> authHelper.configDefaultState()
-
-                AuthState.SigningIn -> authHelper.configSigningState()
-
+                AuthState.SigningIn -> configSignInState()
                 AuthState.SignedIn -> navigateToTabFragment()
-
-                AuthState.SingInError -> authHelper.configSignInErrorState()
-
-                is AuthState.SingInLoginError -> {
-                    when (state.subState) {
-                        ErrorLoginSubState.Default -> {
-                            authHelper.configInitErrorState(binding.textInputLayoutLogin)
-                        }
-
-                        ErrorLoginSubState.IsBlank -> {
-                            binding.textInputLayoutLogin.error =
-                                requireContext().getString(R.string.login_blank_error_text)
-                        }
-
-                        ErrorLoginSubState.Invalidate -> {
-                            binding.textInputLayoutLogin.error =
-                                requireContext().getString(R.string.login_wrong_format_error_text)
-                        }
-                    }
-                }
-
-                is AuthState.SingInPasswordError -> {
-                    when (state.subState) {
-                        ErrorPasswordSubState.Default -> {
-                            authHelper.configInitErrorState(binding.textInputLayoutPassword)
-                        }
-
-                        ErrorPasswordSubState.IsBlank -> {
-                            binding.textInputLayoutPassword.error =
-                                requireContext().getString(R.string.password_blank_error_text)
-                        }
-
-                        ErrorPasswordSubState.Invalidate -> {
-                            binding.textInputLayoutPassword.error =
-                                requireContext().getString(R.string.password_wrong_format_error_text)
-                        }
-                    }
-                }
+                AuthState.SingInError -> configSignInErrorState()
+                is AuthState.SingInValidateError -> configInValidateState(state)
             }
+        }
+    }
+
+    private fun configSignInState() {
+        with(binding) {
+            textInputLayoutLogin.error = null
+            textInputLayoutPassword.error = null
+
+            interfaceBlocker.visibility = View.VISIBLE
+
+            progressBarSignInButton.visibility = View.VISIBLE
+            buttonSignIn.text = null
+
+            textInputLayoutLogin.isErrorEnabled = false
+            textInputLayoutPassword.isErrorEnabled = false
         }
     }
 
     private fun navigateToTabFragment() {
         findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+    }
+
+    private fun configSignInErrorState() {
+        with(binding) {
+            textInputLayoutLogin.error = getString(R.string.empty_error_message)
+            textInputLayoutPassword.error = getString(R.string.empty_error_message)
+
+            textInputLayoutLogin.setErrorTextAppearance(R.style.Text_MontserratRegular_0_Error)
+            textInputLayoutPassword.setErrorTextAppearance(R.style.Text_MontserratRegular_0_Error)
+
+            textInputLayoutLogin.isErrorEnabled = true
+            textInputLayoutPassword.isErrorEnabled = true
+
+            interfaceBlocker.visibility = View.GONE
+
+            progressBarSignInButton.visibility = View.GONE
+            buttonSignIn.text = requireContext().getText(R.string.button_sign_in_text)
+
+            Snackbar.make(root, R.string.sign_in_error_text, Snackbar.LENGTH_LONG)
+                .setAnchorView(buttonSignIn).show()
+        }
+    }
+
+    private fun configInValidateState(state: AuthState.SingInValidateError) {
+        with(binding) {
+            textInputLayoutPassword.setErrorTextAppearance(R.style.Text_MontserratRegular_12)
+            textInputLayoutLogin.setErrorTextAppearance(R.style.Text_MontserratRegular_12)
+
+            textInputLayoutLogin.setErrorTextColor(
+                ColorStateList.valueOf(requireContext().getColor(R.color.edit_text_error_text_color))
+            )
+            textInputLayoutPassword.setErrorTextColor(
+                ColorStateList.valueOf(requireContext().getColor(R.color.edit_text_error_text_color))
+            )
+
+            textInputLayoutLogin.isErrorEnabled = true
+            textInputLayoutPassword.isErrorEnabled = true
+
+            when (state.loginErrorSubState) {
+                ErrorLoginSubState.IsBlank -> {
+                    textInputLayoutLogin.error =
+                        requireContext().getText(R.string.login_blank_error_text)
+                }
+                ErrorLoginSubState.Invalidate -> {
+                    textInputLayoutLogin.error =
+                        requireContext().getText(R.string.login_wrong_format_error_text)
+                }
+                ErrorLoginSubState.Default -> {
+                    textInputLayoutLogin.error = null
+                    textInputLayoutLogin.isErrorEnabled = false
+                }
+            }
+
+            when (state.passwordErrorSubState) {
+                ErrorPasswordSubState.IsBlank -> {
+                    textInputLayoutPassword.error =
+                        requireContext().getText(R.string.password_blank_error_text)
+                }
+                ErrorPasswordSubState.Invalidate -> {
+                    textInputLayoutPassword.error =
+                        requireContext().getText(R.string.password_wrong_format_error_text)
+                }
+                ErrorPasswordSubState.Default -> {
+                    textInputLayoutPassword.error = null
+                    textInputLayoutPassword.isErrorEnabled = false
+                }
+            }
+        }
     }
 }

@@ -8,13 +8,16 @@
     <string name="auth_title_text">Вход</string>
     <string name="login_hint_text">Логин</string>
     <string name="password_hint_text">Пароль</string>
-    <string name="error_login_empty_field">Поле не может быть пустым</string>
+
     <string name="login_blank_error_text">Поле не может быть пустым</string>
     <string name="login_wrong_format_error_text">Не верный формат номера телефона</string>
+
     <string name="password_blank_error_text">Поле не может быть пустым</string>
     <string name="password_wrong_format_error_text">Пароль должен быть от 6 до 255 символов</string>
 
     <string name="sign_in_error_text">Логин или пароль введен неправильно</string>
+
+    <string name="empty_error_message">\ \</string>
 
     <!--  bottom menu  -->
     <string name="bottom_menu_favorite_title">Избранное</string>
@@ -51,5 +54,6 @@
     <string name="search_hint_text">Поиск</string>
     <string name="init_screen_text">Введите ваш запрос</string>
     <string name="empty_result_screen_text">По этому запросу нет результатов,\nпопробуйте другой запрос</string>
+
 
 </resources>

@@ -95,7 +95,6 @@
 
     <TextView
             android:id="@+id/tv_error_snack"
-            style="@style/ErrorSnackBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
@@ -110,7 +109,7 @@
 
     <Button
             android:id="@+id/button_try_again"
-            style="@style/Widget.Button"
+            style="@style/Widget.ButtonTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

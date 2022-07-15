@@ -10,43 +10,33 @@
 
     <TextView
             android:id="@+id/tv_title_sign_in"
-            style="@style/TitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="14dp"
             android:text="@string/auth_title_text"
+            android:textAppearance="@style/Text.MontserratSemiBold.24.Black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_login"
+            style="@style/DefaultTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="45dp"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/montserrat_medium"
             android:hint="@string/login_hint_text"
-            android:textColor="@color/edit_text_text_color"
-            android:textColorHint="@color/edit_text_hint_color"
-            android:textSize="16sp"
-            app:boxBackgroundColor="@color/edit_text_box_background_color"
-            app:boxCollapsedPaddingTop="8dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:boxStrokeColor="@color/edit_text_bottom_stroke_color"
-            app:boxStrokeErrorColor="@color/edit_text_init_error_bottom_stroke_color"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:errorEnabled="true"
-            app:errorTextColor="@color/edit_text_error_text_color"
-            app:hintTextColor="@color/edit_text_hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_sign_in"
-            app:prefixText="+7">
+            app:prefixText="+7"
+            app:prefixTextColor="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_login"
+                style="@style/DefaultTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:digits="0123456789"
@@ -55,51 +45,35 @@
                 android:maxLength="16"
                 android:nextFocusDown="@id/text_input_layout_password"
                 android:paddingStart="18dp"
-                android:paddingTop="27.5dp"
                 android:paddingEnd="18dp"
-                android:paddingBottom="7.8dp"
                 tools:text="(999) 123 45 67" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_password"
+            style="@style/DefaultTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:fontFamily="@font/montserrat_medium"
             android:hint="@string/password_hint_text"
-            android:textColor="@color/edit_text_text_color"
-            android:textColorHint="@color/edit_text_hint_color"
-            android:textSize="16sp"
-            app:boxBackgroundColor="@color/edit_text_box_background_color"
-            app:boxCollapsedPaddingTop="8dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:boxStrokeColor="@color/edit_text_bottom_stroke_color"
-            app:boxStrokeErrorColor="@color/edit_text_init_error_bottom_stroke_color"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="0dp"
             app:endIconDrawable="@drawable/ic_show_password"
             app:endIconMode="custom"
-            app:errorEnabled="true"
-            app:errorTextColor="@color/edit_text_error_text_color"
-            app:hintTextColor="@color/edit_text_hint_color"
+            app:errorEnabled="false"
             app:layout_constraintEnd_toEndOf="@id/text_input_layout_login"
             app:layout_constraintStart_toStartOf="@id/text_input_layout_login"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_login">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_password"
+                style="@style/DefaultTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:maxLength="255"
                 android:paddingStart="18dp"
-                android:paddingTop="27.5dp"
                 android:paddingEnd="18dp"
-                android:paddingBottom="7.8dp"
                 tools:text="qwerty" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -113,22 +87,6 @@
             app:layout_constraintBottom_toTopOf="@+id/button_sign_in"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
-
-    <TextView
-            android:id="@+id/tv_error_snack"
-            style="@style/ErrorSnackBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/snack_error_background_color"
-            android:fontFamily="@font/montserrat_medium"
-            android:gravity="center"
-            android:text="@string/sign_in_error_text"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/button_sign_in"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
             android:id="@+id/progress_bar_sign_in_button"
@@ -145,7 +103,7 @@
 
     <Button
             android:id="@+id/button_sign_in"
-            style="@style/Widget.Button"
+            style="@style/Widget.ButtonTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -155,5 +113,14 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+            android:id="@+id/interface_blocker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:elevation="3dp"
+            android:focusable="true"
+            android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
