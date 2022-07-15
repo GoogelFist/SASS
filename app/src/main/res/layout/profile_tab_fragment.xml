@@ -8,10 +8,12 @@
 
     <TextView
             android:id="@+id/tv_title_profile"
-            style="@style/TitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="14dp"
             android:text="@string/profile_title_text"
+            android:textAppearance="@style/Text.MontserratSemiBold.24.Black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,28 +41,27 @@
 
         <TextView
                 android:id="@+id/tv_first_name"
-                style="@style/ProfileMainText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/Text.MontserratMedium.18.Black"
                 tools:text="Александра" />
 
         <TextView
                 android:id="@+id/tv_last_name"
-                style="@style/ProfileMainText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/Text.MontserratMedium.18.Black"
                 tools:text="Новикова" />
 
     </LinearLayout>
 
     <TextView
             android:id="@+id/tv_about"
-            style="@style/ProfileSecondText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="32dp"
-            android:fontFamily="@font/montserrat_light_italic"
+            android:textAppearance="@style/Text.MontserratLightItalic.12.Nobel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/block_name"
             app:layout_constraintTop_toBottomOf="@+id/block_name"
@@ -75,29 +76,30 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_avatar">
 
         <TextView
-                style="@style/ProfileSecondText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/profile_city_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title_profile" />
+                android:textAppearance="@style/Text.MontserratRegular.12.Nobel" />
 
         <TextView
                 android:id="@+id/tv_city"
-                style="@style/ProfileMainText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginBottom="17dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title_profile"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/Text.MontserratRegular.18.Black"
                 tools:text="Санкт-Петербург" />
 
+        <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:dividerColor="@color/black_04" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/block_phone"
@@ -108,27 +110,27 @@
             tools:layout_editor_absoluteX="15dp">
 
         <TextView
-                style="@style/ProfileSecondText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/profile_phone_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title_profile" />
+                android:textAppearance="@style/Text.MontserratRegular.12.Nobel" />
 
         <TextView
                 android:id="@+id/tv_phone"
-                style="@style/ProfileMainText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginBottom="17dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title_profile"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/Text.MontserratRegular.18.Black"
                 tools:text="+ 7 (961) 187 17 44" />
+
+        <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:dividerColor="@color/black_04" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -141,44 +143,29 @@
             tools:layout_editor_absoluteX="15dp">
 
         <TextView
-                style="@style/ProfileSecondText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_regular"
                 android:text="@string/profile_email_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title_profile" />
+                android:textAppearance="@style/Text.MontserratRegular.12.Nobel" />
 
         <TextView
                 android:id="@+id/tv_email"
-                style="@style/ProfileMainText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginBottom="17dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title_profile"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/Text.MontserratRegular.18.Black"
                 tools:text="alexandra@surfstudio.ru" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:dividerColor="@color/black_04" />
 
-    <TextView
-            android:id="@+id/tv_profile_error_snack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/snack_error_background_color"
-            android:fontFamily="@font/montserrat_medium"
-            android:gravity="center"
-            android:text="@string/sign_out_error_text"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/button_sign_out"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <ProgressBar
             android:id="@+id/progress_bar_sign_out_button"

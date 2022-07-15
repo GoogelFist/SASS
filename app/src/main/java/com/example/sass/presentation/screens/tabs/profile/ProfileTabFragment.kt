@@ -19,6 +19,7 @@ import com.example.sass.domain.models.UserInfo
 import com.example.sass.presentation.screens.tabs.SingleDialogFragment
 import com.example.sass.presentation.screens.tabs.profile.models.ProfileEvent
 import com.example.sass.presentation.screens.tabs.profile.models.ProfileState
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class ProfileTabFragment : Fragment() {
@@ -51,6 +52,8 @@ class ProfileTabFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.obtainEvent(ProfileEvent.OnInit)
 
         configButton()
         observeUserInfoViewModel()
@@ -135,14 +138,12 @@ class ProfileTabFragment : Fragment() {
     private fun configDefaultState() {
         binding.buttonSignOut.text =
             requireContext().getText(R.string.button_sign_out_text)
-        binding.tvProfileErrorSnack.visibility = View.GONE
         binding.progressBarSignOutButton.visibility = View.GONE
         binding.buttonSignOut.isClickable = true
     }
 
     private fun configSigningOutState() {
         binding.buttonSignOut.text = null
-        binding.tvProfileErrorSnack.visibility = View.GONE
         binding.progressBarSignOutButton.visibility = View.VISIBLE
         binding.buttonSignOut.isClickable = false
     }
@@ -150,10 +151,12 @@ class ProfileTabFragment : Fragment() {
     private fun configErrorState() {
         binding.buttonSignOut.text =
             requireContext().getText(R.string.button_sign_out_text)
-        binding.tvProfileErrorSnack.visibility = View.VISIBLE
         binding.progressBarSignOutButton.visibility = View.GONE
 
         binding.buttonSignOut.isClickable = true
+
+        Snackbar.make(binding.root, R.string.sign_out_error_text, Snackbar.LENGTH_LONG)
+            .setAnchorView(binding.buttonSignOut).show()
     }
 
     private fun navigateToSignInFragment() {

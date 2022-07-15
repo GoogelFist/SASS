@@ -11,8 +11,8 @@
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="hintTextAppearance">@style/Text.MontserratMedium.12</item>
-        <item name="hintTextColor">@color/grey</item>
-        <item name="android:textColorHint">@color/grey</item>
+        <item name="hintTextColor">@color/edit_text_hint_color</item>
+        <item name="android:textColorHint">@color/edit_text_hint_color</item>
         <item name="errorEnabled">false</item>
         <item name="errorIconDrawable">@null</item>
         <item name="errorTextColor">@color/edit_text_error_text_color</item>
@@ -31,6 +31,8 @@
 
     <style name="MaterialSnackbarTextViewTheme" parent="Widget.MaterialComponents.Snackbar.TextView">
         <item name="android:textAppearance">@style/Text.MontserratMedium.14.White</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
     <style name="Widget.ButtonTheme" parent="android:Widget">
