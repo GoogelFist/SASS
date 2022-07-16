@@ -23,6 +23,8 @@
             android:layout_height="wrap_content"
             app:itemTextColor="@color/bottom_nav_items"
             app:itemIconTint="@color/bottom_nav_items"
+            app:itemTextAppearanceActive="@style/Text.MontserratSemiBold.10"
+            app:itemTextAppearanceInactive="@style/Text.MontserratSemiBold.10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
