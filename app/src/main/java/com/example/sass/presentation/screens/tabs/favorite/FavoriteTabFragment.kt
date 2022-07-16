@@ -15,6 +15,7 @@ import com.example.sass.databinding.FavoriteTabFragmentBinding
 import com.example.sass.presentation.screens.tabs.SingleDialogFragment
 import com.example.sass.presentation.screens.tabs.TabsFragmentDirections
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteEvent
+import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteScrollState
 import com.example.sass.presentation.screens.tabs.favorite.recycler.FavoritePicsAdapter
 import javax.inject.Inject
 
@@ -32,6 +33,9 @@ class FavoriteTabFragment : Fragment() {
     }
 
     lateinit var favoritePicsAdapter: FavoritePicsAdapter
+
+    private var isAddedFavorite = false
+    private var isRemovedFavorite = false
 
     override fun onAttach(context: Context) {
         context.component.inject(this)
@@ -73,7 +77,34 @@ class FavoriteTabFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.favoritePicItems.observe(viewLifecycleOwner) {
-            favoritePicsAdapter.submitList(it)
+            favoritePicsAdapter.submitList(it) {
+
+                if (isAddedFavorite) {
+                    binding.recyclerFavorite.scrollToPosition(TOP_RECYCLER_POSITION)
+                    viewModel.obtainEvent(FavoriteEvent.OnSetDefaultScrollState)
+                }
+                if (isRemovedFavorite) {
+                    binding.recyclerFavorite.scrollToPosition(TOP_RECYCLER_POSITION)
+                    viewModel.obtainEvent(FavoriteEvent.OnSetDefaultScrollState)
+                }
+            }
+
+            viewModel.scrollState.observe(viewLifecycleOwner) { state ->
+                when (state) {
+                    FavoriteScrollState.AddedFavorite -> {
+                        isAddedFavorite = true
+                        isRemovedFavorite = false
+                    }
+                    FavoriteScrollState.RemovedFavorite -> {
+                        isAddedFavorite = false
+                        isRemovedFavorite = true
+                    }
+                    FavoriteScrollState.Default -> {
+                        isAddedFavorite = false
+                        isRemovedFavorite = false
+                    }
+                }
+            }
         }
     }
 
@@ -98,7 +129,8 @@ class FavoriteTabFragment : Fragment() {
 
     private fun setPicturesItemClickListener() {
         favoritePicsAdapter.onPictureClickListener = { pictureId ->
-            val direction = TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
+            val direction =
+                TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
             getRootNavController().navigate(direction)
         }
     }
@@ -108,5 +140,9 @@ class FavoriteTabFragment : Fragment() {
             .supportFragmentManager
             .findFragmentById(R.id.fragmentContainer) as NavHostFragment
         return navHost.navController
+    }
+
+    companion object {
+        private const val TOP_RECYCLER_POSITION = 0
     }
 }
