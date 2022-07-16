@@ -28,18 +28,12 @@
 
     <color name="snack_error_background_color">@color/coral_red</color>
 
-
     <!--  tabs bottom menu  -->
     <color name="active_item_color">@color/black</color>
     <color name="in_active_item_color">#B0B0B0</color>
 
     <!--  profile screen  -->
     <color name="profile_second_text_color">#B3B3B3</color>
-
-    <!--  main screen  -->
-    <color name="main_post_item_text_color">@color/black</color>
-    <color name="main_screen_image_button_background">#00000000</color>
-    <color name="main_load_error_text_color">#B0B0B0</color>
 
     <!--  favorite screen  -->
     <color name="favorite_publication_date_text_color">#B3B3B3</color>

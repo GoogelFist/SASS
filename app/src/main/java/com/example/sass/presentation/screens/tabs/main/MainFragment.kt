@@ -2,9 +2,11 @@ package com.example.sass.presentation.screens.tabs.main
 
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -17,6 +19,8 @@ import com.example.sass.presentation.screens.tabs.TabsFragmentDirections
 import com.example.sass.presentation.screens.tabs.main.models.MainEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainState
 import com.example.sass.presentation.screens.tabs.main.recycler.PicturesMainAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
@@ -52,7 +56,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.obtainEvent(MainEvent.OnUpdateData)
+        initFragment()
 
         observeViewModel()
         setupRecycler()
@@ -66,6 +70,11 @@ class MainFragment : Fragment() {
         super.onDestroyView()
         binding.recyclerMain.adapter = null
         _binding = null
+    }
+
+    private fun initFragment() {
+        viewModel.obtainEvent(MainEvent.OnUpdateData)
+        viewModel.obtainEvent(MainEvent.OnInit)
     }
 
     private fun observeViewModel() {
@@ -96,7 +105,6 @@ class MainFragment : Fragment() {
             progressBarMainScreen.visibility = View.VISIBLE
             llMainErrorMessage.visibility = View.GONE
             buttonTryAgain.visibility = View.GONE
-            tvErrorSnack.visibility = View.GONE
         }
     }
 
@@ -107,7 +115,6 @@ class MainFragment : Fragment() {
             progressBarMainScreen.visibility = View.GONE
             llMainErrorMessage.visibility = View.VISIBLE
             buttonTryAgain.visibility = View.VISIBLE
-            tvErrorSnack.visibility = View.GONE
         }
     }
 
@@ -122,37 +129,6 @@ class MainFragment : Fragment() {
             progressBarMainScreen.visibility = View.GONE
             llMainErrorMessage.visibility = View.GONE
             buttonTryAgain.visibility = View.GONE
-            tvErrorSnack.visibility = View.GONE
-        }
-    }
-
-    private fun configErrorRefreshState() {
-        with(binding) {
-            ibSearchMain.visibility = View.VISIBLE
-
-            swipeRefreshLayout.visibility = View.VISIBLE
-            swipeRefreshLayout.isEnabled = true
-            swipeRefreshLayout.isRefreshing = false
-
-            progressBarMainScreen.visibility = View.GONE
-            llMainErrorMessage.visibility = View.GONE
-            buttonTryAgain.visibility = View.GONE
-            tvErrorSnack.visibility = View.VISIBLE
-        }
-    }
-
-    private fun configEmptyListState() {
-        with(binding) {
-            ibSearchMain.visibility = View.GONE
-
-            swipeRefreshLayout.visibility = View.VISIBLE
-            swipeRefreshLayout.isEnabled = false
-            swipeRefreshLayout.isRefreshing = false
-
-            progressBarMainScreen.visibility = View.GONE
-            llMainErrorMessage.visibility = View.GONE
-            buttonTryAgain.visibility = View.GONE
-            tvErrorSnack.visibility = View.GONE
         }
     }
 
@@ -167,7 +143,26 @@ class MainFragment : Fragment() {
             progressBarMainScreen.visibility = View.GONE
             llMainErrorMessage.visibility = View.GONE
             buttonTryAgain.visibility = View.GONE
-            tvErrorSnack.visibility = View.GONE
+        }
+    }
+
+    private fun configErrorRefreshState() {
+        configLoadedState()
+
+        getErrorSnackBar().show()
+    }
+
+    private fun configEmptyListState() {
+        with(binding) {
+            ibSearchMain.visibility = View.GONE
+
+            swipeRefreshLayout.visibility = View.GONE
+            swipeRefreshLayout.isEnabled = false
+            swipeRefreshLayout.isRefreshing = false
+
+            progressBarMainScreen.visibility = View.GONE
+            llMainErrorMessage.visibility = View.GONE
+            buttonTryAgain.visibility = View.GONE
         }
     }
 
@@ -201,6 +196,24 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun getErrorSnackBar(): Snackbar {
+        val bottomNav = requireActivity()
+            .findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        val snack = Snackbar
+            .make(binding.root, R.string.main_refresh_error_text, Snackbar.LENGTH_LONG)
+            .setAnchorView(bottomNav)
+        val textView = snack.view
+            .findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+
+        textView.gravity = Gravity.START
+        textView.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
+        textView.setTextAppearance(R.style.Text_RobotoRegular_14_White)
+        textView.lineHeight = resources.getDimensionPixelSize(R.dimen.main_snack_line_height)
+
+        return snack
+    }
+
     private fun setupSwipeRefreshLayout() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.obtainEvent(MainEvent.OnRefresh)
@@ -220,7 +233,8 @@ class MainFragment : Fragment() {
 
     private fun setPicturesItemClickListener() {
         picturesMainAdapter.onPictureClickListener = { pictureId ->
-            val direction = TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
+            val direction =
+                TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
             getRootNavController().navigate(direction)
         }
     }

@@ -8,10 +8,12 @@
 
     <TextView
             android:id="@+id/tv_title_main"
-            style="@style/TitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="14dp"
             android:text="@string/main_title_text"
+            android:textAppearance="@style/Text.MontserratSemiBold.24.Black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:background="@color/main_screen_image_button_background"
+            android:background="@color/transparent"
             android:contentDescription="@string/content_description"
             android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_search_main"
@@ -83,29 +85,13 @@
                 android:src="@drawable/ic_sad_face" />
 
         <TextView
-                android:id="@+id/tv_main_error_load_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
                 android:gravity="center"
                 android:text="@string/main_load_error_text"
-                android:textColor="@color/main_load_error_text_color" />
+                android:textAppearance="@style/Text.MontserratRegular.14.SilverChalice" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <TextView
-            android:id="@+id/tv_error_snack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="start"
-            android:text="@string/main_refresh_error_text"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
     <Button
             android:id="@+id/button_try_again"

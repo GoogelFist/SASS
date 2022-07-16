@@ -13,6 +13,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="Text.MontserratMedium.12.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="Text.MontserratMedium.14">
         <item name="android:textSize">14sp</item>
     </style>
@@ -127,6 +131,14 @@
 
     <style name="Text.RobotoRegular">
         <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Text.RobotoRegular.14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Text.RobotoRegular.14.White">
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Text.RobotoRegular.16">
