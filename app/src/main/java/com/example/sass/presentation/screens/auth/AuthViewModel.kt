@@ -35,7 +35,7 @@ class AuthViewModel(
         val isValidate = validate(login, password)
 
         if (isValidate) {
-            val formattedLogin = AuthHelper.formatPhone(login)
+            val formattedLogin = AuthStringUtils.formatPhone(login)
 
             viewModelScope.launch {
                 try {
@@ -59,8 +59,8 @@ class AuthViewModel(
     private fun validate(login: String, password: String): Boolean {
         var validateErrorState = AuthState.SingInValidateError()
 
-        val loginErrSubState = AuthHelper.validateLogin(login)
-        val passwordErrSubState = AuthHelper.validatePassword(password)
+        val loginErrSubState = AuthValidator.validateLogin(login)
+        val passwordErrSubState = AuthValidator.validatePassword(password)
 
         if (loginErrSubState != ErrorLoginSubState.Default) {
             validateErrorState = validateErrorState.copy(loginErrorSubState = loginErrSubState)
