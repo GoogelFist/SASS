@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:background="@color/main_screen_image_button_background"
+            android:background="@color/transparent"
             android:contentDescription="@string/content_description"
             android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_arrow_back"
@@ -26,7 +26,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="9dp"
             android:layout_marginEnd="16dp"
-            android:textColorHint="@color/search_hint_text_color"
             app:boxBackgroundColor="@color/search_box_background_color"
             app:boxCornerRadiusBottomEnd="22dp"
             app:boxCornerRadiusBottomStart="22dp"
@@ -37,6 +36,7 @@
             app:endIconDrawable="@drawable/ic_clear_text_end_icon"
             app:endIconMode="clear_text"
             app:hintEnabled="false"
+            app:hintTextAppearance="@style/Text.MontserratMedium.14.Nobel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ib_search_popup"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,6 +46,7 @@
                 android:id="@+id/text_input_edit_text_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="-10dp"
                 android:hint="@string/search_hint_text"
                 android:imeOptions="actionNone"
                 android:lines="1"
@@ -54,7 +55,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="9dp"
                 android:singleLine="true"
-                android:textAppearance="@style/Text.MontserratMedium.14.Black" />
+                android:textAppearance="@style/Text.MontserratMedium.14.Black"
+                tools:text="sd" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +99,7 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:text="@string/init_screen_text"
-                android:textAppearance="@style/Text.MontserratRegular.14.Grey" />
+                android:textAppearance="@style/Text.MontserratRegular.14.SilverChalice" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -125,7 +127,7 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:text="@string/empty_result_screen_text"
-                android:textAppearance="@style/Text.MontserratRegular.14.Grey" />
+                android:textAppearance="@style/Text.MontserratRegular.14.SilverChalice" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -37,6 +37,10 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Text.MontserratMedium.14.Nobel">
+        <item name="android:textColor">@color/nobel</item>
+    </style>
+
     <style name="Text.MontserratMedium.16">
         <item name="android:textSize">16sp</item>
     </style>
