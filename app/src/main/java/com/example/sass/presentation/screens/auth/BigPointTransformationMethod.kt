@@ -22,6 +22,6 @@ class BigPointTransformationMethod: PasswordTransformationMethod() {
     }
 
     companion object {
-        private const val PASSWORD_MASK = '⚫'
+        private const val PASSWORD_MASK = '⬤' //U+2B24
     }
 }

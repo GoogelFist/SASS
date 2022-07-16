@@ -74,7 +74,7 @@ class SignInFragment : Fragment() {
 
     private fun configPasswordField() {
         configPasswordVisibleEndIcon()
-        configPasswordTransformationText()
+        AuthHelper.configPasswordTransformationText(binding)
     }
 
 
@@ -84,39 +84,6 @@ class SignInFragment : Fragment() {
         binding.editTextPassword.doOnTextChanged { text, _, _, _ ->
             text?.let {
                 binding.textInputLayoutPassword.isEndIconVisible = it.isNotEmpty()
-            }
-        }
-    }
-
-    private fun configPasswordTransformationText() {
-        with(binding) {
-            editTextPassword.transformationMethod = BigPointTransformationMethod()
-
-            textInputLayoutPassword.setEndIconOnClickListener {
-                if (editTextPassword.transformationMethod is BigPointTransformationMethod) {
-
-                    editTextPassword.transformationMethod = null
-
-                    textInputLayoutPassword.endIconDrawable =
-                        requireContext().getDrawable(R.drawable.ic_hide_password)
-
-                    editTextPassword.text?.let { text ->
-                        if (text.isNotEmpty()) {
-                            editTextPassword.setSelection(text.length)
-                        }
-                    }
-                } else {
-                    editTextPassword.transformationMethod = BigPointTransformationMethod()
-
-                    textInputLayoutPassword.endIconDrawable =
-                        requireContext().getDrawable(R.drawable.ic_show_password)
-
-                    editTextPassword.text?.let { text ->
-                        if (text.isNotEmpty()) {
-                            editTextPassword.setSelection(text.length)
-                        }
-                    }
-                }
             }
         }
     }
