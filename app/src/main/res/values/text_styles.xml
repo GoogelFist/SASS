@@ -9,6 +9,14 @@
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 
+    <style name="Text.MontserratMedium.10">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Text.MontserratMedium.10.Nobel">
+        <item name="android:textColor">@color/nobel</item>
+    </style>
+
     <style name="Text.MontserratMedium.12">
         <item name="android:textSize">12sp</item>
     </style>
@@ -49,7 +57,7 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-<!--  MontserratLightItalic  -->
+    <!--  MontserratLightItalic  -->
 
     <style name="Text.MontserratLightItalic">
         <item name="android:fontFamily">@font/montserrat_light_italic</item>
@@ -83,6 +91,10 @@
 
     <style name="Text.MontserratRegular.12.Nobel">
         <item name="android:textColor">@color/nobel</item>
+    </style>
+
+    <style name="Text.MontserratRegular.12.Black">
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Text.MontserratRegular.12.Error">

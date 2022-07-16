@@ -8,10 +8,12 @@
 
     <TextView
             android:id="@+id/tv_title_favorite"
-            style="@style/TitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="14dp"
             android:text="@string/favorite_title_text"
+            android:textAppearance="@style/Text.MontserratSemiBold.24.Black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
