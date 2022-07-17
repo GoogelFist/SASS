@@ -2,7 +2,7 @@ package com.example.sass.presentation.screens.tabs.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sass.domain.RemovePictureItemFromFavoriteUseCase
+import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.domain.usecases.GetFavoritesPicturesItemsUseCase
 import javax.inject.Inject
 

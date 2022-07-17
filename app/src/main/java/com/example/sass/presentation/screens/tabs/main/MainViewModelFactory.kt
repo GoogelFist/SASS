@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sass.domain.usecases.AddPictureItemToFavoriteUseCase
 import com.example.sass.domain.usecases.GetPicturesItemsUseCase
 import com.example.sass.domain.usecases.LoadPicturesItemsUseCase
-import com.example.sass.domain.RemovePictureItemFromFavoriteUseCase
+import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import javax.inject.Inject
 
 class MainViewModelFactory @Inject constructor(

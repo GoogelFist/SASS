@@ -2,7 +2,7 @@ package com.example.sass.presentation.screens.tabs.main.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sass.domain.RemovePictureItemFromFavoriteUseCase
+import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.domain.usecases.AddPictureItemToFavoriteUseCase
 import com.example.sass.domain.usecases.SearchPicturesItemsUseCase
 import javax.inject.Inject

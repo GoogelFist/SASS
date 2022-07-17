@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sass.domain.RemovePictureItemFromFavoriteUseCase
+import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.domain.models.FavoritePicItem
 import com.example.sass.domain.usecases.GetFavoritesPicturesItemsUseCase
 import com.example.sass.presentation.screens.EventHandler

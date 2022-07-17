@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sass.data.IncorrectTokenException
-import com.example.sass.domain.RemovePictureItemFromFavoriteUseCase
+import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.domain.models.PicturesItem
 import com.example.sass.domain.usecases.AddPictureItemToFavoriteUseCase
 import com.example.sass.domain.usecases.GetPicturesItemsUseCase
