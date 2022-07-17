@@ -4,15 +4,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="300dp"
-        android:minHeight="140dp">
+        android:minHeight="140dp"
+        android:padding="8dp">
 
     <TextView
             android:id="@+id/tv_title_sign_out_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="23dp"
             android:gravity="start"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="15dp"
             android:text="@string/dialog_sign_out_message_text"
             android:textAppearance="@style/Text.RobotoRegular.16.Black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -23,24 +24,23 @@
             android:id="@+id/button_positive_sign_out_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="18dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="10dp"
             android:text="@string/dialog_pos_button_text"
             android:textAllCaps="true"
             android:textAppearance="@style/Text.RobotoMedium.14.Black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_goneMarginTop="38dp" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
             android:id="@+id/button_negative_sign_out_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="10dp"
             android:text="@string/dialog_neg_button_text"
             android:textAllCaps="true"
             android:textAppearance="@style/Text.RobotoMedium.14.Black"
-            app:layout_constraintBottom_toBottomOf="@id/button_positive_sign_out_dialog"
             app:layout_constraintEnd_toStartOf="@id/button_positive_sign_out_dialog"
             app:layout_constraintTop_toTopOf="@id/button_positive_sign_out_dialog" />
 
