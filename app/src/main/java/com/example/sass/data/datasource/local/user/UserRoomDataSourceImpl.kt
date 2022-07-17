@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class UserRoomDataSourceImpl @Inject constructor(
     private val userDao: UserDao,
-    private val userMapper: UserMapper
+    private val mapper: UserMapper
 ) : UserLocalDataSource {
 
     override suspend fun saveUserInfo(userInfoDao: UserInfoDao) {
@@ -17,7 +17,7 @@ class UserRoomDataSourceImpl @Inject constructor(
     override suspend fun loadUserInfo(): UserInfo {
         val userDao = userDao.loadUserInfo(USER_DB_ID)
         userDao?.let { userInfoDao ->
-            return userMapper.mapUserInfoDaoToUserInfo(userInfoDao)
+            return mapper.mapUserInfoDaoToUserInfo(userInfoDao)
         }
         return UserInfo()
     }

@@ -29,7 +29,7 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
                     editedFlag = true
 
                     val ans = buildString {
-                        formatFirstPartPhone(phone)
+                        formatPhoneCode(phone)
                         formatSecondPartPhone(phone)
                         formatThirdPartPhone(phone)
                         append(phone.substring(INDEX_THIRD_PATH_PHONE_NUMBER))
@@ -42,7 +42,7 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
                     editedFlag = true
 
                     val ans = buildString {
-                        formatFirstPartPhone(phone)
+                        formatPhoneCode(phone)
                         formatSecondPartPhone(phone)
                         append(phone.substring(INDEX_SECOND_PATH_PHONE_NUMBER))
                     }
@@ -55,7 +55,7 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
                     editedFlag = true
 
                     val ans = buildString {
-                        formatFirstPartPhone(phone)
+                        formatPhoneCode(phone)
                         append(phone.substring(INDEX_FIRST_PATH_PHONE_NUMBER))
                     }
 
@@ -68,7 +68,7 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
         }
     }
 
-    private fun StringBuilder.formatFirstPartPhone(phone: String) {
+    private fun StringBuilder.formatPhoneCode(phone: String) {
         append(phone.substring(INDEX_PHONE_CODE, INDEX_FIRST_PATH_PHONE_NUMBER))
         append(FIRST_PART_POSTFIX)
     }

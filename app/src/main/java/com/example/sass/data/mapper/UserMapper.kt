@@ -29,7 +29,36 @@ class UserMapper @Inject constructor() {
             firstName = userInfoDao.firstName,
             id = userInfoDao.id,
             lastName = userInfoDao.lastName,
-            phone = userInfoDao.phone
+            phone = formatUserPhone(userInfoDao.phone)
         )
+    }
+
+    private fun formatUserPhone(phone: String): String {
+        val string = phone.replace("[^\\d+]".toRegex(), EMPTY_REPLACEMENT)
+
+        if (string.length != PHONE_LENGTH) return phone
+
+        val phoneCodeRange = (2..4)
+        val secondPartRange = (5..7)
+        val thirdPartRange = (8..9)
+        val lastPartRange = (10 until PHONE_LENGTH)
+
+        return buildString {
+            append("+ $COUNTRY_CODE (")
+            append(string.substring(phoneCodeRange))
+            append(") ")
+            append(string.substring(secondPartRange))
+            append(" ")
+            append(string.substring(thirdPartRange))
+            append(" ")
+            append(string.substring(lastPartRange))
+        }
+    }
+
+    companion object {
+        private const val EMPTY_REPLACEMENT = ""
+
+        private const val COUNTRY_CODE = "7"
+        private const val PHONE_LENGTH = 12
     }
 }
