@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sass.R
 import com.example.sass.component
-import com.example.sass.databinding.SingInFragmentBinding
+import com.example.sass.databinding.AuthFragmentBinding
 import com.example.sass.presentation.screens.auth.models.AuthEvent
 import com.example.sass.presentation.screens.auth.models.AuthState
 import com.example.sass.presentation.screens.auth.models.ErrorLoginSubState
@@ -20,10 +20,10 @@ import com.example.sass.presentation.screens.auth.models.ErrorPasswordSubState
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
-class SignInFragment : Fragment() {
+class AuthFragment : Fragment() {
 
-    private var _binding: SingInFragmentBinding? = null
-    private val binding: SingInFragmentBinding
+    private var _binding: AuthFragmentBinding? = null
+    private val binding: AuthFragmentBinding
         get() = _binding!!
 
     @Inject
@@ -44,7 +44,7 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = SingInFragmentBinding.inflate(inflater, container, false)
+        _binding = AuthFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -79,11 +79,11 @@ class SignInFragment : Fragment() {
 
 
     private fun configPasswordVisibleEndIcon() {
-        binding.textInputLayoutPassword.isEndIconVisible = false
+        binding.txtInpLayoutPassword.isEndIconVisible = false
 
         binding.editTextPassword.doOnTextChanged { text, _, _, _ ->
             text?.let {
-                binding.textInputLayoutPassword.isEndIconVisible = it.isNotEmpty()
+                binding.txtInpLayoutPassword.isEndIconVisible = it.isNotEmpty()
             }
         }
     }
@@ -116,33 +116,33 @@ class SignInFragment : Fragment() {
 
     private fun configSignInState() {
         with(binding) {
-            textInputLayoutLogin.error = null
-            textInputLayoutPassword.error = null
+            txtInpLayoutLogin.error = null
+            txtInpLayoutPassword.error = null
 
             interfaceBlocker.visibility = View.VISIBLE
 
             progressBarSignInButton.visibility = View.VISIBLE
             buttonSignIn.text = null
 
-            textInputLayoutLogin.isErrorEnabled = false
-            textInputLayoutPassword.isErrorEnabled = false
+            txtInpLayoutLogin.isErrorEnabled = false
+            txtInpLayoutPassword.isErrorEnabled = false
         }
     }
 
     private fun navigateToTabFragment() {
-        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+        findNavController().navigate(R.id.action_authFragment_to_tabsFragment)
     }
 
     private fun configSignInErrorState() {
         with(binding) {
-            textInputLayoutLogin.error = getString(R.string.empty_error_message)
-            textInputLayoutPassword.error = getString(R.string.empty_error_message)
+            txtInpLayoutLogin.error = getString(R.string.empty_error_message)
+            txtInpLayoutPassword.error = getString(R.string.empty_error_message)
 
-            textInputLayoutLogin.setErrorTextAppearance(R.style.Text_MontserratRegular_0_Error)
-            textInputLayoutPassword.setErrorTextAppearance(R.style.Text_MontserratRegular_0_Error)
+            txtInpLayoutLogin.setErrorTextAppearance(R.style.Text_MontserratRegular_0_Error)
+            txtInpLayoutPassword.setErrorTextAppearance(R.style.Text_MontserratRegular_0_Error)
 
-            textInputLayoutLogin.isErrorEnabled = true
-            textInputLayoutPassword.isErrorEnabled = true
+            txtInpLayoutLogin.isErrorEnabled = true
+            txtInpLayoutPassword.isErrorEnabled = true
 
             interfaceBlocker.visibility = View.GONE
 
@@ -156,46 +156,46 @@ class SignInFragment : Fragment() {
 
     private fun configInValidateState(state: AuthState.SingInValidateError) {
         with(binding) {
-            textInputLayoutPassword.setErrorTextAppearance(R.style.Text_MontserratRegular_12)
-            textInputLayoutLogin.setErrorTextAppearance(R.style.Text_MontserratRegular_12)
+            txtInpLayoutPassword.setErrorTextAppearance(R.style.Text_MontserratRegular_12)
+            txtInpLayoutLogin.setErrorTextAppearance(R.style.Text_MontserratRegular_12)
 
-            textInputLayoutLogin.setErrorTextColor(
+            txtInpLayoutLogin.setErrorTextColor(
                 ColorStateList.valueOf(requireContext().getColor(R.color.edit_text_error_text_color))
             )
-            textInputLayoutPassword.setErrorTextColor(
+            txtInpLayoutPassword.setErrorTextColor(
                 ColorStateList.valueOf(requireContext().getColor(R.color.edit_text_error_text_color))
             )
 
-            textInputLayoutLogin.isErrorEnabled = true
-            textInputLayoutPassword.isErrorEnabled = true
+            txtInpLayoutLogin.isErrorEnabled = true
+            txtInpLayoutPassword.isErrorEnabled = true
 
             when (state.loginErrorSubState) {
                 ErrorLoginSubState.IsBlank -> {
-                    textInputLayoutLogin.error =
+                    txtInpLayoutLogin.error =
                         requireContext().getText(R.string.login_blank_error_text)
                 }
                 ErrorLoginSubState.Invalidate -> {
-                    textInputLayoutLogin.error =
+                    txtInpLayoutLogin.error =
                         requireContext().getText(R.string.login_wrong_format_error_text)
                 }
                 ErrorLoginSubState.Default -> {
-                    textInputLayoutLogin.error = null
-                    textInputLayoutLogin.isErrorEnabled = false
+                    txtInpLayoutLogin.error = null
+                    txtInpLayoutLogin.isErrorEnabled = false
                 }
             }
 
             when (state.passwordErrorSubState) {
                 ErrorPasswordSubState.IsBlank -> {
-                    textInputLayoutPassword.error =
+                    txtInpLayoutPassword.error =
                         requireContext().getText(R.string.password_blank_error_text)
                 }
                 ErrorPasswordSubState.Invalidate -> {
-                    textInputLayoutPassword.error =
+                    txtInpLayoutPassword.error =
                         requireContext().getText(R.string.password_wrong_format_error_text)
                 }
                 ErrorPasswordSubState.Default -> {
-                    textInputLayoutPassword.error = null
-                    textInputLayoutPassword.isErrorEnabled = false
+                    txtInpLayoutPassword.error = null
+                    txtInpLayoutPassword.isErrorEnabled = false
                 }
             }
         }

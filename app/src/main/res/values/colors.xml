@@ -22,7 +22,7 @@
     <color name="transparent">#00000000</color>
 
 
-    <!--  sign in screen  -->
+    <!--  auth screen  -->
     <color name="bottom_stroke_focused_color">@color/alto</color>
     <color name="bottom_stroke_un_focused_color">@color/alto</color>
 

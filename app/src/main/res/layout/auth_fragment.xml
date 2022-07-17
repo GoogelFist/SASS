@@ -6,10 +6,10 @@
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        tools:context=".presentation.screens.auth.SignInFragment">
+        tools:context=".presentation.screens.auth.AuthFragment">
 
     <TextView
-            android:id="@+id/tv_title_sign_in"
+            android:id="@+id/tv_title_auth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_login"
+            android:id="@+id/txt_inp_layout_login"
             style="@style/DefaultTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:hint="@string/login_hint_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_sign_in"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_auth"
             app:prefixText="+7"
             app:prefixTextColor="@color/black">
 
@@ -43,7 +43,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:maxLength="16"
-                android:nextFocusDown="@id/text_input_layout_password"
+                android:nextFocusDown="@id/txt_inp_layout_password"
                 android:paddingStart="18dp"
                 android:paddingEnd="18dp"
                 tools:text="(999) 123 45 67" />
@@ -51,7 +51,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_password"
+            android:id="@+id/txt_inp_layout_password"
             style="@style/DefaultTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -60,9 +60,9 @@
             app:endIconDrawable="@drawable/ic_show_password"
             app:endIconMode="custom"
             app:errorEnabled="false"
-            app:layout_constraintEnd_toEndOf="@id/text_input_layout_login"
-            app:layout_constraintStart_toStartOf="@id/text_input_layout_login"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_login">
+            app:layout_constraintEnd_toEndOf="@id/txt_inp_layout_login"
+            app:layout_constraintStart_toStartOf="@id/txt_inp_layout_login"
+            app:layout_constraintTop_toBottomOf="@id/txt_inp_layout_login">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_password"
@@ -86,7 +86,7 @@
             android:src="@drawable/ic_surf_edu_auth"
             app:layout_constraintBottom_toTopOf="@+id/button_sign_in"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_inp_layout_password" />
 
     <ProgressBar
             android:id="@+id/progress_bar_sign_in_button"

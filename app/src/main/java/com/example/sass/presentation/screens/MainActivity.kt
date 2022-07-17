@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             if (isSignedIn) {
                 getTabsDestination()
             } else {
-                getSignInDestination()
+                getAuthDestination()
             }
         )
         navController.graph = graph
@@ -43,5 +43,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun getTabsDestination(): Int = R.id.tabsFragment
 
-    private fun getSignInDestination(): Int = R.id.signInFragment
+    private fun getAuthDestination(): Int = R.id.authFragment
 }

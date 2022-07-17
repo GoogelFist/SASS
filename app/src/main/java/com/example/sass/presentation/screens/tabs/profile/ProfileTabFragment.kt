@@ -128,9 +128,9 @@ class ProfileTabFragment : Fragment() {
             when (state) {
                 ProfileState.Default -> configDefaultState()
                 ProfileState.SigningOut -> configSigningOutState()
-                ProfileState.SignedOut -> navigateToSignInFragment()
+                ProfileState.SignedOut -> navigateToAuthFragment()
                 ProfileState.SingOutError -> configErrorState()
-                ProfileState.IncorrectToken -> navigateToSignInFragment()
+                ProfileState.IncorrectToken -> navigateToAuthFragment()
             }
         }
     }
@@ -159,8 +159,8 @@ class ProfileTabFragment : Fragment() {
             .setAnchorView(binding.buttonSignOut).show()
     }
 
-    private fun navigateToSignInFragment() {
-        getRootNavController().navigate(R.id.action_tabsFragment_to_signInFragment)
+    private fun navigateToAuthFragment() {
+        getRootNavController().navigate(R.id.action_tabsFragment_to_authFragment)
     }
 
     private fun getRootNavController(): NavController {

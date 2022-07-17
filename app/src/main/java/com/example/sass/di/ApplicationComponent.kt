@@ -1,7 +1,7 @@
 package com.example.sass.di
 
 import android.app.Application
-import com.example.sass.presentation.screens.auth.SignInFragment
+import com.example.sass.presentation.screens.auth.AuthFragment
 import com.example.sass.presentation.screens.splash.SplashFragment
 import com.example.sass.presentation.screens.tabs.detail.PictureDetailFragment
 import com.example.sass.presentation.screens.tabs.favorite.FavoriteTabFragment
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 interface ApplicationComponent {
 
-    fun inject(signInFragment: SignInFragment)
+    fun inject(authFragment: AuthFragment)
 
     fun inject(splashFragment: SplashFragment)
 

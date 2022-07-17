@@ -3,17 +3,17 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/main_graph"
-        app:startDestination="@id/signInFragment">
+        app:startDestination="@id/authFragment">
 
     <fragment
-            android:id="@+id/signInFragment"
-            android:name="com.example.sass.presentation.screens.auth.SignInFragment"
-            android:label="sing_in_fragment"
-            tools:layout="@layout/sing_in_fragment">
+            android:id="@+id/authFragment"
+            android:name="com.example.sass.presentation.screens.auth.AuthFragment"
+            android:label="auth_fragment"
+            tools:layout="@layout/auth_fragment">
         <action
-                android:id="@+id/action_signInFragment_to_tabsFragment"
+                android:id="@+id/action_authFragment_to_tabsFragment"
                 app:destination="@id/tabsFragment"
-                app:popUpTo="@id/signInFragment"
+                app:popUpTo="@id/authFragment"
                 app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -22,8 +22,8 @@
             android:label="tabs_fragment"
             tools:layout="@layout/tabs_fragment" >
         <action
-                android:id="@+id/action_tabsFragment_to_signInFragment"
-                app:destination="@id/signInFragment"
+                android:id="@+id/action_tabsFragment_to_authFragment"
+                app:destination="@id/authFragment"
                 app:popUpTo="@id/tabsFragment"
                 app:popUpToInclusive="true" />
         <action
