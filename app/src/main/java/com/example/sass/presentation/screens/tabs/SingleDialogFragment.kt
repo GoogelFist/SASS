@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.example.sass.databinding.SingleDialogFragmentBinding
 
 
-class SingleDialogFragment() : DialogFragment() {
+class SingleDialogFragment : DialogFragment() {
 
     private var _binding: SingleDialogFragmentBinding? = null
     private val binding: SingleDialogFragmentBinding

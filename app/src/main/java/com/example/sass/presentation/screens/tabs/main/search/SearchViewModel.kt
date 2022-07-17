@@ -38,7 +38,6 @@ class SearchViewModel(
         }
     }
 
-
     private fun addedToFavorite(id: String) {
         viewModelScope.launch {
             addPictureItemToFavoriteUseCase(id)
@@ -64,7 +63,6 @@ class SearchViewModel(
             _searchState.value = SearchState.Default
         }
     }
-
 
     private fun searchData(text: String) {
         searchText = text
