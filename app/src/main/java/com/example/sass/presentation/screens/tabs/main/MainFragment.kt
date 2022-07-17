@@ -89,7 +89,7 @@ class MainFragment : Fragment() {
 
                 MainState.EmptyList -> configEmptyListState()
 
-                MainState.IncorrectToken -> navigateToSignInFragment()
+                MainState.IncorrectToken -> navigateToAuthFragment()
             }
         }
 
@@ -174,8 +174,8 @@ class MainFragment : Fragment() {
         recycler.adapter = picturesMainAdapter
     }
 
-    private fun navigateToSignInFragment() {
-        getRootNavController().navigate(R.id.action_tabsFragment_to_signInFragment)
+    private fun navigateToAuthFragment() {
+        getRootNavController().navigate(R.id.action_tabsFragment_to_authFragment)
     }
 
     private fun getRootNavController(): NavController {

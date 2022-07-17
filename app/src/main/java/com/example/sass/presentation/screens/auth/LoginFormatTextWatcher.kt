@@ -20,7 +20,7 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
     override fun afterTextChanged(s: Editable) {
         val string = s.toString()
 
-        val phone = string.replace("[^\\d]".toRegex(), "")
+        val phone = string.replace("[^\\d]".toRegex(), REPLACEMENT)
 
         if (!editedFlag) {
 
@@ -29,23 +29,9 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
                     editedFlag = true
 
                     val ans = buildString {
-                        append(" (")
-                        append(phone.substring(INDEX_PHONE_CODE, INDEX_FIRST_PATH_PHONE_NUMBER))
-                        append(") ")
-                        append(
-                            phone.substring(
-                                INDEX_FIRST_PATH_PHONE_NUMBER,
-                                INDEX_SECOND_PATH_PHONE_NUMBER
-                            )
-                        )
-                        append(" ")
-                        append(
-                            phone.substring(
-                                INDEX_SECOND_PATH_PHONE_NUMBER,
-                                INDEX_THIRD_PATH_PHONE_NUMBER
-                            )
-                        )
-                        append(" ")
+                        formatFirstPartPhone(phone)
+                        formatSecondPartPhone(phone)
+                        formatThirdPartPhone(phone)
                         append(phone.substring(INDEX_THIRD_PATH_PHONE_NUMBER))
                     }
 
@@ -56,16 +42,8 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
                     editedFlag = true
 
                     val ans = buildString {
-                        append(" (")
-                        append(phone.substring(INDEX_PHONE_CODE, INDEX_FIRST_PATH_PHONE_NUMBER))
-                        append(") ")
-                        append(
-                            phone.substring(
-                                INDEX_FIRST_PATH_PHONE_NUMBER,
-                                INDEX_SECOND_PATH_PHONE_NUMBER
-                            )
-                        )
-                        append(" ")
+                        formatFirstPartPhone(phone)
+                        formatSecondPartPhone(phone)
                         append(phone.substring(INDEX_SECOND_PATH_PHONE_NUMBER))
                     }
 
@@ -77,9 +55,7 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
                     editedFlag = true
 
                     val ans = buildString {
-                        append(" (")
-                        append(phone.substring(INDEX_PHONE_CODE, INDEX_FIRST_PATH_PHONE_NUMBER))
-                        append(") ")
+                        formatFirstPartPhone(phone)
                         append(phone.substring(INDEX_FIRST_PATH_PHONE_NUMBER))
                     }
 
@@ -92,6 +68,31 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
         }
     }
 
+    private fun StringBuilder.formatFirstPartPhone(phone: String) {
+        append(phone.substring(INDEX_PHONE_CODE, INDEX_FIRST_PATH_PHONE_NUMBER))
+        append(FIRST_PART_POSTFIX)
+    }
+
+    private fun StringBuilder.formatSecondPartPhone(phone: String) {
+        append(
+            phone.substring(
+                INDEX_FIRST_PATH_PHONE_NUMBER,
+                INDEX_SECOND_PATH_PHONE_NUMBER
+            )
+        )
+        append(SECOND_PART_POSTFIX)
+    }
+
+    private fun StringBuilder.formatThirdPartPhone(phone: String) {
+        append(
+            phone.substring(
+                INDEX_SECOND_PATH_PHONE_NUMBER,
+                INDEX_THIRD_PATH_PHONE_NUMBER
+            )
+        )
+        append(THIRD_PART_POSTFIX)
+    }
+
     companion object {
         private const val INDEX_PHONE_CODE = 0
         private const val INDEX_FIRST_PATH_PHONE_NUMBER = 3
@@ -99,5 +100,11 @@ class LoginFormatTextWatcher(private val editText: EditText) : PhoneNumberFormat
         private const val INDEX_THIRD_PATH_PHONE_NUMBER = 8
 
         private const val COMPLEMENT_INIT_VALUE = 0
+
+        private const val REPLACEMENT = ""
+
+        private const val FIRST_PART_POSTFIX = ") "
+        private const val SECOND_PART_POSTFIX = " "
+        private const val THIRD_PART_POSTFIX = " "
     }
 }

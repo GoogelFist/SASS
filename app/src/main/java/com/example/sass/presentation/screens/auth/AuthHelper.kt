@@ -1,21 +1,21 @@
 package com.example.sass.presentation.screens.auth
 
 import com.example.sass.R
-import com.example.sass.databinding.SingInFragmentBinding
+import com.example.sass.databinding.AuthFragmentBinding
 
 object AuthHelper {
 
-    fun configPasswordTransformationText(binding: SingInFragmentBinding) {
+    fun configPasswordTransformationText(binding: AuthFragmentBinding) {
         with(binding) {
             editTextPassword.transformationMethod = BigPointTransformationMethod()
             editTextPassword.letterSpacing = PASSWORD_MASK_LETTER_SPACING
 
-            textInputLayoutPassword.setEndIconOnClickListener {
+            txtInpLayoutPassword.setEndIconOnClickListener {
                 if (editTextPassword.transformationMethod is BigPointTransformationMethod) {
 
                     editTextPassword.transformationMethod = null
 
-                    textInputLayoutPassword.endIconDrawable =
+                    txtInpLayoutPassword.endIconDrawable =
                         binding.root.context.getDrawable(R.drawable.ic_hide_password)
 
                     editTextPassword.letterSpacing = DEFAULT_PASSWORD_MASK_LETTER_SPACING
@@ -28,7 +28,7 @@ object AuthHelper {
                 } else {
                     editTextPassword.transformationMethod = BigPointTransformationMethod()
 
-                    textInputLayoutPassword.endIconDrawable =
+                    txtInpLayoutPassword.endIconDrawable =
                         binding.root.context.getDrawable(R.drawable.ic_show_password)
                     editTextPassword.letterSpacing =
                         PASSWORD_MASK_LETTER_SPACING
