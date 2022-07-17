@@ -20,15 +20,13 @@ class UserRepositoryImpl @Inject constructor(
         tokenLocalDataSource.saveAuthToken(signInDto.token)
     }
 
-    override suspend fun isAbsentToken(): Boolean {
-        return tokenLocalDataSource.isAbsentToken()
+    override suspend fun isSignedIn(): Boolean {
+        return tokenLocalDataSource.isExistToken()
     }
 
     override suspend fun signOut() {
-
         val token = loadAuthToken()
         userRemoteDataSource.signOut(token)
-        clearData()
     }
 
     override suspend fun loadUserInfo(): UserInfo {

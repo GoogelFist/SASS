@@ -8,5 +8,5 @@ interface TokenLocalDataSource {
 
     suspend fun deleteAuthToken()
 
-    suspend fun isAbsentToken(): Boolean
+    suspend fun isExistToken(): Boolean
 }
