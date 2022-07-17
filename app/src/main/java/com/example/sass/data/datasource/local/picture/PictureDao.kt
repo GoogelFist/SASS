@@ -9,6 +9,7 @@ import com.example.sass.data.datasource.local.picture.models.PicCommonDao
 
 @Dao
 interface PictureDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveFavoritePicDao(favoritePicDao: FavoritePicDao)
 

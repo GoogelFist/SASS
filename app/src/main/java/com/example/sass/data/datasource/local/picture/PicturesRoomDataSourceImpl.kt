@@ -10,8 +10,8 @@ import javax.inject.Inject
 class PicturesRoomDataSourceImpl @Inject constructor(
     private val pictureDao: PictureDao,
     private val mapper: PicturesMapper
-) :
-    PictureLocalDataSource {
+) : PictureLocalDataSource {
+
     override suspend fun saveFavoritePic(id: String) {
         val picCommonDao = pictureDao.getPicCommonDaoById(id)
         val favoritePicDao = mapper.mapPicCommonDaoToFavoritePicDao(picCommonDao)
