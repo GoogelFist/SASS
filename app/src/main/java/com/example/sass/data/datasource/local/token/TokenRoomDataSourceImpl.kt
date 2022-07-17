@@ -7,13 +7,13 @@ class TokenRoomDataSourceImpl @Inject constructor(private val tokenDao: TokenDao
     TokenLocalDataSource {
 
     override suspend fun saveAuthToken(token: String) {
-        tokenDao.saveAuthToken(AuthTokenDao(TOKEN_ID, token))
+        tokenDao.saveAuthToken(AuthTokenDao(TOKEN_ID, formatToken(token)))
     }
 
     override suspend fun loadAuthToken(): String {
         val tokenDao = tokenDao.loadAuthToken(TOKEN_ID)
         tokenDao?.let {
-            return formatToken(it.token)
+            return it.token
         }
         return ABSENT_TOKEN
     }
@@ -22,9 +22,9 @@ class TokenRoomDataSourceImpl @Inject constructor(private val tokenDao: TokenDao
         tokenDao.deleteAuthToken(TOKEN_ID)
     }
 
-    override suspend fun isAbsentToken(): Boolean {
+    override suspend fun isExistToken(): Boolean {
         val token = loadAuthToken()
-        return token.isBlank()
+        return token.isNotBlank()
     }
 
     private fun formatToken(token: String): String {
