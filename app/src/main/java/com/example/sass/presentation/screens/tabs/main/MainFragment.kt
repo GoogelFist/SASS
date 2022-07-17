@@ -209,7 +209,6 @@ class MainFragment : Fragment() {
         textView.gravity = Gravity.START
         textView.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
         textView.setTextAppearance(R.style.Text_RobotoRegular_14_White)
-        textView.lineHeight = resources.getDimensionPixelSize(R.dimen.main_snack_line_height)
 
         return snack
     }

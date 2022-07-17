@@ -33,6 +33,8 @@
         <item name="android:textAppearance">@style/Text.MontserratMedium.14.White</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textAlignment">center</item>
+        <item name="android:lineSpacingMultiplier">0</item>
+        <item name="android:lineSpacingExtra">20sp</item>
     </style>
 
     <style name="Widget.ButtonTheme" parent="android:Widget">
