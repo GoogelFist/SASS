@@ -31,7 +31,7 @@ object AuthValidator {
 
     private const val PATTERN = "[+]?[78]?[() 0-9-]+"
 
-    private const val LOGIN_LENGTH_CONSTRAINT = 16
+    private const val LOGIN_LENGTH_CONSTRAINT = 14
 
     private const val PASSWORD_MIN_LENGTH_CONSTRAINT = 6
     private const val PASSWORD_MAN_LENGTH_CONSTRAINT = 255
