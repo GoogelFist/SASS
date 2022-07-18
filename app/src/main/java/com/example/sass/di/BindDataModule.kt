@@ -6,7 +6,6 @@ import com.example.sass.data.datasource.local.picture.PictureLocalDataSource
 import com.example.sass.data.datasource.local.picture.PicturesRoomDataSourceImpl
 import com.example.sass.data.datasource.local.token.TokenEncryptedSharedPrefDataSourceImpl
 import com.example.sass.data.datasource.local.token.TokenLocalDataSource
-import com.example.sass.data.datasource.local.token.TokenRoomDataSourceImpl
 import com.example.sass.data.datasource.local.user.UserLocalDataSource
 import com.example.sass.data.datasource.local.user.UserRoomDataSourceImpl
 import com.example.sass.data.datasource.remote.picture.PicturesRemoteDataSource
@@ -17,7 +16,6 @@ import com.example.sass.domain.PicturesRepository
 import com.example.sass.domain.UserRepository
 import dagger.Binds
 import dagger.Module
-import javax.inject.Singleton
 
 
 @Module
