@@ -4,6 +4,7 @@ import com.example.sass.data.PicturesRepositoryImpl
 import com.example.sass.data.UserRepositoryImpl
 import com.example.sass.data.datasource.local.picture.PictureLocalDataSource
 import com.example.sass.data.datasource.local.picture.PicturesRoomDataSourceImpl
+import com.example.sass.data.datasource.local.token.TokenEncryptedSharedPrefDataSourceImpl
 import com.example.sass.data.datasource.local.token.TokenLocalDataSource
 import com.example.sass.data.datasource.local.token.TokenRoomDataSourceImpl
 import com.example.sass.data.datasource.local.user.UserLocalDataSource
@@ -16,6 +17,7 @@ import com.example.sass.domain.PicturesRepository
 import com.example.sass.domain.UserRepository
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
 
 
 @Module
@@ -31,7 +33,7 @@ interface BindDataModule {
     fun bindUserLocalDataSource(impl: UserRoomDataSourceImpl): UserLocalDataSource
 
     @Binds
-    fun bindTokenLocalDataSource(impl: TokenRoomDataSourceImpl): TokenLocalDataSource
+    fun bindTokenLocalDataSource(impl: TokenEncryptedSharedPrefDataSourceImpl): TokenLocalDataSource
 
     @Binds
     fun bindPicturesRepository(impl: PicturesRepositoryImpl): PicturesRepository
