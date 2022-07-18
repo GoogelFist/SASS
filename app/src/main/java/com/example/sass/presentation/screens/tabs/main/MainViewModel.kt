@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sass.data.IncorrectTokenException
-import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.domain.models.PicturesItem
 import com.example.sass.domain.usecases.AddPictureItemToFavoriteUseCase
 import com.example.sass.domain.usecases.GetPicturesItemsUseCase
 import com.example.sass.domain.usecases.LoadPicturesItemsUseCase
+import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.main.models.MainEvent
 import com.example.sass.presentation.screens.tabs.main.models.MainState
