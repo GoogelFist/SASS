@@ -25,10 +25,6 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun providesTokenDAO(roomDataBase: DataBase) = roomDataBase.getTokenDao()
-
-    @Singleton
-    @Provides
     fun providesPicturesDAO(roomDataBase: DataBase) = roomDataBase.getPicturesDao()
 
     companion object {

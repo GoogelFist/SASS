@@ -1,25 +1,24 @@
 package com.example.sass.data.datasource.local.token
 
-import com.example.sass.data.datasource.local.token.models.AuthTokenDao
+import android.content.SharedPreferences
 import javax.inject.Inject
 
-class TokenRoomDataSourceImpl @Inject constructor(private val tokenDao: TokenDao) :
+
+class TokenEncrSharPrefDataSourceImpl @Inject constructor(private val sharedPreferences: SharedPreferences) :
     TokenLocalDataSource {
 
     override suspend fun saveAuthToken(token: String) {
-        tokenDao.saveAuthToken(AuthTokenDao(TOKEN_ID, formatToken(token)))
+        sharedPreferences.edit()
+            .putString(TOKEN_KEY, formatToken(token))
+            .apply()
     }
 
     override suspend fun loadAuthToken(): String {
-        val tokenDao = tokenDao.loadAuthToken(TOKEN_ID)
-        tokenDao?.let {
-            return it.token
-        }
-        return ABSENT_TOKEN
+        return sharedPreferences.getString(TOKEN_KEY, DEFAULT_TOKEN_VALUE) ?: DEFAULT_TOKEN_VALUE
     }
 
     override suspend fun deleteAuthToken() {
-        tokenDao.deleteAuthToken(TOKEN_ID)
+        sharedPreferences.edit().remove(TOKEN_KEY).apply()
     }
 
     override suspend fun isExistToken(): Boolean {
@@ -32,8 +31,7 @@ class TokenRoomDataSourceImpl @Inject constructor(private val tokenDao: TokenDao
     }
 
     companion object {
-        private const val TOKEN_ID = 1
-
-        private const val ABSENT_TOKEN = ""
+        private const val TOKEN_KEY = "TOKEN"
+        private const val DEFAULT_TOKEN_VALUE = ""
     }
 }
