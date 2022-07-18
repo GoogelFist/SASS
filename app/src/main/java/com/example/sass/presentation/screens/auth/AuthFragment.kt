@@ -106,7 +106,7 @@ class AuthFragment : Fragment() {
 
         viewModel.authState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                AuthState.SigningIn -> configSignInState()
+                AuthState.SigningIn -> configSigningInState()
                 AuthState.SignedIn -> navigateToTabFragment()
                 AuthState.SingInError -> configSignInErrorState()
                 is AuthState.SingInValidateError -> configInValidateState(state)
@@ -114,15 +114,14 @@ class AuthFragment : Fragment() {
         }
     }
 
-    private fun configSignInState() {
+    private fun configSigningInState() {
         with(binding) {
             txtInpLayoutLogin.error = null
             txtInpLayoutPassword.error = null
 
             interfaceBlocker.visibility = View.VISIBLE
 
-            progressBarSignInButton.visibility = View.VISIBLE
-            buttonSignIn.text = null
+            buttonSignIn.isLoading = true
 
             txtInpLayoutLogin.isErrorEnabled = false
             txtInpLayoutPassword.isErrorEnabled = false
@@ -146,8 +145,7 @@ class AuthFragment : Fragment() {
 
             interfaceBlocker.visibility = View.GONE
 
-            progressBarSignInButton.visibility = View.GONE
-            buttonSignIn.text = requireContext().getText(R.string.button_sign_in_text)
+            buttonSignIn.isLoading = false
 
             Snackbar.make(root, R.string.sign_in_error_text, Snackbar.LENGTH_LONG)
                 .setAnchorView(buttonSignIn).show()

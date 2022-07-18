@@ -136,25 +136,15 @@ class ProfileTabFragment : Fragment() {
     }
 
     private fun configDefaultState() {
-        binding.buttonSignOut.text =
-            requireContext().getText(R.string.button_sign_out_text)
-        binding.progressBarSignOutButton.visibility = View.GONE
-        binding.buttonSignOut.isClickable = true
+        binding.buttonSignOut.isLoading = false
     }
 
     private fun configSigningOutState() {
-        binding.buttonSignOut.text = null
-        binding.progressBarSignOutButton.visibility = View.VISIBLE
-        binding.buttonSignOut.isClickable = false
+        binding.buttonSignOut.isLoading = true
     }
 
     private fun configErrorState() {
-        binding.buttonSignOut.text =
-            requireContext().getText(R.string.button_sign_out_text)
-        binding.progressBarSignOutButton.visibility = View.GONE
-
-        binding.buttonSignOut.isClickable = true
-
+        binding.buttonSignOut.isLoading = false
         Snackbar.make(binding.root, R.string.sign_out_error_text, Snackbar.LENGTH_LONG)
             .setAnchorView(binding.buttonSignOut).show()
     }
