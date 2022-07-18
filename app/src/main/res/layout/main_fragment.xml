@@ -96,15 +96,14 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <Button
+    <com.example.sass.presentation.screens.LoadingButtonView
             android:id="@+id/button_try_again"
-            style="@style/Widget.ButtonTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/button_refresh_text"
+            app:buttonText="@string/button_refresh_text"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
