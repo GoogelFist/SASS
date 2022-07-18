@@ -37,15 +37,4 @@
         <item name="android:lineSpacingExtra">20sp</item>
     </style>
 
-    <style name="Widget.ButtonTheme" parent="android:Widget">
-        <item name="android:background">@drawable/buttons_background</item>
-        <item name="android:gravity">center</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
-        <item name="android:paddingStart">19dp</item>
-        <item name="android:textAppearance">@style/Text.MontserratSemiBold.16.White</item>
-        <item name="android:paddingTop">11dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingBottom">13dp</item>
-    </style>
-
 </resources>
