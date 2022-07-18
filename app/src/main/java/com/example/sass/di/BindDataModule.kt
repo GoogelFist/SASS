@@ -4,7 +4,7 @@ import com.example.sass.data.PicturesRepositoryImpl
 import com.example.sass.data.UserRepositoryImpl
 import com.example.sass.data.datasource.local.picture.PictureLocalDataSource
 import com.example.sass.data.datasource.local.picture.PicturesRoomDataSourceImpl
-import com.example.sass.data.datasource.local.token.TokenEncryptedSharedPrefDataSourceImpl
+import com.example.sass.data.datasource.local.token.TokenEncrSharPrefDataSourceImpl
 import com.example.sass.data.datasource.local.token.TokenLocalDataSource
 import com.example.sass.data.datasource.local.user.UserLocalDataSource
 import com.example.sass.data.datasource.local.user.UserRoomDataSourceImpl
@@ -31,7 +31,7 @@ interface BindDataModule {
     fun bindUserLocalDataSource(impl: UserRoomDataSourceImpl): UserLocalDataSource
 
     @Binds
-    fun bindTokenLocalDataSource(impl: TokenEncryptedSharedPrefDataSourceImpl): TokenLocalDataSource
+    fun bindTokenLocalDataSource(impl: TokenEncrSharPrefDataSourceImpl): TokenLocalDataSource
 
     @Binds
     fun bindPicturesRepository(impl: PicturesRepositoryImpl): PicturesRepository

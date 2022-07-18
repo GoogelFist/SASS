@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 
 
-class TokenEncryptedSharedPrefDataSourceImpl @Inject constructor(private val sharedPreferences: SharedPreferences) :
+class TokenEncrSharPrefDataSourceImpl @Inject constructor(private val sharedPreferences: SharedPreferences) :
     TokenLocalDataSource {
 
     override suspend fun saveAuthToken(token: String) {
