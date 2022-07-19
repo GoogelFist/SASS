@@ -30,8 +30,7 @@ object AuthHelper {
 
                     txtInpLayoutPassword.endIconDrawable =
                         binding.root.context.getDrawable(R.drawable.ic_show_password)
-                    editTextPassword.letterSpacing =
-                        PASSWORD_MASK_LETTER_SPACING
+                    editTextPassword.letterSpacing = PASSWORD_MASK_LETTER_SPACING
 
                     editTextPassword.text?.let { text ->
                         if (text.isNotEmpty()) {
