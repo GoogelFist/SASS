@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.sass.R
 import com.example.sass.component
 import com.example.sass.databinding.MainFragmentBinding
@@ -191,8 +190,7 @@ class MainFragment : Fragment() {
         }
 
         binding.ibSearchMain.setOnClickListener {
-            val direction = MainFragmentDirections.actionMainTabFragmentToSearchFragment()
-            findNavController().navigate(direction)
+            getRootNavController().navigate(R.id.action_tabsFragment_to_searchFragment)
         }
     }
 
