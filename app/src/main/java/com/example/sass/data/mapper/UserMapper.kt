@@ -22,7 +22,7 @@ class UserMapper @Inject constructor() {
 
     fun mapUserInfoDaoToUserInfo(userInfoDao: UserInfoDao): UserInfo {
         return UserInfo(
-            about = userInfoDao.about,
+            about = formatUserAbout(userInfoDao.about),
             avatar = userInfoDao.avatar,
             city = userInfoDao.city,
             email = userInfoDao.email,
@@ -52,6 +52,14 @@ class UserMapper @Inject constructor() {
             append(string.substring(thirdPartRange))
             append(" ")
             append(string.substring(lastPartRange))
+        }
+    }
+
+    private fun formatUserAbout(about: String): String {
+        return buildString {
+            append("\"")
+            append(about)
+            append("\"")
         }
     }
 
