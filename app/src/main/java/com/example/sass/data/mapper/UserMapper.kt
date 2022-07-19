@@ -3,6 +3,7 @@ package com.example.sass.data.mapper
 import com.example.sass.data.datasource.local.user.models.UserInfoDao
 import com.example.sass.data.datasource.remote.user.models.UserInfoDto
 import com.example.sass.domain.models.UserInfo
+import java.util.*
 import javax.inject.Inject
 
 class UserMapper @Inject constructor() {
@@ -22,13 +23,13 @@ class UserMapper @Inject constructor() {
 
     fun mapUserInfoDaoToUserInfo(userInfoDao: UserInfoDao): UserInfo {
         return UserInfo(
-            about = userInfoDao.about,
+            about = formatUserAbout(userInfoDao.about),
             avatar = userInfoDao.avatar,
-            city = userInfoDao.city,
+            city = formatUserData(userInfoDao.city),
             email = userInfoDao.email,
-            firstName = userInfoDao.firstName,
+            firstName = formatUserData(userInfoDao.firstName),
             id = userInfoDao.id,
-            lastName = userInfoDao.lastName,
+            lastName = formatUserData(userInfoDao.lastName),
             phone = formatUserPhone(userInfoDao.phone)
         )
     }
@@ -52,6 +53,28 @@ class UserMapper @Inject constructor() {
             append(string.substring(thirdPartRange))
             append(" ")
             append(string.substring(lastPartRange))
+        }
+    }
+
+    private fun formatUserAbout(about: String): String {
+        return buildString {
+            append("\"")
+            append(formatUserData(about))
+            append("\"")
+        }
+    }
+
+    private fun formatUserData(string: String): String {
+        return string.trim().capitalizeString()
+    }
+
+    private fun String.capitalizeString(): String {
+        return this.replaceFirstChar { char ->
+            if (char.isLowerCase()) {
+                char.titlecase(Locale.getDefault())
+            } else {
+                char.toString()
+            }
         }
     }
 

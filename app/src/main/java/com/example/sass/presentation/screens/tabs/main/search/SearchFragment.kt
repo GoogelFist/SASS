@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.sass.R
 import com.example.sass.component
 import com.example.sass.databinding.SearchFragmentBinding
-import com.example.sass.presentation.screens.tabs.TabsFragmentDirections
 import com.example.sass.presentation.screens.tabs.main.recycler.PicturesMainAdapter
 import com.example.sass.presentation.screens.tabs.main.search.SearchHelper.hideKeyboard
 import com.example.sass.presentation.screens.tabs.main.search.SearchHelper.showKeyboard
@@ -144,7 +143,7 @@ class SearchFragment : Fragment() {
     private fun setPicturesItemClickListener() {
         picturesMainAdapter.onPictureClickListener = { pictureId ->
             val direction =
-                TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
+                SearchFragmentDirections.actionSearchFragmentToPictureDetailFragment(pictureId)
             getRootNavController().navigate(direction)
         }
     }
