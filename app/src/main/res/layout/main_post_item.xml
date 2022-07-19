@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginBottom="12dp">
+
+    <ImageView
+            android:id="@+id/iv_main_item_photo_post"
+            android:layout_width="0dp"
+            android:layout_height="222dp"
+            android:contentDescription="@string/content_description"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="#BDBCBC" />
+
+    <ImageButton
+            android:id="@+id/ib_main_item_favorite_button_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:contentDescription="@string/content_description"
+            android:padding="8dp"
+            android:src="@drawable/ic_favorite_inactive"
+            app:layout_constraintEnd_toEndOf="@id/iv_main_item_photo_post"
+            app:layout_constraintTop_toTopOf="@id/iv_main_item_photo_post" />
+
+    <TextView
+            android:id="@+id/tv_main_item_title_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textAppearance="@style/Text.MontserratMedium.12.Black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_main_item_photo_post"
+            tools:text="Первый день в Surf" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

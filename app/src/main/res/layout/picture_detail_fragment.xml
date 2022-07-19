@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.screens.tabs.detail.PictureDetailFragment">
+
+    <ImageButton
+            android:id="@+id/ib_detail_popup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/content_description"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title_detail" />
+
+    <TextView
+            android:id="@+id/tv_title_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/detail_title_text"
+            android:textAppearance="@style/Text.MontserratSemiBold.24.Black"
+            app:layout_constraintStart_toEndOf="@id/ib_detail_popup"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="23dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_detail">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/iv_photo_detail_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="326dp"
+                    android:contentDescription="@string/content_description"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="#D8D4D4" />
+
+            <TextView
+                    android:id="@+id/tv_detail_title_post"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingBottom="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/Text.MontserratMedium.16.Black"
+                    app:layout_constraintEnd_toStartOf="@id/tv_detail_publication_date_post"
+                    app:layout_constraintStart_toStartOf="@id/iv_photo_detail_post"
+                    app:layout_constraintTop_toBottomOf="@id/iv_photo_detail_post"
+                    tools:text="Чашечка свежего кофе" />
+
+            <TextView
+                    android:id="@+id/tv_detail_content_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingExtra="19.2dp"
+                    android:lineSpacingMultiplier="0"
+                    android:layout_marginBottom="6dp"
+                    android:textAppearance="@style/Text.MontserratRegular.12.Black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/iv_photo_detail_post"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_title_post"
+                    tools:text="some text" />
+
+            <TextView
+                    android:id="@+id/tv_detail_publication_date_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/Text.MontserratMedium.10.Nobel"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_detail_title_post"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_detail_title_post"
+                    tools:ignore="SmallSp"
+                    tools:text="12.05.2022" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

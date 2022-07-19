@@ -1,3 +1,59 @@
 <resources>
     <string name="app_name">SASS</string>
+
+    <string name="content_description">content_description</string>
+
+    <!--  auth screen  -->
+    <string name="button_sign_in_text">Войти</string>
+    <string name="auth_title_text">Вход</string>
+    <string name="login_hint_text">Логин</string>
+    <string name="password_hint_text">Пароль</string>
+
+    <string name="login_blank_error_text">Поле не может быть пустым</string>
+    <string name="login_wrong_format_error_text">Не верный формат номера телефона</string>
+
+    <string name="password_blank_error_text">Поле не может быть пустым</string>
+    <string name="password_wrong_format_error_text">Пароль должен быть от 6 до 255 символов</string>
+
+    <string name="sign_in_error_text">Логин или пароль введен неправильно</string>
+
+    <string name="empty_error_message">\ \</string>
+
+    <!--  bottom menu  -->
+    <string name="bottom_menu_favorite_title">Избранное</string>
+    <string name="bottom_menu_profile_title">Профиль</string>
+    <string name="bottom_menu_main_title">Главная</string>
+
+    <!--  profile screen  -->
+    <string name="profile_title_text">Профиль</string>
+    <string name="button_sign_out_text">Выйти</string>
+    <string name="profile_city_title">Город</string>
+    <string name="profile_phone_title">Телефон</string>
+    <string name="profile_email_title">Почта</string>
+    <string name="sign_out_error_text">Не удалось выйти, попробуйте еще раз</string>
+
+    <!--  dialogs   -->
+    <string name="dialog_sign_out_message_text">Вы точно хотите выйти из приложения?</string>
+    <string name="dialog_remove_favorite_message_text">Вы точно хотите удалить из избранного?</string>
+    <string name="dialog_pos_button_text">да, точно</string>
+    <string name="dialog_neg_button_text">нет</string>
+
+    <!--  main screen  -->
+    <string name="main_title_text">Галерея</string>
+    <string name="button_refresh_text">Обновить</string>
+    <string name="main_load_error_text">Не удалось загрузить ленту\nОбновите экран или попробуйте позже</string>
+    <string name="main_refresh_error_text">Отсутствует интернет-соединение\nПопробуйте позже</string>
+
+    <!-- detail screen   -->
+    <string name="detail_title_text">Галерея</string>
+
+    <!--  favorite screen  -->
+    <string name="favorite_title_text">Мои избранные</string>
+
+    <!--  search screen  -->
+    <string name="search_hint_text">Поиск</string>
+    <string name="init_screen_text">Введите ваш запрос</string>
+    <string name="empty_result_screen_text">По этому запросу нет результатов,\nпопробуйте другой запрос</string>
+
+
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/favorite_tab"
+        app:startDestination="@id/favoriteTabFragment">
+
+    <fragment
+            android:id="@+id/favoriteTabFragment"
+            android:name="com.example.sass.presentation.screens.tabs.favorite.FavoriteTabFragment"
+            android:label="favorite_tab_fragment"
+            tools:layout="@layout/favorite_tab_fragment" />
+</navigation>

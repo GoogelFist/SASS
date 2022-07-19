@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+    <ImageView
+            android:id="@+id/iv_favorite_item_photo_post"
+            android:layout_width="0dp"
+            android:layout_height="358dp"
+            android:contentDescription="@string/content_description"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="#BDBCBC" />
+
+    <ImageButton
+            android:id="@+id/ib_favorite_item_favorite_button_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/content_description"
+            android:src="@drawable/ic_favorite_inactive"
+            app:layout_constraintEnd_toEndOf="@id/iv_favorite_item_photo_post"
+            app:layout_constraintTop_toTopOf="@id/iv_favorite_item_photo_post" />
+
+    <TextView
+            android:id="@+id/tv_favorite_item_title_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingBottom="4dp"
+            android:textAppearance="@style/Text.MontserratMedium.16.Black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_favorite_item_photo_post"
+            tools:text="Первый день в Surf" />
+
+    <TextView
+            android:id="@+id/tv_favorite_item_publication_date_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text.MontserratMedium.10.Nobel"
+            app:layout_constraintBottom_toBottomOf="@id/tv_favorite_item_title_post"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_favorite_item_title_post"
+            tools:ignore="SmallSp"
+            tools:text="12.05.2022" />
+
+    <TextView
+            android:id="@+id/tv_favorite_item_content_post"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/Text.MontserratRegular.12.Black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_favorite_item_title_post"
+            tools:text="Сегодня был мой первый день в студии Surf..." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
