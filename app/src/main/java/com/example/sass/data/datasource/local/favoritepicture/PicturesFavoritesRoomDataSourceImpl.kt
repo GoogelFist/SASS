@@ -6,29 +6,29 @@ import com.example.sass.domain.models.FavoritePictureItem
 import javax.inject.Inject
 
 class PicturesFavoritesRoomDataSourceImpl @Inject constructor(
-    private val picturesDao: PicturesFavoriteDao,
+    private val picturesFavoriteDao: PicturesFavoriteDao,
     private val mapper: FavoritePicturesMapper
 ) : PictureFavoritesLocalDataSource {
 
     override suspend fun saveFavoritePicture(pictureDao: PictureDao) {
         val favoritePictureDao = mapper.mapPictureDaoToFavoritePictureDao(pictureDao)
-        picturesDao.saveFavoritePictureDao(favoritePictureDao)
+        picturesFavoriteDao.saveFavoritePictureDao(favoritePictureDao)
     }
 
     override suspend fun loadFavoritePicturesItems(): List<FavoritePictureItem> {
-        val favoritePicturesDao = picturesDao.loadFavoritePicturesDao()
+        val favoritePicturesDao = picturesFavoriteDao.loadFavoritePicturesDao()
         return mapper.mapFavoritePicturesDaoToFavoritePicturesItems(favoritePicturesDao)
     }
 
     override suspend fun loadFavoritePicturesIds(): List<String> {
-        return picturesDao.loadFavoritePicturesDaoIds()
+        return picturesFavoriteDao.loadFavoritePicturesDaoIds()
     }
 
     override suspend fun deleteFavoritePictureDao(id: String) {
-        picturesDao.deleteFavoritePictureDao(id)
+        picturesFavoriteDao.deleteFavoritePictureDao(id)
     }
 
     override suspend fun deleteAllFavoritePicturesDao() {
-        picturesDao.deleteAllFavoritePicturesDao()
+        picturesFavoriteDao.deleteAllFavoritePicturesDao()
     }
 }

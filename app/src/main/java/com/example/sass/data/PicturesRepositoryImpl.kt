@@ -28,7 +28,7 @@ class PicturesRepositoryImpl @Inject constructor(
         return pictureLocalDataSource.loadPicturesItems(ids)
     }
 
-    override suspend fun searchPicsItems(searchText: String): List<PicturesItem> {
+    override suspend fun findPicturesItems(searchText: String): List<PicturesItem> {
         val ids = pictureFavoritesLocalDataSource.loadFavoritePicturesIds()
         return pictureLocalDataSource.findPicturesItems(searchText, ids)
     }

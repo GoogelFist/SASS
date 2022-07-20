@@ -10,7 +10,7 @@ interface PicturesRepository {
 
     suspend fun getPicturesItems(): List<PicturesItem>
 
-    suspend fun searchPicsItems(searchText: String): List<PicturesItem>
+    suspend fun findPicturesItems(searchText: String): List<PicturesItem>
 
     suspend fun getFavoritePicsItems(): List<FavoritePictureItem>
 

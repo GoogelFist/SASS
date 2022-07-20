@@ -7,14 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.domain.models.PicturesItem
 import com.example.sass.domain.usecases.AddPictureItemToFavoriteUseCase
-import com.example.sass.domain.usecases.SearchPicturesItemsUseCase
+import com.example.sass.domain.usecases.FindPicturesItemsUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.main.search.models.SearchEvent
 import com.example.sass.presentation.screens.tabs.main.search.models.SearchState
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
-    private val searchPicturesItemsUseCase: SearchPicturesItemsUseCase,
+    private val findPicturesItemsUseCase: FindPicturesItemsUseCase,
     private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
     private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
 ) : ViewModel(), EventHandler<SearchEvent> {
@@ -56,7 +56,7 @@ class SearchViewModel(
 
     private suspend fun updatePicturesItems(text: String) {
         if (text.isNotBlank()) {
-            val list = searchPicturesItemsUseCase(text)
+            val list = findPicturesItemsUseCase(text)
             checkEmptyList(list)
             _picturesItems.value = list
         } else {
