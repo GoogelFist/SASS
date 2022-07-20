@@ -1,6 +1,6 @@
 package com.example.sass.domain
 
-import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.FavoritePictureItem
 import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 
@@ -10,9 +10,9 @@ interface PicturesRepository {
 
     suspend fun getPicturesItems(): List<PicturesItem>
 
-    suspend fun searchPicsItems(searchText: String): List<PicturesItem>
+    suspend fun findPicturesItems(searchText: String): List<PicturesItem>
 
-    suspend fun getFavoritePicsItems(): List<FavoritePicItem>
+    suspend fun getFavoritePicsItems(): List<FavoritePictureItem>
 
     suspend fun clearData()
 

@@ -5,23 +5,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.sass.R
 import com.example.sass.databinding.FavoritePostItemBinding
-import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.FavoritePictureItem
 
 class FavoriteItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val binding = FavoritePostItemBinding.bind(view)
     val favoriteButton = binding.ibFavoriteItemFavoriteButtonPost
 
-    fun bind(favoritePicItem: FavoritePicItem) {
+    fun bind(favoritePictureItem: FavoritePictureItem) {
         Glide.with(view.context)
-            .load(favoritePicItem.photoUrl)
+            .load(favoritePictureItem.photoUrl)
             .centerCrop()
             .into(binding.ivFavoriteItemPhotoPost)
 
-        binding.tvFavoriteItemTitlePost.text = favoritePicItem.title
-        binding.tvFavoriteItemContentPost.text = favoritePicItem.content
-        binding.tvFavoriteItemPublicationDatePost.text = favoritePicItem.publicationDate
+        binding.tvFavoriteItemTitlePost.text = favoritePictureItem.title
+        binding.tvFavoriteItemContentPost.text = favoritePictureItem.content
+        binding.tvFavoriteItemPublicationDatePost.text = favoritePictureItem.publicationDate
 
-        if (favoritePicItem.isFavorite) {
+        if (favoritePictureItem.isFavorite) {
             favoriteButton.setImageResource(R.drawable.ic_favorite_active)
         } else {
             favoriteButton.setImageResource(R.drawable.ic_favorite_inactive)

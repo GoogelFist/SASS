@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.sass.R
-import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.FavoritePictureItem
 
 class FavoritePicsAdapter :
-    ListAdapter<FavoritePicItem, FavoriteItemViewHolder>(FavoriteItemDiffCallBack()) {
+    ListAdapter<FavoritePictureItem, FavoriteItemViewHolder>(FavoriteItemDiffCallBack()) {
 
     lateinit var onPictureClickListener: (pictureId: String) -> Unit
     lateinit var onRemoveFavoriteButtonClickListener: (pictureId: String) -> Unit

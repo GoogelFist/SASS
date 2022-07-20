@@ -1,7 +1,7 @@
 package com.example.sass.domain.models
 
 
-data class FavoritePicItem(
+data class FavoritePictureItem(
     val id: String = "",
     val photoUrl: String = "",
     val title: String = "",

@@ -1,68 +1,44 @@
 package com.example.sass.data.datasource.local.picture
 
-import com.example.sass.data.datasource.local.picture.models.PicCommonDao
-import com.example.sass.data.mapper.PicturesMapper
-import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.data.datasource.local.picture.models.PictureDao
+import com.example.sass.data.datasource.mapper.PicturesMapper
 import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 import javax.inject.Inject
 
 class PicturesRoomDataSourceImpl @Inject constructor(
-    private val pictureDao: PictureDao,
+    private val picturesDao: PicturesDao,
     private val mapper: PicturesMapper
 ) : PictureLocalDataSource {
 
-    override suspend fun saveFavoritePic(id: String) {
-        val picCommonDao = pictureDao.getPicCommonDaoById(id)
-        val favoritePicDao = mapper.mapPicCommonDaoToFavoritePicDao(picCommonDao)
-        pictureDao.saveFavoritePicDao(favoritePicDao)
-    }
-
-    override suspend fun deleteFavoritePicDao(id: String) {
-        pictureDao.deleteFavoritePicDao(id)
-    }
-
-    override suspend fun loadFavoritePicsItems(): List<FavoritePicItem> {
-        val favoritePicsDao = pictureDao.loadFavoritePicsDao()
-        return mapper.mapFavoritePicsDaoToFavoritePicsItems(favoritePicsDao)
-    }
-
-    override suspend fun deleteAllFavoritePics() {
-        pictureDao.deleteAllFavoritePics()
-    }
-
-    override suspend fun savePicsResponseDto(picsCommonDto: List<PicCommonDao>) {
-        for (picCommonDao in picsCommonDto) {
-            pictureDao.savePicCommonDao(picCommonDao)
+    override suspend fun savePicturesDao(picturesDaoList: List<PictureDao>) {
+        for (pictureDao in picturesDaoList) {
+            picturesDao.savePictureDao(pictureDao)
         }
     }
 
-    override suspend fun loadPicsItems(): List<PicturesItem> {
-        val picsItems = pictureDao.loadPicsCommonDao()
-
-        val favoritesIds = pictureDao.loadFavoritePicsDaoIds()
-
-        return mapper.mapPicsCommonDaoToPicsItems(picsItems, favoritesIds)
+    override suspend fun getPictureDaoById(id: String): PictureDao {
+        return picturesDao.getPictureDaoById(id)
     }
 
-    override suspend fun searchPicsItems(searchText: String): List<PicturesItem> {
-        val searchResult = pictureDao.searchPicsCommonDao(searchText)
-
-        val favoritesIds = pictureDao.loadFavoritePicsDaoIds()
-
-        return mapper.mapPicsCommonDaoToPicsItems(searchResult, favoritesIds)
+    override suspend fun deleteAllPicturesDao() {
+        picturesDao.deleteAllPicturesDao()
     }
 
-    override suspend fun findPicCommonDtoById(id: String): PicCommonDao {
-        return pictureDao.getPicCommonDaoById(id)
+    override suspend fun findPicturesItems(searchText: String, favoritesIds: List<String>): List<PicturesItem> {
+        val searchedPicturesItems = picturesDao.findPicturesDao(searchText)
+
+        return mapper.mapPicturesDaoToPicturesItems(searchedPicturesItems, favoritesIds)
     }
 
-    override suspend fun deleteAllPicsCommonDao() {
-        pictureDao.deleteAllPicsCommonDao()
+    override suspend fun loadPicturesItems(favoritesIds: List<String>): List<PicturesItem> {
+        val picturesItems = picturesDao.loadPicturesDao()
+
+        return mapper.mapPicturesDaoToPicturesItems(picturesItems, favoritesIds)
     }
 
     override suspend fun getPictureDetail(id: String): PictureDetail {
-        val pictureCommonDao = pictureDao.getPicCommonDaoById(id)
-        return mapper.mapPictureCommonDaoToPictureDetail(pictureCommonDao)
+        val pictureDao = picturesDao.getPictureDaoById(id)
+        return mapper.mapPictureDaoToPictureDetail(pictureDao)
     }
 }
