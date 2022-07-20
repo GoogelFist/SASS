@@ -29,6 +29,9 @@ interface PictureDao {
     @Query("SELECT * FROM pictures_common")
     suspend fun loadPicsCommonDao(): List<PicCommonDao>
 
+    @Query("SELECT * FROM pictures_common WHERE title LIKE '%' || :searchText || '%' ")
+    suspend fun searchPicsCommonDao(searchText: String): List<PicCommonDao>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun savePicCommonDao(picCommonDao: PicCommonDao)
 

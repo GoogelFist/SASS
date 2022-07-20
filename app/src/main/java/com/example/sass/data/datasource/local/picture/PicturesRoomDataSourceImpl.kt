@@ -46,8 +46,7 @@ class PicturesRoomDataSourceImpl @Inject constructor(
     }
 
     override suspend fun searchPicsItems(searchText: String): List<PicturesItem> {
-        val searchResult = pictureDao.loadPicsCommonDao()
-            .filter { it.title.lowercase().contains(searchText.lowercase()) }
+        val searchResult = pictureDao.searchPicsCommonDao(searchText)
 
         val favoritesIds = pictureDao.loadFavoritePicsDaoIds()
 
