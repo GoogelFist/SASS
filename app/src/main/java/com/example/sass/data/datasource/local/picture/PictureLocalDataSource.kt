@@ -1,29 +1,29 @@
 package com.example.sass.data.datasource.local.picture
 
-import com.example.sass.data.datasource.local.picture.models.PicCommonDao
-import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.data.datasource.local.picture.models.PictureDao
+import com.example.sass.domain.models.FavoritePictureItem
 import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 
 interface PictureLocalDataSource {
 
-    suspend fun saveFavoritePic(id: String)
+    suspend fun saveFavoritePicture(id: String)
 
-    suspend fun deleteFavoritePicDao(id: String)
+    suspend fun loadFavoritePicturesItems(): List<FavoritePictureItem>
 
-    suspend fun loadFavoritePicsItems(): List<FavoritePicItem>
+    suspend fun deleteFavoritePictureDao(id: String)
 
-    suspend fun deleteAllFavoritePics()
+    suspend fun deleteAllFavoritePicturesDao()
 
-    suspend fun savePicsResponseDto(picsCommonDto: List<PicCommonDao>)
+    suspend fun savePicturesDao(picturesDaoList: List<PictureDao>)
 
-    suspend fun loadPicsItems(): List<PicturesItem>
+    suspend fun getPictureDaoById(id: String): PictureDao
 
-    suspend fun searchPicsItems(searchText: String): List<PicturesItem>
+    suspend fun deleteAllPicturesDao()
 
-    suspend fun findPicCommonDtoById(id: String): PicCommonDao
+    suspend fun findPicturesItems(searchText: String): List<PicturesItem>
 
-    suspend fun deleteAllPicsCommonDao()
+    suspend fun loadPicturesItems(): List<PicturesItem>
 
     suspend fun getPictureDetail(id: String): PictureDetail
 }

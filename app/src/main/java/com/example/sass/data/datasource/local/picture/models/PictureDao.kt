@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "pictures_common")
-data class PicCommonDao(
+@Entity(tableName = "pictures")
+data class PictureDao(
     @ColumnInfo(name = "content")
     val content: String = "",
     @PrimaryKey

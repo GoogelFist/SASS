@@ -76,7 +76,7 @@ class FavoriteTabFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.favoritePicItems.observe(viewLifecycleOwner) {
+        viewModel.favoritePictureItems.observe(viewLifecycleOwner) {
             favoritePicsAdapter.submitList(it) {
 
                 if (isAddedFavorite) {

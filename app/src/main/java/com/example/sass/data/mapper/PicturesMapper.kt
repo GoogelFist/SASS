@@ -1,10 +1,10 @@
 package com.example.sass.data.mapper
 
-import com.example.sass.data.datasource.local.picture.models.FavoritePicDao
-import com.example.sass.data.datasource.local.picture.models.PicCommonDao
+import com.example.sass.data.datasource.local.picture.models.FavoritePictureDao
+import com.example.sass.data.datasource.local.picture.models.PictureDao
 import com.example.sass.data.datasource.remote.picture.models.PictureDto
 import com.example.sass.data.datasource.remote.picture.models.PicturesResponse
-import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.FavoritePictureItem
 import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 import java.text.SimpleDateFormat
@@ -13,61 +13,61 @@ import javax.inject.Inject
 
 class PicturesMapper @Inject constructor() {
 
-    fun mapPicsCommonDaoToPicsItems(
-        picCommonDao: List<PicCommonDao>,
-        favoritesIds: List<String>
+    fun mapPicturesDaoToPicturesItems(
+        picturesDao: List<PictureDao>,
+        favoriteIds: List<String>
     ): List<PicturesItem> {
-        val favoritesIdsSet = favoritesIds.toHashSet()
-        return picCommonDao.map { mapPicCommonDaoToPicItem(it, favoritesIdsSet) }
+        val ids = favoriteIds.toHashSet()
+        return picturesDao.map { mapPictureDaoToPictureItem(it, ids) }
     }
 
-    fun mapPicsResponseDtoToPicsResponseDao(picturesResponse: PicturesResponse): List<PicCommonDao> {
-        return picturesResponse.map { mapPicsDtoToPicsDao(it) }
+    fun mapPicturesResponseToPicturesDao(picturesResponse: PicturesResponse): List<PictureDao> {
+        return picturesResponse.map { mapPictureDtoToPictureDao(it) }
     }
 
-    fun mapFavoritePicsDaoToFavoritePicsItems(favoritePicsDao: List<FavoritePicDao>): List<FavoritePicItem> {
-        return favoritePicsDao.map { mapFavoritePicDaoToFavoritePicItem(it) }
+    fun mapFavoritePicturesDaoToFavoritePicturesItems(favoritePicsDao: List<FavoritePictureDao>): List<FavoritePictureItem> {
+        return favoritePicsDao.map { mapFavoritePictureDaoToFavoritePictureItem(it) }
     }
 
-    fun mapPicCommonDaoToFavoritePicDao(picCommonDao: PicCommonDao): FavoritePicDao {
-        return FavoritePicDao(
-            id = picCommonDao.id,
-            photoUrl = picCommonDao.photoUrl,
-            title = picCommonDao.title,
-            content = picCommonDao.content,
-            publicationDate = picCommonDao.publicationDate,
+    fun mapPictureDaoToFavoritePictureDao(pictureDao: PictureDao): FavoritePictureDao {
+        return FavoritePictureDao(
+            id = pictureDao.id,
+            photoUrl = pictureDao.photoUrl,
+            title = pictureDao.title,
+            content = pictureDao.content,
+            publicationDate = pictureDao.publicationDate,
             isFavorite = true,
             addedTimeMills = System.currentTimeMillis()
         )
     }
 
-    fun mapPictureCommonDaoToPictureDetail(picCommonDao: PicCommonDao): PictureDetail {
+    fun mapPictureDaoToPictureDetail(pictureDao: PictureDao): PictureDetail {
         return PictureDetail(
-            id = picCommonDao.id,
-            photoUrl = picCommonDao.photoUrl,
-            title = picCommonDao.title,
-            content = picCommonDao.content,
-            publicationDate = dateFormatter(picCommonDao.publicationDate)
+            id = pictureDao.id,
+            photoUrl = pictureDao.photoUrl,
+            title = pictureDao.title,
+            content = pictureDao.content,
+            publicationDate = dateFormatter(pictureDao.publicationDate)
         )
     }
 
-    private fun mapPicCommonDaoToPicItem(
-        picCommonDao: PicCommonDao,
-        favoritesIds: Set<String>
+    private fun mapPictureDaoToPictureItem(
+        pictureDao: PictureDao,
+        favoriteIds: Set<String>
     ): PicturesItem {
 
-        val isFavorite = favoritesIds.contains(picCommonDao.id)
+        val isFavorite = favoriteIds.contains(pictureDao.id)
 
         return PicturesItem(
-            id = picCommonDao.id,
-            photoUrl = picCommonDao.photoUrl,
-            title = picCommonDao.title,
+            id = pictureDao.id,
+            photoUrl = pictureDao.photoUrl,
+            title = pictureDao.title,
             isFavorite = isFavorite
         )
     }
 
-    private fun mapPicsDtoToPicsDao(pictureDto: PictureDto): PicCommonDao {
-        return PicCommonDao(
+    private fun mapPictureDtoToPictureDao(pictureDto: PictureDto): PictureDao {
+        return PictureDao(
             content = pictureDto.content,
             id = pictureDto.id,
             photoUrl = pictureDto.photoUrl,
@@ -76,13 +76,13 @@ class PicturesMapper @Inject constructor() {
         )
     }
 
-    private fun mapFavoritePicDaoToFavoritePicItem(favoritePicDao: FavoritePicDao): FavoritePicItem {
-        return FavoritePicItem(
-            id = favoritePicDao.id,
-            photoUrl = favoritePicDao.photoUrl,
-            title = favoritePicDao.title,
-            content = favoritePicDao.content,
-            publicationDate = dateFormatter(favoritePicDao.publicationDate),
+    private fun mapFavoritePictureDaoToFavoritePictureItem(favoritePictureDao: FavoritePictureDao): FavoritePictureItem {
+        return FavoritePictureItem(
+            id = favoritePictureDao.id,
+            photoUrl = favoritePictureDao.photoUrl,
+            title = favoritePictureDao.title,
+            content = favoritePictureDao.content,
+            publicationDate = dateFormatter(favoritePictureDao.publicationDate),
             isFavorite = true
         )
     }
