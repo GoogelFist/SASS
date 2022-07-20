@@ -1,8 +1,8 @@
 package com.example.sass.data.datasource.remote.picture
 
 import com.example.sass.data.IncorrectTokenException
-import com.example.sass.data.datasource.local.picture.models.PicCommonDao
-import com.example.sass.data.mapper.PicturesMapper
+import com.example.sass.data.datasource.local.picture.models.PictureDao
+import com.example.sass.data.datasource.mapper.PicturesMapper
 import javax.inject.Inject
 
 class PicturesRetrofitDataSourceImpl @Inject constructor(
@@ -10,7 +10,7 @@ class PicturesRetrofitDataSourceImpl @Inject constructor(
     private val mapper: PicturesMapper
 ) : PicturesRemoteDataSource {
 
-    override suspend fun loadPictures(token: String): List<PicCommonDao> {
+    override suspend fun loadPictures(token: String): List<PictureDao> {
 
         if (token.isBlank()) {
             throw IncorrectTokenException(ABSENT_TOKEN_MESSAGE)
@@ -18,7 +18,7 @@ class PicturesRetrofitDataSourceImpl @Inject constructor(
             val response = picturesRetrofitService.loadPictures(token)
             if (response.isSuccessful) {
                 response.body()?.let { listResponse ->
-                    return mapper.mapPicsResponseDtoToPicsResponseDao(listResponse)
+                    return mapper.mapPicturesResponseToPicturesDao(listResponse)
                 } ?: throw throw RuntimeException(REQUEST_BODY_NULL_MESSAGE)
             } else {
                 val code = response.code()

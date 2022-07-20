@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.domain.usecases.AddPictureItemToFavoriteUseCase
-import com.example.sass.domain.usecases.SearchPicturesItemsUseCase
+import com.example.sass.domain.usecases.FindPicturesItemsUseCase
 import javax.inject.Inject
 
 class SearchViewModelFactory @Inject constructor(
-    private val searchPicturesItemsUseCase: SearchPicturesItemsUseCase,
+    private val findPicturesItemsUseCase: FindPicturesItemsUseCase,
     private val addPictureItemToFavoriteUseCase: AddPictureItemToFavoriteUseCase,
     private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
 ) : ViewModelProvider.Factory {
@@ -16,7 +16,7 @@ class SearchViewModelFactory @Inject constructor(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
             return SearchViewModel(
-                searchPicturesItemsUseCase,
+                findPicturesItemsUseCase,
                 addPictureItemToFavoriteUseCase,
                 removePictureItemFromFavoriteUseCase
             ) as T

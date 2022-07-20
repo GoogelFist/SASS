@@ -3,7 +3,7 @@ package com.example.sass.data.datasource.remote.user
 import com.example.sass.data.IncorrectTokenException
 import com.example.sass.data.datasource.remote.user.models.SignInDto
 import com.example.sass.data.datasource.remote.user.models.SignInRequest
-import com.example.sass.data.mapper.UserMapper
+import com.example.sass.data.datasource.mapper.UserMapper
 import javax.inject.Inject
 
 class UserRetrofitDataSourceImpl @Inject constructor(

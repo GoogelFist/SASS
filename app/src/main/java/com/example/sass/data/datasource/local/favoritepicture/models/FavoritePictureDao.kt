@@ -1,11 +1,11 @@
-package com.example.sass.data.datasource.local.picture.models
+package com.example.sass.data.datasource.local.favoritepicture.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "favorite_pictures")
-data class FavoritePicDao(
+data class FavoritePictureDao(
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: String = "",

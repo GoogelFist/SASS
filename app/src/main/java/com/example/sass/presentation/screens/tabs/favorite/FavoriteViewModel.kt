@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
-import com.example.sass.domain.models.FavoritePicItem
+import com.example.sass.domain.models.FavoritePictureItem
 import com.example.sass.domain.usecases.GetFavoritesPicturesItemsUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteEvent
@@ -17,9 +17,9 @@ class FavoriteViewModel(
     private val removePictureItemFromFavoriteUseCase: RemovePictureItemFromFavoriteUseCase
 ) : ViewModel(), EventHandler<FavoriteEvent> {
 
-    private var _favoritePicItems = MutableLiveData<List<FavoritePicItem>>()
-    val favoritePicItems: LiveData<List<FavoritePicItem>>
-        get() = _favoritePicItems
+    private var _favoritePictureItems = MutableLiveData<List<FavoritePictureItem>>()
+    val favoritePictureItems: LiveData<List<FavoritePictureItem>>
+        get() = _favoritePictureItems
 
     private var _scrollState = MutableLiveData<FavoriteScrollState>()
     val scrollState: LiveData<FavoriteScrollState>
@@ -54,12 +54,12 @@ class FavoriteViewModel(
 
         checkingScrollState(list)
 
-        _favoritePicItems.value = list
+        _favoritePictureItems.value = list
     }
 
-    private fun checkingScrollState(list: List<FavoritePicItem>) {
+    private fun checkingScrollState(list: List<FavoritePictureItem>) {
         val newListSize = list.size
-        val oldListSize = _favoritePicItems.value?.size ?: 0
+        val oldListSize = _favoritePictureItems.value?.size ?: 0
 
         when {
             newListSize > oldListSize -> {
