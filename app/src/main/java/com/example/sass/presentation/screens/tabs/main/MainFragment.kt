@@ -149,14 +149,10 @@ class MainFragment : Fragment() {
     private fun configEmptyListState() {
         with(binding) {
             ibSearchMain.visibility = View.GONE
-
             swipeRefreshLayout.visibility = View.GONE
-            swipeRefreshLayout.isEnabled = false
-            swipeRefreshLayout.isRefreshing = false
-
             progressBarMainScreen.visibility = View.GONE
-            llMainErrorMessage.visibility = View.GONE
-            buttonTryAgain.visibility = View.GONE
+            llMainErrorMessage.visibility = View.VISIBLE
+            buttonTryAgain.visibility = View.VISIBLE
         }
     }
 
