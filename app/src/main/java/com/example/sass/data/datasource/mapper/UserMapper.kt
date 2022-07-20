@@ -1,4 +1,4 @@
-package com.example.sass.data.mapper
+package com.example.sass.data.datasource.mapper
 
 import com.example.sass.data.datasource.local.user.models.UserInfoDao
 import com.example.sass.data.datasource.remote.user.models.UserInfoDto

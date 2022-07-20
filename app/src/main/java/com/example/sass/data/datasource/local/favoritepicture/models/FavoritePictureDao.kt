@@ -1,4 +1,4 @@
-package com.example.sass.data.datasource.local.picture.models
+package com.example.sass.data.datasource.local.favoritepicture.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

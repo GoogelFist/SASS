@@ -1,6 +1,7 @@
 package com.example.sass.data
 
 import com.example.sass.data.datasource.local.picture.PictureLocalDataSource
+import com.example.sass.data.datasource.local.favoritepicture.PictureFavoritesLocalDataSource
 import com.example.sass.data.datasource.local.token.TokenLocalDataSource
 import com.example.sass.data.datasource.remote.picture.PicturesRemoteDataSource
 import com.example.sass.domain.PicturesRepository
@@ -12,7 +13,8 @@ import javax.inject.Inject
 class PicturesRepositoryImpl @Inject constructor(
     private val tokenLocalDataSource: TokenLocalDataSource,
     private val picturesRemoteDataSource: PicturesRemoteDataSource,
-    private val pictureLocalDataSource: PictureLocalDataSource
+    private val pictureLocalDataSource: PictureLocalDataSource,
+    private val pictureFavoritesLocalDataSource: PictureFavoritesLocalDataSource
 ) : PicturesRepository {
 
     override suspend fun loadPictures() {
@@ -22,28 +24,31 @@ class PicturesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPicturesItems(): List<PicturesItem> {
-        return pictureLocalDataSource.loadPicturesItems()
+        val ids = pictureFavoritesLocalDataSource.loadFavoritePicturesIds()
+        return pictureLocalDataSource.loadPicturesItems(ids)
     }
 
     override suspend fun searchPicsItems(searchText: String): List<PicturesItem> {
-        return pictureLocalDataSource.findPicturesItems(searchText)
+        val ids = pictureFavoritesLocalDataSource.loadFavoritePicturesIds()
+        return pictureLocalDataSource.findPicturesItems(searchText, ids)
     }
 
     override suspend fun getFavoritePicsItems(): List<FavoritePictureItem> {
-        return pictureLocalDataSource.loadFavoritePicturesItems()
+        return pictureFavoritesLocalDataSource.loadFavoritePicturesItems()
     }
 
     override suspend fun clearData() {
-        pictureLocalDataSource.deleteAllFavoritePicturesDao()
+        pictureFavoritesLocalDataSource.deleteAllFavoritePicturesDao()
         pictureLocalDataSource.deleteAllPicturesDao()
     }
 
     override suspend fun addToFavorite(id: String) {
-        pictureLocalDataSource.saveFavoritePicture(id)
+        val pictureDao = pictureLocalDataSource.getPictureDaoById(id)
+        pictureFavoritesLocalDataSource.saveFavoritePicture(pictureDao)
     }
 
     override suspend fun removedFromFavorite(id: String) {
-        pictureLocalDataSource.deleteFavoritePictureDao(id)
+        pictureFavoritesLocalDataSource.deleteFavoritePictureDao(id)
     }
 
     override suspend fun getPictureDetail(id: String): PictureDetail {

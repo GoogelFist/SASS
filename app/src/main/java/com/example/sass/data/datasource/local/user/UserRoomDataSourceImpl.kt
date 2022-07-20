@@ -1,7 +1,7 @@
 package com.example.sass.data.datasource.local.user
 
 import com.example.sass.data.datasource.local.user.models.UserInfoDao
-import com.example.sass.data.mapper.UserMapper
+import com.example.sass.data.datasource.mapper.UserMapper
 import com.example.sass.domain.models.UserInfo
 import javax.inject.Inject
 

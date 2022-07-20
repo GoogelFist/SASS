@@ -2,7 +2,7 @@ package com.example.sass.data.datasource.remote.picture
 
 import com.example.sass.data.IncorrectTokenException
 import com.example.sass.data.datasource.local.picture.models.PictureDao
-import com.example.sass.data.mapper.PicturesMapper
+import com.example.sass.data.datasource.mapper.PicturesMapper
 import javax.inject.Inject
 
 class PicturesRetrofitDataSourceImpl @Inject constructor(
