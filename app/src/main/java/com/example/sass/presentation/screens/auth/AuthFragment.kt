@@ -29,10 +29,7 @@ class AuthFragment : Fragment() {
     @Inject
     lateinit var authViewModelFactory: AuthViewModelFactory
 
-    private val viewModel by activityViewModels<AuthViewModel> {
-        authViewModelFactory
-    }
-
+    private val viewModel by activityViewModels<AuthViewModel> { authViewModelFactory }
 
     override fun onAttach(context: Context) {
         context.component.inject(this)
@@ -157,24 +154,20 @@ class AuthFragment : Fragment() {
             txtInpLayoutPassword.setErrorTextAppearance(R.style.Text_MontserratRegular_12)
             txtInpLayoutLogin.setErrorTextAppearance(R.style.Text_MontserratRegular_12)
 
-            txtInpLayoutLogin.setErrorTextColor(
-                ColorStateList.valueOf(requireContext().getColor(R.color.edit_text_error_text_color))
-            )
-            txtInpLayoutPassword.setErrorTextColor(
-                ColorStateList.valueOf(requireContext().getColor(R.color.edit_text_error_text_color))
-            )
+            val errorTextColor = requireContext().getColor(R.color.edit_text_error_text_color)
+
+            txtInpLayoutLogin.setErrorTextColor(ColorStateList.valueOf(errorTextColor))
+            txtInpLayoutPassword.setErrorTextColor(ColorStateList.valueOf(errorTextColor))
 
             txtInpLayoutLogin.isErrorEnabled = true
             txtInpLayoutPassword.isErrorEnabled = true
 
             when (state.loginErrorSubState) {
                 ErrorLoginSubState.IsBlank -> {
-                    txtInpLayoutLogin.error =
-                        requireContext().getText(R.string.login_blank_error_text)
+                    txtInpLayoutLogin.error = getText(R.string.login_blank_error_text)
                 }
                 ErrorLoginSubState.Invalidate -> {
-                    txtInpLayoutLogin.error =
-                        requireContext().getText(R.string.login_wrong_format_error_text)
+                    txtInpLayoutLogin.error = getText(R.string.login_wrong_format_error_text)
                 }
                 ErrorLoginSubState.Default -> {
                     txtInpLayoutLogin.error = null
@@ -184,12 +177,10 @@ class AuthFragment : Fragment() {
 
             when (state.passwordErrorSubState) {
                 ErrorPasswordSubState.IsBlank -> {
-                    txtInpLayoutPassword.error =
-                        requireContext().getText(R.string.password_blank_error_text)
+                    txtInpLayoutPassword.error = getText(R.string.password_blank_error_text)
                 }
                 ErrorPasswordSubState.Invalidate -> {
-                    txtInpLayoutPassword.error =
-                        requireContext().getText(R.string.password_wrong_format_error_text)
+                    txtInpLayoutPassword.error = getText(R.string.password_wrong_format_error_text)
                 }
                 ErrorPasswordSubState.Default -> {
                     txtInpLayoutPassword.error = null

@@ -16,7 +16,6 @@ class SingleDialogFragment : DialogFragment() {
     private val binding: SingleDialogFragmentBinding
         get() = _binding!!
 
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val message = requireArguments().getString(KEY_MESSAGE_TEXT).toString()
 
@@ -24,9 +23,7 @@ class SingleDialogFragment : DialogFragment() {
 
         binding.tvTitleSignOutDialog.text = message
 
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(binding.root)
-            .create()
+        val dialog = AlertDialog.Builder(requireContext()).setView(binding.root).create()
 
         dialog.setOnShowListener {
             binding.buttonPositiveSignOutDialog.setOnClickListener {
@@ -44,10 +41,8 @@ class SingleDialogFragment : DialogFragment() {
                 dismiss()
             }
         }
-
         return dialog
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

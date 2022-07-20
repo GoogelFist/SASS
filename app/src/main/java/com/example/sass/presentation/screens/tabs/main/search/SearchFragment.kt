@@ -30,9 +30,7 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: SearchViewModelFactory
 
-    private val viewModel by activityViewModels<SearchViewModel> {
-        viewModelFactory
-    }
+    private val viewModel by activityViewModels<SearchViewModel> { viewModelFactory }
 
     private lateinit var picturesMainAdapter: PicturesMainAdapter
 
@@ -54,7 +52,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.obtainEvent(SearchEvent.OnSetDefaultState)
-
         setupRecycler()
         observeViewModel()
         setupButtons()
@@ -123,12 +120,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun setFavoriteButtonClickListener() {
-        picturesMainAdapter.onFavoriteButtonClickListener = { pictureId, isFavorite ->
+        picturesMainAdapter.onFavoriteButtonClickListener = { id, isFavorite ->
             if (isFavorite) {
-                viewModel.obtainEvent(SearchEvent.OnRemoveFromFavorite(pictureId))
-
+                viewModel.obtainEvent(SearchEvent.OnRemoveFromFavorite(id))
             } else {
-                viewModel.obtainEvent(SearchEvent.OnAddToFavorite(pictureId))
+                viewModel.obtainEvent(SearchEvent.OnAddToFavorite(id))
             }
         }
     }
@@ -141,16 +137,15 @@ class SearchFragment : Fragment() {
     }
 
     private fun setPicturesItemClickListener() {
-        picturesMainAdapter.onPictureClickListener = { pictureId ->
-            val direction =
-                SearchFragmentDirections.actionSearchFragmentToPictureDetailFragment(pictureId)
+        picturesMainAdapter.onPictureClickListener = { id ->
+            val direction = SearchFragmentDirections.actionSearchFragmentToPictureDetailFragment(id)
             getRootNavController().navigate(direction)
         }
     }
 
     private fun configSearchField() {
         binding.textInputEditTextSearch.showKeyboard()
-        binding.textInputEditTextSearch.doOnTextChanged { text, start, before, count ->
+        binding.textInputEditTextSearch.doOnTextChanged { text, _, _, _ ->
             viewModel.obtainEvent(SearchEvent.OnSearchPictures(text.toString()))
         }
     }

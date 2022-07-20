@@ -29,9 +29,7 @@ class FavoriteViewModel(
         when (event) {
             is FavoriteEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
             FavoriteEvent.OnUpdateData -> updatedData()
-            FavoriteEvent.OnSetDefaultScrollState -> {
-                _scrollState.value = FavoriteScrollState.Default
-            }
+            FavoriteEvent.OnSetDefaultScrollState -> setDefaultScrollState()
         }
     }
 
@@ -39,6 +37,10 @@ class FavoriteViewModel(
         viewModelScope.launch {
             updatePicturesItems()
         }
+    }
+
+    private fun setDefaultScrollState() {
+        _scrollState.value = FavoriteScrollState.Default
     }
 
     private fun removedFromFavorite(id: String) {
@@ -68,7 +70,7 @@ class FavoriteViewModel(
             newListSize < oldListSize -> {
                 _scrollState.value = FavoriteScrollState.RemovedFavorite
             }
-            else -> _scrollState.value = FavoriteScrollState.Default
+            else -> setDefaultScrollState()
         }
     }
 }

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.sass.component
 import com.example.sass.databinding.PictureDetailFragmentBinding
+import com.example.sass.domain.models.PictureDetail
 import com.example.sass.presentation.screens.tabs.detail.models.DetailEvent
 import javax.inject.Inject
 
@@ -23,9 +24,7 @@ class PictureDetailFragment : Fragment() {
     @Inject
     lateinit var detailViewModelFactory: DetailViewModelFactory
 
-    private val viewModel by activityViewModels<DetailViewModel> {
-        detailViewModelFactory
-    }
+    private val viewModel by activityViewModels<DetailViewModel> { detailViewModelFactory }
 
     override fun onAttach(context: Context) {
         context.component.inject(this)
@@ -58,14 +57,18 @@ class PictureDetailFragment : Fragment() {
 
     private fun observeViewModel(view: View) {
         viewModel.pictureDetail.observe(viewLifecycleOwner) { pictureDetail ->
-            Glide.with(view.context)
-                .load(pictureDetail.photoUrl)
-                .centerCrop()
-                .into(binding.ivPhotoDetailPost)
+            configDetailPhoto(view, pictureDetail)
             binding.tvDetailTitlePost.text = pictureDetail.title
             binding.tvDetailContentPost.text = pictureDetail.content
             binding.tvDetailPublicationDatePost.text = pictureDetail.publicationDate
         }
+    }
+
+    private fun configDetailPhoto(view: View, pictureDetail: PictureDetail) {
+        Glide.with(view.context)
+            .load(pictureDetail.photoUrl)
+            .centerCrop()
+            .into(binding.ivPhotoDetailPost)
     }
 
     private fun setupPopupButton() {

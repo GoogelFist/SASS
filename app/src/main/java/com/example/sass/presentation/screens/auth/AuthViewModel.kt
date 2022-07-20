@@ -57,21 +57,23 @@ class AuthViewModel(
     }
 
     private fun validate(login: String, password: String): Boolean {
-        var validateErrorState = AuthState.SingInValidateError()
+        var validateErrState = AuthState.SingInValidateError()
 
         val loginErrSubState = AuthValidator.validateLogin(login)
         val passwordErrSubState = AuthValidator.validatePassword(password)
 
         if (loginErrSubState != ErrorLoginSubState.Default) {
-            validateErrorState = validateErrorState.copy(loginErrorSubState = loginErrSubState)
+            validateErrState = validateErrState.copy(loginErrorSubState = loginErrSubState)
         }
         if (passwordErrSubState != ErrorPasswordSubState.Default) {
-            validateErrorState =
-                validateErrorState.copy(passwordErrorSubState = passwordErrSubState)
+            validateErrState = validateErrState.copy(passwordErrorSubState = passwordErrSubState)
         }
 
-        _authState.value = validateErrorState
+        _authState.value = validateErrState
 
-        return loginErrSubState == ErrorLoginSubState.Default && passwordErrSubState == ErrorPasswordSubState.Default
+        val isLoginDefaultSubState = loginErrSubState == ErrorLoginSubState.Default
+        val isPasswordDefaultSubState = passwordErrSubState == ErrorPasswordSubState.Default
+
+        return isLoginDefaultSubState && isPasswordDefaultSubState
     }
 }

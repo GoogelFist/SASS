@@ -24,10 +24,7 @@ class SplashFragment : Fragment() {
     @Inject
     lateinit var splashViewModelFactory: SplashViewModelFactory
 
-    private val viewModel by activityViewModels<SplashViewModel> {
-        splashViewModelFactory
-    }
-
+    private val viewModel by activityViewModels<SplashViewModel> { splashViewModelFactory }
 
     override fun onAttach(context: Context) {
         context.component.inject(this)
