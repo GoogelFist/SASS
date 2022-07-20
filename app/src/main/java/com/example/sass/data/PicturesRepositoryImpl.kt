@@ -25,6 +25,10 @@ class PicturesRepositoryImpl @Inject constructor(
         return pictureLocalDataSource.loadPicsItems()
     }
 
+    override suspend fun searchPicsItems(searchText: String): List<PicturesItem> {
+        return pictureLocalDataSource.searchPicsItems(searchText)
+    }
+
     override suspend fun getFavoritePicsItems(): List<FavoritePicItem> {
         return pictureLocalDataSource.loadFavoritePicsItems()
     }

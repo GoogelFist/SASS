@@ -19,6 +19,8 @@ interface PictureLocalDataSource {
 
     suspend fun loadPicsItems(): List<PicturesItem>
 
+    suspend fun searchPicsItems(searchText: String): List<PicturesItem>
+
     suspend fun findPicCommonDtoById(id: String): PicCommonDao
 
     suspend fun deleteAllPicsCommonDao()
