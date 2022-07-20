@@ -9,12 +9,12 @@ import com.example.sass.domain.models.FavoritePictureItem
 class FavoritePicsAdapter :
     ListAdapter<FavoritePictureItem, FavoriteItemViewHolder>(FavoriteItemDiffCallBack()) {
 
-    lateinit var onPictureClickListener: (pictureId: String) -> Unit
+    lateinit var onPictureClickListener: (id: String) -> Unit
     lateinit var onRemoveFavoriteButtonClickListener: (pictureId: String) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteItemViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.favorite_post_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.favorite_post_item, parent, false)
 
         val viewHolder = FavoriteItemViewHolder(view)
         val favoriteButton = viewHolder.favoriteButton
@@ -22,19 +22,18 @@ class FavoritePicsAdapter :
         favoriteButton.setOnClickListener {
             val position = viewHolder.adapterPosition
             if (position != NO_POSITION) {
-                val pictureId = currentList[position].id
-                onRemoveFavoriteButtonClickListener.invoke(pictureId)
+                val id = currentList[position].id
+                onRemoveFavoriteButtonClickListener.invoke(id)
             }
         }
 
         view.setOnClickListener {
             val position = viewHolder.adapterPosition
             if (position != NO_POSITION) {
-                val pictureId = currentList[position].id
-                onPictureClickListener.invoke(pictureId)
+                val id = currentList[position].id
+                onPictureClickListener.invoke(id)
             }
         }
-
         return viewHolder
     }
 

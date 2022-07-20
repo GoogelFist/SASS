@@ -12,13 +12,19 @@ class PicturesItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val favoriteButton = binding.ibMainItemFavoriteButtonPost
 
     fun bind(picturesItem: PicturesItem) {
+        configPictureItemPhoto(picturesItem)
+        binding.tvMainItemTitlePost.text = picturesItem.title
+        configPictureItemFavoriteButton(picturesItem)
+    }
+
+    private fun configPictureItemPhoto(picturesItem: PicturesItem) {
         Glide.with(view.context)
             .load(picturesItem.photoUrl)
             .centerCrop()
             .into(binding.ivMainItemPhotoPost)
+    }
 
-        binding.tvMainItemTitlePost.text = picturesItem.title
-
+    private fun configPictureItemFavoriteButton(picturesItem: PicturesItem) {
         if (picturesItem.isFavorite) {
             favoriteButton.setImageResource(R.drawable.ic_favorite_active)
         } else {

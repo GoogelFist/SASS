@@ -31,10 +31,7 @@ class ProfileTabFragment : Fragment() {
     @Inject
     lateinit var profileViewModelFactory: ProfileViewModelFactory
 
-    private val viewModel by activityViewModels<ProfileViewModel> {
-        profileViewModelFactory
-    }
-
+    private val viewModel by activityViewModels<ProfileViewModel> { profileViewModelFactory }
 
     override fun onAttach(context: Context) {
         context.component.inject(this)
@@ -54,7 +51,6 @@ class ProfileTabFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.obtainEvent(ProfileEvent.OnInit)
-
         configButton()
         observeUserInfoViewModel()
         observeStateViewModel()
@@ -80,7 +76,6 @@ class ProfileTabFragment : Fragment() {
 
     private fun observeUserInfoViewModel() {
         viewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
-
             with(binding) {
                 bindUserInfoFields(userInfo)
             }
@@ -91,7 +86,7 @@ class ProfileTabFragment : Fragment() {
         userInfo: UserInfo
     ) {
         if (userInfo.avatar.isNotBlank()) {
-            Glide.with(requireContext()).load(userInfo.avatar).centerCrop().into(ivAvatar)
+            Glide.with(this.root).load(userInfo.avatar).centerCrop().into(ivAvatar)
         } else {
             ivAvatar.visibility = View.INVISIBLE
         }
@@ -121,7 +116,6 @@ class ProfileTabFragment : Fragment() {
             block.visibility = View.INVISIBLE
         }
     }
-
 
     private fun observeStateViewModel() {
         viewModel.profileState.observe(viewLifecycleOwner) { state ->

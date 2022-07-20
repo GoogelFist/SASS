@@ -15,8 +15,8 @@ object AuthHelper {
 
                     editTextPassword.transformationMethod = null
 
-                    txtInpLayoutPassword.endIconDrawable =
-                        binding.root.context.getDrawable(R.drawable.ic_hide_password)
+                    val hideIcon = binding.root.context.getDrawable(R.drawable.ic_hide_password)
+                    txtInpLayoutPassword.endIconDrawable = hideIcon
 
                     editTextPassword.letterSpacing = DEFAULT_PASSWORD_MASK_LETTER_SPACING
 
@@ -28,8 +28,9 @@ object AuthHelper {
                 } else {
                     editTextPassword.transformationMethod = BigPointTransformationMethod()
 
-                    txtInpLayoutPassword.endIconDrawable =
-                        binding.root.context.getDrawable(R.drawable.ic_show_password)
+                    val showIcon = binding.root.context.getDrawable(R.drawable.ic_show_password)
+                    txtInpLayoutPassword.endIconDrawable = showIcon
+
                     editTextPassword.letterSpacing = PASSWORD_MASK_LETTER_SPACING
 
                     editTextPassword.text?.let { text ->

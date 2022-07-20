@@ -28,9 +28,7 @@ class FavoriteTabFragment : Fragment() {
     @Inject
     lateinit var favoriteViewModelFactory: FavoriteViewModelFactory
 
-    private val viewModel by activityViewModels<FavoriteViewModel> {
-        favoriteViewModelFactory
-    }
+    private val viewModel by activityViewModels<FavoriteViewModel> { favoriteViewModelFactory }
 
     lateinit var favoritePicsAdapter: FavoritePicsAdapter
 
@@ -128,9 +126,8 @@ class FavoriteTabFragment : Fragment() {
     }
 
     private fun setPicturesItemClickListener() {
-        favoritePicsAdapter.onPictureClickListener = { pictureId ->
-            val direction =
-                TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
+        favoritePicsAdapter.onPictureClickListener = { id ->
+            val direction = TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(id)
             getRootNavController().navigate(direction)
         }
     }

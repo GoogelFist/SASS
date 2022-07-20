@@ -31,12 +31,9 @@ class MainFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: MainViewModelFactory
 
-    private val viewModel by activityViewModels<MainViewModel> {
-        viewModelFactory
-    }
+    private val viewModel by activityViewModels<MainViewModel> { viewModelFactory }
 
     private lateinit var picturesMainAdapter: PicturesMainAdapter
-
 
     override fun onAttach(context: Context) {
         context.component.inject(this)
@@ -56,7 +53,6 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initFragment()
-
         observeViewModel()
         setupRecycler()
         configButtons()
@@ -147,7 +143,6 @@ class MainFragment : Fragment() {
 
     private fun configErrorRefreshState() {
         configLoadedState()
-
         getErrorSnackBar().show()
     }
 
@@ -218,20 +213,18 @@ class MainFragment : Fragment() {
     }
 
     private fun setFavoriteButtonClickListener() {
-        picturesMainAdapter.onFavoriteButtonClickListener = { pictureId, isFavorite ->
+        picturesMainAdapter.onFavoriteButtonClickListener = { id, isFavorite ->
             if (isFavorite) {
-                viewModel.obtainEvent(MainEvent.OnRemoveFromFavorite(pictureId))
-
+                viewModel.obtainEvent(MainEvent.OnRemoveFromFavorite(id))
             } else {
-                viewModel.obtainEvent(MainEvent.OnAddToFavorite(pictureId))
+                viewModel.obtainEvent(MainEvent.OnAddToFavorite(id))
             }
         }
     }
 
     private fun setPicturesItemClickListener() {
-        picturesMainAdapter.onPictureClickListener = { pictureId ->
-            val direction =
-                TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(pictureId)
+        picturesMainAdapter.onPictureClickListener = { id ->
+            val direction = TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(id)
             getRootNavController().navigate(direction)
         }
     }
