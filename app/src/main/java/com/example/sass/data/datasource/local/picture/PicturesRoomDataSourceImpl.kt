@@ -45,6 +45,15 @@ class PicturesRoomDataSourceImpl @Inject constructor(
         return mapper.mapPicsCommonDaoToPicsItems(picsItems, favoritesIds)
     }
 
+    override suspend fun searchPicsItems(searchText: String): List<PicturesItem> {
+        val searchResult = pictureDao.loadPicsCommonDao()
+            .filter { it.title.lowercase().contains(searchText.lowercase()) }
+
+        val favoritesIds = pictureDao.loadFavoritePicsDaoIds()
+
+        return mapper.mapPicsCommonDaoToPicsItems(searchResult, favoritesIds)
+    }
+
     override suspend fun findPicCommonDtoById(id: String): PicCommonDao {
         return pictureDao.getPicCommonDaoById(id)
     }
