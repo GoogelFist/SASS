@@ -2,8 +2,6 @@ package com.example.sass.di
 
 import com.example.sass.data.PicturesRepositoryImpl
 import com.example.sass.data.UserRepositoryImpl
-import com.example.sass.data.datasource.local.favoritepicture.PictureFavoritesLocalDataSource
-import com.example.sass.data.datasource.local.favoritepicture.PicturesFavoritesRoomDataSourceImpl
 import com.example.sass.data.datasource.local.picture.PictureLocalDataSource
 import com.example.sass.data.datasource.local.picture.PicturesRoomDataSourceImpl
 import com.example.sass.data.datasource.local.token.TokenEncrSharPrefDataSourceImpl
@@ -43,7 +41,4 @@ interface BindDataModule {
 
     @Binds
     fun bindPicturesLocalDataSource(impl: PicturesRoomDataSourceImpl): PictureLocalDataSource
-
-    @Binds
-    fun bindPicturesFavoriteLocalDataSource(impl: PicturesFavoritesRoomDataSourceImpl): PictureFavoritesLocalDataSource
 }
