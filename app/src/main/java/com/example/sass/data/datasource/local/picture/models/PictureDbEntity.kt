@@ -9,9 +9,7 @@ import com.example.sass.domain.models.PictureDetail
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Entity(
-    tableName = "pictures"
-)
+@Entity(tableName = "pictures")
 data class PictureDbEntity(
     @ColumnInfo(name = "content")
     val content: String = "",

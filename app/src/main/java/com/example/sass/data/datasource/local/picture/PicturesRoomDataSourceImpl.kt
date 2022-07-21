@@ -11,9 +11,7 @@ class PicturesRoomDataSourceImpl @Inject constructor(
 ) : PictureLocalDataSource {
 
     override suspend fun savePicturesDbEntity(picturesDbEntity: List<PictureDbEntity>) {
-        for (pictureDbEntity in picturesDbEntity) {
-            picturesDao.savePicture(pictureDbEntity)
-        }
+        picturesDbEntity.forEach { pictureDbEntity -> picturesDao.savePicture(pictureDbEntity) }
     }
 
     override suspend fun findPicturesItems(searchText: String): List<PicturesItem> {
