@@ -107,6 +107,7 @@ class AuthFragment : Fragment() {
                 AuthState.SignedIn -> navigateToTabFragment()
                 AuthState.SingInError -> configSignInErrorState()
                 is AuthState.SingInValidateError -> configInValidateState(state)
+                AuthState.Error -> configErrorState()
             }
         }
     }
@@ -187,6 +188,23 @@ class AuthFragment : Fragment() {
                     txtInpLayoutPassword.isErrorEnabled = false
                 }
             }
+        }
+    }
+
+    private fun configErrorState() {
+        with(binding) {
+            txtInpLayoutPassword.error = null
+            txtInpLayoutPassword.isErrorEnabled = false
+
+            txtInpLayoutLogin.error = null
+            txtInpLayoutLogin.isErrorEnabled = false
+
+            interfaceBlocker.visibility = View.GONE
+
+            buttonSignIn.isLoading = false
+
+            Snackbar.make(root, R.string.auth_error_text, Snackbar.LENGTH_LONG)
+                .setAnchorView(buttonSignIn).show()
         }
     }
 }
