@@ -1,6 +1,7 @@
 package com.example.sass.data.datasource.local.token
 
 import android.content.SharedPreferences
+import com.example.sass.data.datasource.DataSourceStringUtils
 import javax.inject.Inject
 
 
@@ -9,7 +10,7 @@ class TokenEncrSharPrefDataSourceImpl @Inject constructor(private val sharedPref
 
     override suspend fun saveAuthToken(token: String) {
         sharedPreferences.edit()
-            .putString(TOKEN_KEY, formatToken(token))
+            .putString(TOKEN_KEY, DataSourceStringUtils.formatToken(token))
             .apply()
     }
 
@@ -24,10 +25,6 @@ class TokenEncrSharPrefDataSourceImpl @Inject constructor(private val sharedPref
     override suspend fun isExistToken(): Boolean {
         val token = loadAuthToken()
         return token.isNotBlank()
-    }
-
-    private fun formatToken(token: String): String {
-        return "Token $token"
     }
 
     companion object {
