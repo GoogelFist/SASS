@@ -10,9 +10,7 @@ data class FavoriteDbEntity(
     @ColumnInfo(name = "favorite_id")
     val pictureId: String = "",
     @ColumnInfo(name = "added_date")
-    val addedDate: Long = DEFAULT_ADDED_DATE,
-    @ColumnInfo(name = "is_favorite")
-    val isFavorite: Boolean = false
+    val addedDate: Long = DEFAULT_ADDED_DATE
 )
 
 private const val DEFAULT_ADDED_DATE = 0L

@@ -15,8 +15,7 @@ interface PicturesDao {
 
     @Query(
         "SELECT * FROM pictures " +
-                "LEFT JOIN favorites ON Pictures.picture_id = Favorites.favorite_id " +
-                "WHERE is_favorite = 1 " +
+                "INNER JOIN favorites ON Pictures.picture_id = Favorites.favorite_id " +
                 "ORDER BY added_date DESC"
     )
     suspend fun loadFavoritePictures(): List<PictureAndFavoriteDbEntity>
@@ -34,8 +33,8 @@ interface PicturesDao {
     suspend fun deleteAllPictures()
 
     @Query(
-        "INSERT OR REPLACE INTO favorites (favorite_id, added_date, is_favorite) " +
-                "VALUES (:id, STRFTIME('%s', 'now') * 1000, 1)"
+        "INSERT OR REPLACE INTO favorites (favorite_id, added_date) " +
+                "VALUES (:id, STRFTIME('%s', 'now') * 1000)"
     )
     suspend fun addPictureToFavorite(id: String)
 

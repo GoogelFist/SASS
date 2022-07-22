@@ -1,12 +1,9 @@
 package com.example.sass.data.datasource.local.picture.models
 
 import androidx.room.*
-import com.example.sass.data.datasource.StringUtils
+import com.example.sass.data.datasource.DataSourceStringUtils
 import com.example.sass.domain.models.FavoritePictureItem
-import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
-import java.text.SimpleDateFormat
-import java.util.*
 
 data class PictureAndFavoriteDbEntity(
     @Embedded val pictureDbEntity: PictureDbEntity,
@@ -23,7 +20,7 @@ data class PictureAndFavoriteDbEntity(
             id = pictureDbEntity.id,
             photoUrl = pictureDbEntity.photoUrl,
             title = pictureDbEntity.title,
-            isFavorite = favoriteDbEntity?.isFavorite ?: false
+            isFavorite = favoriteDbEntity != null
         )
     }
 
@@ -33,8 +30,8 @@ data class PictureAndFavoriteDbEntity(
             photoUrl = pictureDbEntity.photoUrl,
             title = pictureDbEntity.title,
             content = pictureDbEntity.content,
-            publicationDate = StringUtils.dateFormatter(pictureDbEntity.publicationDate),
-            isFavorite = favoriteDbEntity?.isFavorite ?: false
+            publicationDate = DataSourceStringUtils.dateFormatter(pictureDbEntity.publicationDate),
+            isFavorite = favoriteDbEntity != null
         )
     }
 }

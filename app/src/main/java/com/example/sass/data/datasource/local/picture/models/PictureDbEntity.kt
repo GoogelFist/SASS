@@ -3,11 +3,9 @@ package com.example.sass.data.datasource.local.picture.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.sass.data.datasource.StringUtils
+import com.example.sass.data.datasource.DataSourceStringUtils
 import com.example.sass.data.datasource.remote.picture.models.PictureDto
 import com.example.sass.domain.models.PictureDetail
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Entity(tableName = "pictures")
 data class PictureDbEntity(
@@ -29,7 +27,7 @@ data class PictureDbEntity(
             photoUrl = photoUrl,
             title = title,
             content = content,
-            publicationDate = StringUtils.dateFormatter(publicationDate)
+            publicationDate = DataSourceStringUtils.dateFormatter(publicationDate)
         )
     }
 
