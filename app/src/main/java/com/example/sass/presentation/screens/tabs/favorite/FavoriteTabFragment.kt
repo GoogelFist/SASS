@@ -16,6 +16,7 @@ import com.example.sass.presentation.screens.tabs.SingleDialogFragment
 import com.example.sass.presentation.screens.tabs.TabsFragmentDirections
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteEvent
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteScrollState
+import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteState
 import com.example.sass.presentation.screens.tabs.favorite.recycler.FavoritePicsAdapter
 import javax.inject.Inject
 
@@ -103,6 +104,13 @@ class FavoriteTabFragment : Fragment() {
                     }
                 }
             }
+
+            viewModel.favoriteState.observe(viewLifecycleOwner) { stae ->
+                when (stae) {
+                    FavoriteState.Default -> configDefaultState()
+                    FavoriteState.Empty -> configEmptyState()
+                }
+            }
         }
     }
 
@@ -130,6 +138,16 @@ class FavoriteTabFragment : Fragment() {
             val direction = TabsFragmentDirections.actionTabsFragmentToPictureDetailFragment(id)
             getRootNavController().navigate(direction)
         }
+    }
+
+    private fun configDefaultState() {
+        binding.recyclerFavorite.visibility = View.VISIBLE
+        binding.llEmptyFavoritesMessage.visibility = View.GONE
+    }
+
+    private fun configEmptyState() {
+        binding.recyclerFavorite.visibility = View.GONE
+        binding.llEmptyFavoritesMessage.visibility = View.VISIBLE
     }
 
     private fun getRootNavController(): NavController {
