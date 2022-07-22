@@ -1,5 +1,6 @@
 package com.example.sass.data.datasource.remote.user
 
+import com.example.sass.data.BadRequestException
 import com.example.sass.data.IncorrectTokenException
 import com.example.sass.data.datasource.local.user.models.UserInfoDbEntity
 import com.example.sass.data.datasource.remote.user.models.SignInDto
@@ -20,6 +21,10 @@ class UserRetrofitDataSourceImpl @Inject constructor(
                 return SignInDto(body.token, userInfoDao)
             } ?: throw throw RuntimeException(REQUEST_BODY_NULL_MESSAGE)
         } else {
+            val code = response.code()
+            if (code == BAD_REQUEST_CODE_RESPONSE) {
+                throw BadRequestException("${response.code()} : ${response.message()}")
+            }
             throw RuntimeException("${response.code()} : ${response.message()}")
         }
     }
@@ -45,5 +50,6 @@ class UserRetrofitDataSourceImpl @Inject constructor(
         private const val ABSENT_TOKEN_MESSAGE = "Token is absent"
         private const val REQUEST_BODY_NULL_MESSAGE = "Request body is null"
         private const val INCORRECT_TOKEN_CODE_RESPONSE = 401
+        private const val BAD_REQUEST_CODE_RESPONSE = 400
     }
 }

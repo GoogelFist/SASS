@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sass.data.BadRequestException
 import com.example.sass.domain.usecases.ClearUserDataUseCase
 import com.example.sass.domain.usecases.SingInUseCase
 import com.example.sass.presentation.screens.EventHandler
@@ -44,7 +45,14 @@ class AuthViewModel(
                     singInUseCase(formattedLogin, password)
                     _authState.value = AuthState.SignedIn
                 } catch (error: Throwable) {
-                    _authState.value = AuthState.SingInError
+                    when(error) {
+                        is BadRequestException -> {
+                            _authState.value = AuthState.SingInError
+                        }
+                        else -> {
+                            _authState.value = AuthState.Error
+                        }
+                    }
                 }
             }
         }

@@ -16,6 +16,7 @@
     <string name="password_wrong_format_error_text">Пароль должен быть от 6 до 255 символов</string>
 
     <string name="sign_in_error_text">Логин или пароль введен неправильно</string>
+    <string name="auth_error_text">Отсутствует соединение с интернетом</string>
 
     <string name="empty_error_message">\ \</string>
 

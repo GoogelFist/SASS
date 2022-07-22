@@ -11,6 +11,7 @@ sealed class AuthState {
     ) : AuthState()
 
     object SingInError : AuthState()
+    object Error : AuthState()
 }
 
 sealed class ErrorLoginSubState {
