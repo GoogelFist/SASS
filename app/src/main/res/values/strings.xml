@@ -50,6 +50,7 @@
 
     <!--  favorite screen  -->
     <string name="favorite_title_text">Мои избранные</string>
+    <string name="empty_favorites_screen_text">В избранном пусто</string>
 
     <!--  search screen  -->
     <string name="search_hint_text">Поиск</string>

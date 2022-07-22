@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.domain.models.FavoritePictureItem
 import com.example.sass.domain.usecases.GetFavoritesPicturesItemsUseCase
+import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteEvent
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteScrollState
+import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteState
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(
@@ -24,6 +25,10 @@ class FavoriteViewModel(
     private var _scrollState = MutableLiveData<FavoriteScrollState>()
     val scrollState: LiveData<FavoriteScrollState>
         get() = _scrollState
+
+    private var _favoriteState = MutableLiveData<FavoriteState>()
+    val favoriteState: LiveData<FavoriteState>
+        get() = _favoriteState
 
     override fun obtainEvent(event: FavoriteEvent) {
         when (event) {
@@ -56,6 +61,8 @@ class FavoriteViewModel(
 
         checkingScrollState(list)
 
+        checkEmptyList(list)
+
         _favoritePictureItems.value = list
     }
 
@@ -71,6 +78,14 @@ class FavoriteViewModel(
                 _scrollState.value = FavoriteScrollState.RemovedFavorite
             }
             else -> setDefaultScrollState()
+        }
+    }
+
+    private fun checkEmptyList(list: List<FavoritePictureItem>) {
+        if (list.isEmpty()) {
+            _favoriteState.value = FavoriteState.Empty
+        } else {
+            _favoriteState.value = FavoriteState.Default
         }
     }
 }

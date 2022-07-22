@@ -31,4 +31,32 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title_favorite"
             tools:listitem="@layout/favorite_post_item" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_empty_favorites_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/ic_sad_face" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/empty_favorites_screen_text"
+                android:textAppearance="@style/Text.MontserratRegular.14.SilverChalice" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
