@@ -6,10 +6,10 @@ import com.example.sass.data.datasource.local.picture.PicturesDao
 import com.example.sass.data.datasource.local.picture.models.FavoriteDbEntity
 import com.example.sass.data.datasource.local.picture.models.PictureDbEntity
 import com.example.sass.data.datasource.local.user.UserDao
-import com.example.sass.data.datasource.local.user.models.UserInfoDao
+import com.example.sass.data.datasource.local.user.models.UserInfoDbEntity
 
 @Database(
-    entities = [UserInfoDao::class, FavoriteDbEntity::class, PictureDbEntity::class],
+    entities = [UserInfoDbEntity::class, FavoriteDbEntity::class, PictureDbEntity::class],
     version = DB_VERSION,
     exportSchema = false
 )
