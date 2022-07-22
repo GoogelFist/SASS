@@ -5,7 +5,7 @@ import com.example.sass.domain.models.FavoritePictureItem
 import com.example.sass.domain.models.PictureDetail
 import com.example.sass.domain.models.PicturesItem
 
-interface PictureLocalDataSource {
+interface PicturesLocalDataSource {
 
     suspend fun savePicturesDbEntity(picturesDbEntity: List<PictureDbEntity>)
 

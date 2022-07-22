@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class PicturesRoomDataSourceImpl @Inject constructor(
     private val picturesDao: PicturesDao
-) : PictureLocalDataSource {
+) : PicturesLocalDataSource {
 
     override suspend fun savePicturesDbEntity(picturesDbEntity: List<PictureDbEntity>) {
         picturesDbEntity.forEach { pictureDbEntity -> picturesDao.savePicture(pictureDbEntity) }
