@@ -27,10 +27,6 @@ class RoomModule {
     @Provides
     fun providesPicturesDAO(roomDataBase: DataBase) = roomDataBase.getPicturesDao()
 
-    @Singleton
-    @Provides
-    fun providesPicturesFavoriteDAO(roomDataBase: DataBase) = roomDataBase.getFavoritesPicturesDao()
-
     companion object {
         private const val DB_NAME = "room_database"
     }

@@ -1,14 +1,13 @@
 package com.example.sass.data.datasource.remote.user
 
 import com.example.sass.data.IncorrectTokenException
+import com.example.sass.data.datasource.local.user.models.UserInfoDbEntity
 import com.example.sass.data.datasource.remote.user.models.SignInDto
 import com.example.sass.data.datasource.remote.user.models.SignInRequest
-import com.example.sass.data.datasource.mapper.UserMapper
 import javax.inject.Inject
 
 class UserRetrofitDataSourceImpl @Inject constructor(
-    private val userRetrofitService: UserRetrofitService,
-    private val userMapper: UserMapper
+    private val userRetrofitService: UserRetrofitService
 ) : UserRemoteDataSource {
 
     override suspend fun signIn(phone: String, password: String): SignInDto {
@@ -17,7 +16,7 @@ class UserRetrofitDataSourceImpl @Inject constructor(
 
         if (response.isSuccessful) {
             response.body()?.let { body ->
-                val userInfoDao = userMapper.mapUserInfoDtoToUserInfoDao(body.userInfoDTO)
+                val userInfoDao = UserInfoDbEntity.fromUserInfoDto(body.userInfoDto)
                 return SignInDto(body.token, userInfoDao)
             } ?: throw throw RuntimeException(REQUEST_BODY_NULL_MESSAGE)
         } else {

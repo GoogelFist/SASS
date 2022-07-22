@@ -6,5 +6,5 @@ data class SignInResponse(
     @SerializedName("token")
     val token: String,
     @SerializedName("user_info")
-    val userInfoDTO: UserInfoDto
+    val userInfoDto: UserInfoDto
 )

@@ -16,7 +16,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun signIn(phone: String, password: String) {
         val signInDto = userRemoteDataSource.signIn(phone, password)
 
-        userLocalDataSource.saveUserInfo(signInDto.userInfoDao)
+        userLocalDataSource.saveUserInfo(signInDto.userInfoDbEntity)
         tokenLocalDataSource.saveAuthToken(signInDto.token)
     }
 
