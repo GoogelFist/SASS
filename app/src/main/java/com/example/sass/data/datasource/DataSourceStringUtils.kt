@@ -14,6 +14,8 @@ object DataSourceStringUtils {
     }
 
     fun formatUserPhone(phone: String): String {
+        if (phone.isBlank()) return ""
+
         val string = phone.replace("[^\\d+]".toRegex(), EMPTY_REPLACEMENT)
 
         if (string.length != PHONE_LENGTH) return phone
@@ -36,6 +38,8 @@ object DataSourceStringUtils {
     }
 
     fun formatUserAbout(about: String): String {
+        if (about.isBlank()) return ""
+
         return buildString {
             append("\"")
             append(formatUserData(about))
@@ -44,6 +48,8 @@ object DataSourceStringUtils {
     }
 
     fun formatUserData(string: String): String {
+        if (string.isBlank()) return ""
+
         return string.trim().capitalizeString()
     }
 
