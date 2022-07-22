@@ -1,15 +1,13 @@
 package com.example.sass.data.datasource.local.picture
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.sass.data.datasource.local.picture.models.PictureAndFavoriteDbEntity
 import com.example.sass.data.datasource.local.picture.models.PictureDbEntity
 
 @Dao
 interface PicturesDao {
 
+    @Transaction
     @Query("SELECT * FROM pictures ")
     suspend fun loadPictures(): List<PictureAndFavoriteDbEntity>
 
@@ -20,6 +18,7 @@ interface PicturesDao {
     )
     suspend fun loadFavoritePictures(): List<PictureAndFavoriteDbEntity>
 
+    @Transaction
     @Query("SELECT * FROM pictures WHERE title LIKE '%' || :searchText || '%' ")
     suspend fun findPictures(searchText: String): List<PictureAndFavoriteDbEntity>
 
