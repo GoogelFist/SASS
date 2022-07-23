@@ -2,6 +2,7 @@ package com.example.sass.presentation.screens.tabs.favorite
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,9 +74,12 @@ class FavoriteTabFragment : Fragment() {
         recyclerView.adapter = favoritePicsAdapter
 
         dataObserver = object : RecyclerView.AdapterDataObserver() {
+
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)
-                recyclerView.smoothScrollToPosition(positionStart)
+                if (itemCount != favoritePicsAdapter.itemCount) {
+                    recyclerView.smoothScrollToPosition(positionStart)
+                }
             }
         }
         favoritePicsAdapter.registerAdapterDataObserver(dataObserver)
@@ -84,12 +88,12 @@ class FavoriteTabFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.favoritePictureItems.observe(viewLifecycleOwner) {
             favoritePicsAdapter.submitList(it)
+        }
 
-            viewModel.favoriteState.observe(viewLifecycleOwner) { state ->
-                when (state) {
-                    FavoriteState.Default -> configDefaultState()
-                    FavoriteState.Empty -> configEmptyState()
-                }
+        viewModel.favoriteState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                FavoriteState.Default -> configDefaultState()
+                FavoriteState.Empty -> configEmptyState()
             }
         }
     }
