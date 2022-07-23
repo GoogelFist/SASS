@@ -9,7 +9,6 @@ import com.example.sass.domain.usecases.GetFavoritesPicturesItemsUseCase
 import com.example.sass.domain.usecases.RemovePictureItemFromFavoriteUseCase
 import com.example.sass.presentation.screens.EventHandler
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteEvent
-import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteScrollState
 import com.example.sass.presentation.screens.tabs.favorite.models.FavoriteState
 import kotlinx.coroutines.launch
 
@@ -22,10 +21,6 @@ class FavoriteViewModel(
     val favoritePictureItems: LiveData<List<FavoritePictureItem>>
         get() = _favoritePictureItems
 
-    private var _scrollState = MutableLiveData<FavoriteScrollState>()
-    val scrollState: LiveData<FavoriteScrollState>
-        get() = _scrollState
-
     private var _favoriteState = MutableLiveData<FavoriteState>()
     val favoriteState: LiveData<FavoriteState>
         get() = _favoriteState
@@ -34,7 +29,6 @@ class FavoriteViewModel(
         when (event) {
             is FavoriteEvent.OnRemoveFromFavorite -> removedFromFavorite(event.id)
             FavoriteEvent.OnUpdateData -> updatedData()
-            FavoriteEvent.OnSetDefaultScrollState -> setDefaultScrollState()
         }
     }
 
@@ -42,10 +36,6 @@ class FavoriteViewModel(
         viewModelScope.launch {
             updatePicturesItems()
         }
-    }
-
-    private fun setDefaultScrollState() {
-        _scrollState.value = FavoriteScrollState.Default
     }
 
     private fun removedFromFavorite(id: String) {
@@ -59,26 +49,9 @@ class FavoriteViewModel(
     private suspend fun updatePicturesItems() {
         val list = getFavoritesPicturesItemsUseCase()
 
-        checkingScrollState(list)
-
         checkEmptyList(list)
 
         _favoritePictureItems.value = list
-    }
-
-    private fun checkingScrollState(list: List<FavoritePictureItem>) {
-        val newListSize = list.size
-        val oldListSize = _favoritePictureItems.value?.size ?: 0
-
-        when {
-            newListSize > oldListSize -> {
-                _scrollState.value = FavoriteScrollState.AddedFavorite
-            }
-            newListSize < oldListSize -> {
-                _scrollState.value = FavoriteScrollState.RemovedFavorite
-            }
-            else -> setDefaultScrollState()
-        }
     }
 
     private fun checkEmptyList(list: List<FavoritePictureItem>) {
